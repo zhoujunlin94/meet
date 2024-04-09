@@ -15,6 +15,7 @@
         <module>meet-common</module>
         <module>meet-feign</module>
         <module>meet-redis</module>
+        <module>meet-tk_mybatis</module>
     </modules>
 
 </project>
