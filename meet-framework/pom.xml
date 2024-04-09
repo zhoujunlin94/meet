@@ -14,6 +14,7 @@
     <modules>
         <module>meet-common</module>
         <module>meet-feign</module>
+        <module>meet-redis</module>
     </modules>
 
 </project>
