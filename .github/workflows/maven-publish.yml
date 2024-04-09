@@ -19,11 +19,11 @@ jobs:
           java-version: '8.0.402+6' # 设置你的Java版本
           distribution: 'adopt'
 
+      - name: Copy settings.xml
+        run: cp settings.xml $HOME/.m2/
+
       - name: Build with Maven
         run: mvn -B package --file pom.xml
 
       - name: Publish to Maven Repository
         run: mvn --batch-mode deploy
-        env:
-          MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }} # 设置你的Maven用户名
-          MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }} # 设置你的Maven密码
