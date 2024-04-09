@@ -17,10 +17,10 @@
     </properties>
 
     <dependencies>
-        <!--<dependency>
+        <dependency>
             <groupId>io.github.zhoujunlin94</groupId>
             <artifactId>meet-common</artifactId>
-        </dependency>-->
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>

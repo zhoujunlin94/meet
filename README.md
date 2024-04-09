@@ -8,3 +8,5 @@ doc-开发环境搭建文档积累
 
 如何将自己开发的jar上传到maven中央仓库？ 参考：https://juejin.cn/post/7347207466818289703
 
+打包 mvn clean install -Dgpg.passphrase=密码
+

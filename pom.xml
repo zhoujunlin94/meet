@@ -120,7 +120,7 @@
                 <artifactId>maven-gpg-plugin</artifactId>
                 <version>${maven-gpg.version}</version>
                 <configuration>
-                    <executable>/opt/homebrew/bin/gpg</executable>
+                    <executable>gpg</executable>
                     <keyname>zhoujunlin</keyname>
                 </configuration>
                 <executions>
