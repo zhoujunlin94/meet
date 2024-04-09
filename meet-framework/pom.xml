@@ -16,6 +16,7 @@
         <module>meet-feign</module>
         <module>meet-redis</module>
         <module>meet-tk_mybatis</module>
+        <module>meet-web</module>
     </modules>
 
 </project>

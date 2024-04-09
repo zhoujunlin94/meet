@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+io.github.zhoujunlin94.meet.web.MeetWebAutoConfiguration,\
+cn.hutool.extra.spring.SpringUtil
