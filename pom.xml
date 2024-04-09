@@ -525,9 +525,6 @@
                         </goals>
                         <configuration>
                             <additionalparam>-Xdoclint:none</additionalparam>
-                            <javadocExecutable>
-                                /Library/Java/JavaVirtualMachines/jdk-1.8.jdk/Contents/Home/bin/javadoc
-                            </javadocExecutable>
                         </configuration>
                     </execution>
                 </executions>
