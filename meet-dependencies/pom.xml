@@ -94,6 +94,13 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>io.github.zhoujunlin94</groupId>
+                <artifactId>meet-common</artifactId>
+                <version>${meet.version}</version>
+            </dependency>
+
+
+            <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring.boot.version}</version>
