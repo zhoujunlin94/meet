@@ -6,9 +6,9 @@
     <servers>
         <!-- 动态token 每次操作maven都需要去https://central.sonatype.com/account生成-->
         <server>
-            <id>central</id>
-            <username>S9UQwgQV</username>
-            <password>k/ohprgLOtyLa29zcHVrfduLNKSPuFmrlw63fPjD4ox7</password>
+            <id>${server}</id>
+            <username>S+hsfXEw</username>
+            <password>2rC/4n15um6ldpBKCMCYlpMm7z2Pggr4g40V83D8WqY6</password>
         </server>
     </servers>
 
