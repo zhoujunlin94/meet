@@ -6,7 +6,7 @@
 
     <groupId>io.github.zhoujunlin94</groupId>
     <artifactId>meet</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 
     <packaging>pom</packaging>
 
@@ -51,7 +51,7 @@
         <maven-gpg.version>1.5</maven-gpg.version>
 
         <!-- 统一依赖管理 -->
-        <meet.version>1.0.1</meet.version>
+        <meet.version>1.0.2</meet.version>
 
         <spring.boot.version>2.6.11</spring.boot.version>
         <spring.cloud.version>2021.0.4</spring.cloud.version>
