@@ -1,0 +1,23 @@
+name: Publish to Maven Central
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      
+      - name: Write Secret to File
+        run: echo "$GPG_PRIVATE_KEY" >> ./private.key
+        env:
+          GPG_PRIVATE_KEY: ${{ vars.GPG_PRIVATE_KEY }}
+
+      - name: Maven Central Publish
+        uses: zhoujunlin94/auto_deploy_maven_central@1.1
+        with:
+          GPG_PASSPHRASE: ${{ vars.GPG_PASSPHRASE }}
+
