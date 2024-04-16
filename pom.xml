@@ -6,7 +6,7 @@
 
     <groupId>io.github.zhoujunlin94</groupId>
     <artifactId>meet</artifactId>
-    <version>${meet.version}</version>
+    <version>1.0.3</version>
 
     <packaging>pom</packaging>
 
