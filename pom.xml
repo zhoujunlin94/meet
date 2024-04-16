@@ -553,7 +553,10 @@
                 <version>${maven-gpg.version}</version>
                 <configuration>
                     <executable>gpg</executable>
-                    <keyname>zhoujunlin</keyname>
+                    <gpgArguments>
+                        <arg>--pinentry-mode</arg>
+                        <arg>loopback</arg>
+                    </gpgArguments>
                 </configuration>
                 <executions>
                     <execution>

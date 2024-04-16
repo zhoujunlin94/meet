@@ -10,6 +10,3 @@ doc-开发环境搭建文档积累
 
 打包 mvn clean deploy -Dgpg.passphrase=密码
 
-同步更新子模块版本号
-
-mvn versions:update-child-modules
