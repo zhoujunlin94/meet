@@ -8,6 +8,7 @@ doc-开发环境搭建文档积累
 
 如何将自己开发的jar上传到maven中央仓库？ 参考：https://juejin.cn/post/7347207466818289703
 
-打包 mvn clean deploy -Dgpg.passphrase=密码
+1. 手动发布 打包 mvn clean deploy -DskipTests "-Dgpg.passphrase=密码"
+   mvn clean deploy -pl meet-framework/meet-common -DskipTests "-Dgpg.passphrase=密码"
 
-mvn clean deploy -pl meet-framework/meet-common -DskipTests "-Dgpg.passphrase=密码"
+2. 自动发布 github action 每次修改maven_settings.xml中的用户+密码即可
