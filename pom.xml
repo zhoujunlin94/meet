@@ -51,6 +51,7 @@
         <maven-gpg.version>1.5</maven-gpg.version>
         <versions-maven.version>2.16.2</versions-maven.version>
 
+        <!-- 统一依赖管理 -->
         <spring.boot.version>2.6.11</spring.boot.version>
         <spring.cloud.version>2021.0.4</spring.cloud.version>
         <spring.cloud.alibaba.version>2021.0.4.0</spring.cloud.alibaba.version>
@@ -126,6 +127,12 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>io.github.zhoujunlin94</groupId>
+                <artifactId>meet-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
