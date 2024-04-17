@@ -4,7 +4,6 @@ import cn.hutool.core.date.StopWatch;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
-import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.*;
@@ -49,7 +48,7 @@ public class PrintSQLInterceptor implements Interceptor {
 
     @Override
     public Object plugin(Object target) {
-        if (enable && target instanceof StatementHandler) {
+        if (enable && target instanceof Executor) {
             return Plugin.wrap(target, this);
         }
         return target;
