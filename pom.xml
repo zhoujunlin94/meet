@@ -49,6 +49,7 @@
         <maven-source.version>2.2.1</maven-source.version>
         <maven-javadoc.version>2.9.1</maven-javadoc.version>
         <maven-gpg.version>1.5</maven-gpg.version>
+        <versions-maven.version>2.16.2</versions-maven.version>
 
         <!-- 统一依赖管理 -->
         <meet.version>1.0.3</meet.version>
@@ -499,6 +500,11 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>${versions-maven.version}</version> <!-- 使用最新稳定版本 -->
+            </plugin>
             <!--   central发布插件    -->
             <plugin>
                 <groupId>org.sonatype.central</groupId>
