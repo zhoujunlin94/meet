@@ -1,10 +1,16 @@
 package io.github.zhoujunlin94.meet.tk_mybatis;
 
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import tk.mybatis.mapper.autoconfigure.MapperAutoConfiguration;
+
+import javax.sql.DataSource;
+import java.util.Map;
 
 /**
  * @author zhoujunlin
@@ -15,8 +21,17 @@ public class ExampleApp {
 
     public static void main(String[] args) {
 
-        SpringApplication.run(ExampleApp.class);
+        ConfigurableApplicationContext applicationContext = SpringApplication.run(ExampleApp.class);
 
+        Map<String, DataSource> dataSourceMap = applicationContext.getBeansOfType(DataSource.class);
+        System.out.println(dataSourceMap);
+
+        Map<String, DataSourceTransactionManager> transactionManagerMap = applicationContext.getBeansOfType(DataSourceTransactionManager.class);
+        System.out.println(transactionManagerMap);
+
+
+        Map<String, SqlSessionFactory> sqlSessionFactoryMap = applicationContext.getBeansOfType(SqlSessionFactory.class);
+        System.out.println(sqlSessionFactoryMap);
     }
 
 }

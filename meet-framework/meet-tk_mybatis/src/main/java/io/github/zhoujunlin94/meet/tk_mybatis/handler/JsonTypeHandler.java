@@ -1,4 +1,4 @@
-package io.github.zhoujunlin94.meet.tk_mybatis.config;
+package io.github.zhoujunlin94.meet.tk_mybatis.handler;
 
 import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson.JSON;
