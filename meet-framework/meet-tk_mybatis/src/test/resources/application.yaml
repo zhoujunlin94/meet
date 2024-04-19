@@ -3,10 +3,10 @@ spring:
     datasource:
       # 数据源-1
       meet:
-        url: jdbc:mysql://dev.mysql.gaodunwangxiao.com:3306/test?useSSL=false&characterEncoding=utf-8&autoReconnect=true&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&useUnicode=true&autoReconnect=true&failOverReadOnly=false&useAffectedRows=true
+        url: jdbc:mysql://127.0.0.1:3306/test?useSSL=false&characterEncoding=utf-8&autoReconnect=true&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&useUnicode=true&autoReconnect=true&failOverReadOnly=false&useAffectedRows=true
         driverClassName: com.mysql.cj.jdbc.Driver
-        username: gaodun_test
-        password: 414639e58d
+        username: root
+        password: root
         # hikari连接池配置 对应 HikariConfig 配置属性类
         hikari:
           poolName: HikariCP-meet
@@ -40,10 +40,10 @@ spring:
 
       # 数据源-2
       base:
-        url: jdbc:mysql://dev.mysql.gaodunwangxiao.com:3306/test?useSSL=false&characterEncoding=utf-8&autoReconnect=true&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&useUnicode=true&autoReconnect=true&failOverReadOnly=false&useAffectedRows=true
+        url: jdbc:mysql://127.0.0.1:3306/test?useSSL=false&characterEncoding=utf-8&autoReconnect=true&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&useUnicode=true&autoReconnect=true&failOverReadOnly=false&useAffectedRows=true
         driverClassName: com.mysql.cj.jdbc.Driver
-        username: gaodun_test
-        password: 414639e58d
+        username: root
+        password: root
         # hikari连接池配置
         hikari:
           poolName: HikariCP-base
