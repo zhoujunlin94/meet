@@ -30,7 +30,7 @@ public class DatasourceConfig {
 
     public void checkMyBatis() {
         if (Objects.isNull(mybatis) ||
-                StrUtil.hasBlank(mybatis.getTypeAliasesPackage(), mybatis.getMapperLocation())) {
+                StrUtil.hasBlank(mybatis.getTypeAliasesPackage(), mybatis.getBasePackages(), mybatis.getMapperLocation())) {
             throw MeetException.meet("请检查MyBatis配置");
         }
     }

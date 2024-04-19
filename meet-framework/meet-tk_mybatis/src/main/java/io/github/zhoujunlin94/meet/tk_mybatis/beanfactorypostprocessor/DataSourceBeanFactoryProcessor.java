@@ -2,6 +2,7 @@ package io.github.zhoujunlin94.meet.tk_mybatis.beanfactorypostprocessor;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ReflectUtil;
+import cn.hutool.core.util.StrUtil;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import io.github.zhoujunlin94.meet.common.exception.MeetException;
@@ -11,6 +12,7 @@ import io.github.zhoujunlin94.meet.tk_mybatis.properties.InterceptorConfig;
 import io.github.zhoujunlin94.meet.tk_mybatis.properties.MultipleDataSourceProperties;
 import io.github.zhoujunlin94.meet.tk_mybatis.properties.MybatisConfig;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -24,11 +26,15 @@ import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.EnvironmentAware;
+import org.springframework.context.ResourceLoaderAware;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
+import tk.mybatis.spring.mapper.ClassPathMapperScanner;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
@@ -42,10 +48,11 @@ import java.util.Properties;
  */
 @Slf4j
 @Component
-public class DataSourceBeanFactoryProcessor implements BeanDefinitionRegistryPostProcessor, EnvironmentAware, ApplicationContextAware {
+public class DataSourceBeanFactoryProcessor implements BeanDefinitionRegistryPostProcessor, EnvironmentAware, ApplicationContextAware, ResourceLoaderAware {
 
     private Environment environment;
     private ApplicationContext applicationContext;
+    private ResourceLoader resourceLoader;
 
     @Override
     public void setEnvironment(@NonNull Environment environment) {
@@ -55,6 +62,11 @@ public class DataSourceBeanFactoryProcessor implements BeanDefinitionRegistryPos
     @Override
     public void setApplicationContext(@NonNull ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
+    }
+
+    @Override
+    public void setResourceLoader(@NonNull ResourceLoader resourceLoader) {
+        this.resourceLoader = resourceLoader;
     }
 
     @Override
@@ -74,8 +86,32 @@ public class DataSourceBeanFactoryProcessor implements BeanDefinitionRegistryPos
             buildDataSourceTransactionManager(datasourceName, dataSourceTransactionManagerName, registry);
             // 3. 构建SqlSessionFactory
             buildSqlSessionFactory(datasourceName, sqlSessionFactoryName, datasourceConfig, registry);
+            // 4. 注册mapper
+            registerMapper(sqlSessionFactoryName, datasourceConfig, registry);
         });
 
+    }
+
+    private void registerMapper(String sqlSessionFactoryName, DatasourceConfig datasourceConfig, BeanDefinitionRegistry registry) {
+        ClassPathMapperScanner scanner = new ClassPathMapperScanner(registry);
+        if (resourceLoader != null) {
+            scanner.setResourceLoader(resourceLoader);
+        }
+
+        scanner.setAnnotationClass(Mapper.class);
+        scanner.setSqlSessionFactoryBeanName(sqlSessionFactoryName);
+
+        List<String> basePackages = StrUtil.splitTrim(datasourceConfig.getMybatis().getBasePackages(), StrUtil.COMMA);
+
+        try {
+            scanner.setMapperProperties(this.environment);
+        } catch (Exception e) {
+            log.warn("只有 Spring Boot 环境中可以通过 Environment(配置文件,环境变量,运行参数等方式) 配置通用 Mapper，" +
+                    "其他环境请通过 @MapperScan 注解中的 mapperHelperRef 或 properties 参数进行配置!" +
+                    "如果你使用 tk.mybatis.mapper.session.Configuration 配置的通用 Mapper，你可以忽略该错误!", e);
+        }
+        scanner.registerFilters();
+        scanner.doScan(StringUtils.toStringArray(basePackages));
     }
 
     private void buildSqlSessionFactory(String datasourceName, String sqlSessionFactoryName, DatasourceConfig datasourceConfig, BeanDefinitionRegistry registry) {

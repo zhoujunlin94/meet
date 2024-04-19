@@ -12,6 +12,7 @@ import java.util.List;
 public class MybatisConfig {
 
     private String typeAliasesPackage;
+    private String basePackages;
     private String mapperLocation;
     private List<InterceptorConfig> interceptors;
 
