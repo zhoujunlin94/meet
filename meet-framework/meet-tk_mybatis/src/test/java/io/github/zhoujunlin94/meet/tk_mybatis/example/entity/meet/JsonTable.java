@@ -1,4 +1,4 @@
-package io.github.zhoujunlin94.meet.tk_mybatis.entity.meet;
+package io.github.zhoujunlin94.meet.tk_mybatis.example.entity.meet;
 
 import com.alibaba.fastjson.JSON;
 import io.github.zhoujunlin94.meet.tk_mybatis.handler.JsonTypeHandler;

@@ -1,4 +1,4 @@
-package io.github.zhoujunlin94.meet.tk_mybatis;
+package io.github.zhoujunlin94.meet.tk_mybatis.example;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.boot.SpringApplication;

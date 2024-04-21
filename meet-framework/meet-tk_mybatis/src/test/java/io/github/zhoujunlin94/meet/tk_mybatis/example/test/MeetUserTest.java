@@ -1,8 +1,8 @@
-package io.github.zhoujunlin94.meet.tk_mybatis.test;
+package io.github.zhoujunlin94.meet.tk_mybatis.example.test;
 
-import io.github.zhoujunlin94.meet.tk_mybatis.ExampleApp;
-import io.github.zhoujunlin94.meet.tk_mybatis.entity.meet.MeetUser;
-import io.github.zhoujunlin94.meet.tk_mybatis.handler.meet.MeetUserHandler;
+import io.github.zhoujunlin94.meet.tk_mybatis.example.ExampleApp;
+import io.github.zhoujunlin94.meet.tk_mybatis.example.entity.meet.MeetUser;
+import io.github.zhoujunlin94.meet.tk_mybatis.example.handler.meet.MeetUserHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;

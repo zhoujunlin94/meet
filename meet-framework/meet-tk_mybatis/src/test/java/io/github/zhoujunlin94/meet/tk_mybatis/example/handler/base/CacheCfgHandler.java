@@ -1,11 +1,11 @@
-package io.github.zhoujunlin94.meet.tk_mybatis.handler.base;
+package io.github.zhoujunlin94.meet.tk_mybatis.example.handler.base;
 
 import cn.hutool.core.util.StrUtil;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import io.github.zhoujunlin94.meet.tk_mybatis.entity.base.CacheCfg;
+import io.github.zhoujunlin94.meet.tk_mybatis.example.entity.base.CacheCfg;
+import io.github.zhoujunlin94.meet.tk_mybatis.example.mapper.base.CacheCfgMapper;
 import io.github.zhoujunlin94.meet.tk_mybatis.handler.TKHandler;
-import io.github.zhoujunlin94.meet.tk_mybatis.mapper.base.CacheCfgMapper;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.weekend.Weekend;

@@ -1,11 +1,11 @@
-package io.github.zhoujunlin94.meet.tk_mybatis.test;
+package io.github.zhoujunlin94.meet.tk_mybatis.example.test;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import io.github.zhoujunlin94.meet.tk_mybatis.ExampleApp;
-import io.github.zhoujunlin94.meet.tk_mybatis.entity.meet.JsonTable;
-import io.github.zhoujunlin94.meet.tk_mybatis.mapper.meet.JsonTableMapper;
+import io.github.zhoujunlin94.meet.tk_mybatis.example.ExampleApp;
+import io.github.zhoujunlin94.meet.tk_mybatis.example.entity.meet.JsonTable;
+import io.github.zhoujunlin94.meet.tk_mybatis.example.mapper.meet.JsonTableMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;

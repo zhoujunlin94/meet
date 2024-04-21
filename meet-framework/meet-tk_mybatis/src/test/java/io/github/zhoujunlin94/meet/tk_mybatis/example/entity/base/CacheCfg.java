@@ -1,4 +1,4 @@
-package io.github.zhoujunlin94.meet.tk_mybatis.entity.base;
+package io.github.zhoujunlin94.meet.tk_mybatis.example.entity.base;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

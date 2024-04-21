@@ -1,8 +1,8 @@
-package io.github.zhoujunlin94.meet.tk_mybatis.handler.meet;
+package io.github.zhoujunlin94.meet.tk_mybatis.example.handler.meet;
 
-import io.github.zhoujunlin94.meet.tk_mybatis.entity.meet.MeetUser;
+import io.github.zhoujunlin94.meet.tk_mybatis.example.entity.meet.MeetUser;
+import io.github.zhoujunlin94.meet.tk_mybatis.example.mapper.meet.MeetUserMapper;
 import io.github.zhoujunlin94.meet.tk_mybatis.handler.TKHandler;
-import io.github.zhoujunlin94.meet.tk_mybatis.mapper.meet.MeetUserMapper;
 import org.springframework.stereotype.Repository;
 
 /**

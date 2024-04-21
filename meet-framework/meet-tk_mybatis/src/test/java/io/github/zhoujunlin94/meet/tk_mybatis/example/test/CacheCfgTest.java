@@ -1,11 +1,11 @@
-package io.github.zhoujunlin94.meet.tk_mybatis.test;
+package io.github.zhoujunlin94.meet.tk_mybatis.example.test;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import io.github.zhoujunlin94.meet.common.exception.MeetException;
-import io.github.zhoujunlin94.meet.tk_mybatis.ExampleApp;
-import io.github.zhoujunlin94.meet.tk_mybatis.entity.base.CacheCfg;
-import io.github.zhoujunlin94.meet.tk_mybatis.handler.base.CacheCfgHandler;
+import io.github.zhoujunlin94.meet.tk_mybatis.example.ExampleApp;
+import io.github.zhoujunlin94.meet.tk_mybatis.example.entity.base.CacheCfg;
+import io.github.zhoujunlin94.meet.tk_mybatis.example.handler.base.CacheCfgHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;

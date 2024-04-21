@@ -79,7 +79,7 @@ public class DataSourceBeanFactoryProcessor implements BeanDefinitionRegistryPos
         multipleDataSourceProperties.getDatasource().forEach((name, datasourceConfig) -> {
             String datasourceName = name + "Datasource";
             String dataSourceTransactionManagerName = name + "TransactionManager";
-            String sqlSessionFactoryName = name + "SqlSessionFactoryName";
+            String sqlSessionFactoryName = name + "SqlSessionFactory";
             // 1. 数据源
             buildDataSource(datasourceName, datasourceConfig, registry);
             // 2. 事务管理器
