@@ -77,7 +77,11 @@ public class TKHandler<M extends TKMapper<T>, T> {
         return this.baseMapper.insertList(recordList);
     }
 
-    public int batchUpdate(List<T> recordList) {
+    public int batchInsertSelective(List<T> recordList) {
+        return this.baseMapper.batchInsertSelective(recordList);
+    }
+
+    public int batchUpdateSelective(List<T> recordList) {
         return this.baseMapper.batchUpdateSelective(recordList);
     }
 

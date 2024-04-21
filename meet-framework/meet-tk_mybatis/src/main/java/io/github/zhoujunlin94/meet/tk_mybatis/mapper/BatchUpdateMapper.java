@@ -1,13 +1,12 @@
 package io.github.zhoujunlin94.meet.tk_mybatis.mapper;
 
-import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.UpdateProvider;
 
 import java.util.List;
 
 /**
  * @author zhoujunlin
  * @date 2024年03月08日 14:39
- * @desc
  */
 @tk.mybatis.mapper.annotation.RegisterMapper
 public interface BatchUpdateMapper<T> {
@@ -18,7 +17,7 @@ public interface BatchUpdateMapper<T> {
      * @param recordList
      * @return
      */
-    @InsertProvider(type = BatchUpdateProvider.class, method = "dynamicSQL")
+    @UpdateProvider(type = BatchUpdateProvider.class, method = "dynamicSQL")
     int batchUpdateSelective(List<T> recordList);
 
 
