@@ -1,7 +1,11 @@
 package io.github.zhoujunlin94.meet.tk_mybatis;
 
+import org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import tk.mybatis.mapper.autoconfigure.MapperAutoConfiguration;
 
 /**
  * @author zhoujunlin
@@ -9,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ComponentScan
+@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, MapperAutoConfiguration.class, MybatisAutoConfiguration.class})
 public class MeetTKMybatisAutoConfiguration {
 
 }

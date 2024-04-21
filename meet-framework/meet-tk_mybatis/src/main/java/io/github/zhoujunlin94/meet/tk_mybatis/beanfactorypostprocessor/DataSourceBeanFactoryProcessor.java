@@ -93,6 +93,8 @@ public class DataSourceBeanFactoryProcessor implements BeanDefinitionRegistryPos
     }
 
     private void registerMapper(String sqlSessionFactoryName, DatasourceConfig datasourceConfig, BeanDefinitionRegistry registry) {
+        datasourceConfig.checkMyBatis();
+
         ClassPathMapperScanner scanner = new ClassPathMapperScanner(registry);
         if (resourceLoader != null) {
             scanner.setResourceLoader(resourceLoader);

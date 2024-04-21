@@ -27,6 +27,7 @@ spring:
         mybatis:
           typeAliasesPackage: io.github.zhoujunlin94.meet.tk_mybatis.entity.meet
           mapperLocation: classpath:mybatis/meet/*.xml
+          basePackages: io.github.zhoujunlin94.meet.tk_mybatis.mapper.meet
           interceptors:
             - clazz: com.github.pagehelper.PageInterceptor
               properties:
@@ -57,6 +58,7 @@ spring:
         mybatis:
           typeAliasesPackage: io.github.zhoujunlin94.meet.tk_mybatis.entity.base
           mapperLocation: classpath:mybatis/base/*.xml
+          basePackages: io.github.zhoujunlin94.meet.tk_mybatis.mapper.base
           interceptors:
             - clazz: com.github.pagehelper.PageInterceptor
               properties:

@@ -1,13 +1,10 @@
 package io.github.zhoujunlin94.meet.tk_mybatis;
 
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import tk.mybatis.mapper.autoconfigure.MapperAutoConfiguration;
 
 import javax.sql.DataSource;
 import java.util.Map;
@@ -16,7 +13,7 @@ import java.util.Map;
  * @author zhoujunlin
  * @date 2024-04-18-17:48
  */
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class, MapperAutoConfiguration.class, MybatisAutoConfiguration.class})
+@SpringBootApplication
 public class ExampleApp {
 
     public static void main(String[] args) {
