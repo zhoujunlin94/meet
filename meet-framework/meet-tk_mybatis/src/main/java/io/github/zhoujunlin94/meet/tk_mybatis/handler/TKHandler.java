@@ -74,15 +74,15 @@ public class TKHandler<M extends TKMapper<T>, T> {
     }
 
     public int batchInsert(List<T> recordList) {
-        return this.baseMapper.insertList(recordList);
+        return CollUtil.isNotEmpty(recordList) ? this.baseMapper.insertList(recordList) : 0;
     }
 
     public int batchInsertSelective(List<T> recordList) {
-        return this.baseMapper.batchInsertSelective(recordList);
+        return CollUtil.isNotEmpty(recordList) ? this.baseMapper.batchInsertSelective(recordList) : 0;
     }
 
     public int batchUpdateSelective(List<T> recordList) {
-        return this.baseMapper.batchUpdateSelective(recordList);
+        return CollUtil.isNotEmpty(recordList) ? this.baseMapper.batchUpdateSelective(recordList) : 0;
     }
 
     // =============================CRUD END===================================
