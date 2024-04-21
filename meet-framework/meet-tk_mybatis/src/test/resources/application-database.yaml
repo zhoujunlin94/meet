@@ -25,9 +25,9 @@ spring:
           # 连接测试query
           connectionTestQuery: SELECT 1
         mybatis:
-          typeAliasesPackage: io.github.zhoujunlin94.meet.tk_mybatis.entity.meet
+          typeAliasesPackage: io.github.zhoujunlin94.meet.tk_mybatis.example.entity.meet
           mapperLocation: classpath:mybatis/meet/*.xml
-          basePackages: io.github.zhoujunlin94.meet.tk_mybatis.mapper.meet
+          basePackages: io.github.zhoujunlin94.meet.tk_mybatis.example.mapper.meet
           interceptors:
             - clazz: com.github.pagehelper.PageInterceptor
               properties:
@@ -55,9 +55,9 @@ spring:
           connectionTimeout: 30000
           connectionTestQuery: SELECT 1
         mybatis:
-          typeAliasesPackage: io.github.zhoujunlin94.meet.tk_mybatis.entity.base
+          typeAliasesPackage: io.github.zhoujunlin94.meet.tk_mybatis.example.entity.base
           mapperLocation: classpath:mybatis/base/*.xml
-          basePackages: io.github.zhoujunlin94.meet.tk_mybatis.mapper.base
+          basePackages: io.github.zhoujunlin94.meet.tk_mybatis.example.mapper.base
           interceptors:
             - clazz: com.github.pagehelper.PageInterceptor
               properties:

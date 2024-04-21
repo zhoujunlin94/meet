@@ -1,11 +1,11 @@
 package io.github.zhoujunlin94.meet.tk_mybatis;
 
+import io.github.zhoujunlin94.meet.tk_mybatis.beanfactorypostprocessor.DataSourceBeanFactoryProcessor;
 import org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
 import tk.mybatis.mapper.autoconfigure.MapperAutoConfiguration;
 
 /**
@@ -13,14 +13,12 @@ import tk.mybatis.mapper.autoconfigure.MapperAutoConfiguration;
  * @date 2024-04-19-14:33
  */
 @Configuration
-@ComponentScan
+@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, MapperAutoConfiguration.class, MybatisAutoConfiguration.class})
 public class MeetTKMybatisAutoConfiguration {
 
-
-    @Component
-    @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, MapperAutoConfiguration.class, MybatisAutoConfiguration.class, MeetTKMybatisAutoConfiguration.class})
-    static class ExcludeAutoConfiguration {
-
+    @Bean
+    public DataSourceBeanFactoryProcessor meetDataSourceBeanFactoryProcessor() {
+        return new DataSourceBeanFactoryProcessor();
     }
 
 }
