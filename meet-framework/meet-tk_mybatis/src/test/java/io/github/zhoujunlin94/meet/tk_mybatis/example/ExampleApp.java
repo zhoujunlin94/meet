@@ -1,11 +1,9 @@
 package io.github.zhoujunlin94.meet.tk_mybatis.example;
 
-import io.github.zhoujunlin94.meet.tk_mybatis.MeetTKMybatisAutoConfiguration;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
@@ -15,7 +13,6 @@ import java.util.Map;
  * @author zhoujunlin
  * @date 2024-04-18-17:48
  */
-@Import(MeetTKMybatisAutoConfiguration.class)
 @SpringBootApplication
 public class ExampleApp {
 

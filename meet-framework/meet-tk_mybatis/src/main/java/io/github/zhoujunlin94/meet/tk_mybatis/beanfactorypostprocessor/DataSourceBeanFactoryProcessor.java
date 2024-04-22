@@ -32,6 +32,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import tk.mybatis.spring.mapper.ClassPathMapperScanner;
 
@@ -46,6 +47,7 @@ import java.util.Properties;
  * @date 2024-04-19-14:53
  */
 @Slf4j
+@Component
 public class DataSourceBeanFactoryProcessor implements BeanDefinitionRegistryPostProcessor, EnvironmentAware, ApplicationContextAware, ResourceLoaderAware {
 
     private Environment environment;
