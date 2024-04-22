@@ -29,6 +29,8 @@ public class ExampleApp {
 
         Map<String, SqlSessionFactory> sqlSessionFactoryMap = applicationContext.getBeansOfType(SqlSessionFactory.class);
         System.out.println(sqlSessionFactoryMap);
+
+        applicationContext.close();
     }
 
 }

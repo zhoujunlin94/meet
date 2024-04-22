@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 /**
  * @author zhoujunlin
  * @date 2023年09月23日 15:47
- * @desc
  */
 @Component
 @ConditionalOnClass(RootContext.class)
