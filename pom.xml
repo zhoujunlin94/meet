@@ -6,7 +6,7 @@
 
     <groupId>io.github.zhoujunlin94</groupId>
     <artifactId>meet</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
 
     <packaging>pom</packaging>
 
@@ -105,8 +105,6 @@
 
         <elasticsearch.version>6.8.0</elasticsearch.version>
         <mysql-connector-java.version>8.0.17</mysql-connector-java.version>
-        <mybatis.version>2.2.2</mybatis.version>
-        <mybatis.ehcache.version>1.1.0</mybatis.ehcache.version>
         <tk.mybatis.version>2.0.0</tk.mybatis.version>
         <mybatisplus.version>3.5.3.1</mybatisplus.version>
         <p6spy.version>3.9.1</p6spy.version>
@@ -119,8 +117,6 @@
         <jasypt.version>3.0.2</jasypt.version>
 
         <sa-token.version>1.35.0.RC</sa-token.version>
-
-        <curator.version>4.0.1</curator.version>
 
         <byte-buddy.version>1.10.9</byte-buddy.version>
     </properties>
@@ -200,21 +196,6 @@
             </dependency>
 
             <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-core</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-annotations</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
@@ -234,11 +215,6 @@
                 <groupId>com.google.inject</groupId>
                 <artifactId>guice</artifactId>
                 <version>${guice.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.zxing</groupId>
-                <artifactId>core</artifactId>
-                <version>${zxing.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.google.zxing</groupId>
@@ -391,16 +367,6 @@
                 <version>${mysql-connector-java.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>${mybatis.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mybatis.caches</groupId>
-                <artifactId>mybatis-ehcache</artifactId>
-                <version>${mybatis.ehcache.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>tk.mybatis</groupId>
                 <artifactId>mapper-spring-boot-starter</artifactId>
                 <version>${tk.mybatis.version}</version>
@@ -466,19 +432,6 @@
                 <groupId>cn.dev33</groupId>
                 <artifactId>sa-token-jwt</artifactId>
                 <version>${sa-token.version}</version>
-            </dependency>
-
-
-            <!--zookeeper-->
-            <dependency>
-                <groupId>org.apache.curator</groupId>
-                <artifactId>curator-framework</artifactId>
-                <version>${curator.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.curator</groupId>
-                <artifactId>curator-recipes</artifactId>
-                <version>${curator.version}</version>
             </dependency>
 
             <!-- Byte-buddy -->
