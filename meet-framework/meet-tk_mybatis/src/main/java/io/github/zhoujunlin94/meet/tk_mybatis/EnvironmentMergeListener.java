@@ -1,7 +1,6 @@
 package io.github.zhoujunlin94.meet.tk_mybatis;
 
 import com.google.common.collect.ImmutableMap;
-import org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.context.ApplicationListener;
@@ -22,8 +21,7 @@ public class EnvironmentMergeListener implements ApplicationListener<Application
         thisEnvironment.getPropertySources().addLast(new MapPropertySource("MeetTKMybatis",
                 ImmutableMap.of(
                         "spring.autoconfigure.exclude[0]", DataSourceAutoConfiguration.class.getName(),
-                        "spring.autoconfigure.exclude[1]", MapperAutoConfiguration.class.getName(),
-                        "spring.autoconfigure.exclude[2]", MybatisAutoConfiguration.class.getName()
+                        "spring.autoconfigure.exclude[1]", MapperAutoConfiguration.class.getName()
                 )));
 
         event.getEnvironment().merge(thisEnvironment);
