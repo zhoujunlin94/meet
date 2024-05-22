@@ -6,11 +6,20 @@ import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
+import org.apache.ibatis.mapping.ParameterMapping;
 import org.apache.ibatis.plugin.*;
+import org.apache.ibatis.reflection.MetaObject;
+import org.apache.ibatis.reflection.SystemMetaObject;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
+import org.apache.ibatis.type.TypeHandlerRegistry;
 
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
+import java.util.regex.Matcher;
 
 /**
  * @author zhoujunlin
@@ -38,13 +47,63 @@ public class PrintSQLInterceptor implements Interceptor {
             log.info("执行耗时:{}ms", stopWatch.getTotalTimeMillis());
 
             MappedStatement mappedStatement = (MappedStatement) invocation.getArgs()[0];
-            Object parameter = null;
+            Object parameterObject = null;
             if (invocation.getArgs().length > 1) {
-                parameter = invocation.getArgs()[1];
+                parameterObject = invocation.getArgs()[1];
             }
-            log.info("执行SQL语句:{}", mappedStatement.getBoundSql(parameter).getSql());
+            BoundSql boundSql = mappedStatement.getBoundSql(parameterObject);
+            // 打印SQL信息
+            String sql = showSql(mappedStatement, boundSql);
+            log.info("执行SQL语句:{}", sql);
         }
     }
+
+
+    private String showSql(MappedStatement mappedStatement, BoundSql boundSql) {
+        // 获取参数
+        Object parameterObject = boundSql.getParameterObject();
+        List<ParameterMapping> parameterMappings = boundSql.getParameterMappings();
+        String sql = boundSql.getSql();
+
+        if (parameterMappings.size() > 0 && parameterObject != null) {
+            // 替换SQL中的参数占位符
+            TypeHandlerRegistry typeHandlerRegistry = mappedStatement.getConfiguration().getTypeHandlerRegistry();
+            if (typeHandlerRegistry.hasTypeHandler(parameterObject.getClass())) {
+                sql = sql.replaceFirst("\\?", Matcher.quoteReplacement(getParameterValue(parameterObject)));
+            } else {
+                MetaObject metaObject = SystemMetaObject.forObject(parameterObject);
+                for (ParameterMapping parameterMapping : parameterMappings) {
+                    String propertyName = parameterMapping.getProperty();
+                    if (metaObject.hasGetter(propertyName)) {
+                        Object obj = metaObject.getValue(propertyName);
+                        sql = sql.replaceFirst("\\?", Matcher.quoteReplacement(getParameterValue(obj)));
+                    } else if (boundSql.hasAdditionalParameter(propertyName)) {
+                        Object obj = boundSql.getAdditionalParameter(propertyName);
+                        sql = sql.replaceFirst("\\?", Matcher.quoteReplacement(getParameterValue(obj)));
+                    }
+                }
+            }
+        }
+        return sql;
+    }
+
+    private String getParameterValue(Object obj) {
+        String value = "";
+        if (obj instanceof String) {
+            value = "'" + obj + "'";
+        } else if (obj instanceof Date) {
+            DateFormat formatter = DateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.DEFAULT, Locale.CHINA);
+            value = "'" + formatter.format(new Date()) + "'";
+        } else {
+            if (obj != null) {
+                value = obj.toString();
+            } else {
+                value = "";
+            }
+        }
+        return value;
+    }
+
 
     @Override
     public Object plugin(Object target) {
