@@ -18,39 +18,43 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class JsonResponse implements Serializable {
+public class JsonResponse<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private int code;
-    private Object data;
+    private T data;
     private String msg;
 
-    public static JsonResponse ok() {
+    public boolean isOk() {
+        return CommonErrorCode.S_SUC.getCode() == this.code;
+    }
+
+    public static JsonResponse<Object> ok() {
         return JsonResponse.builder().code(CommonErrorCode.S_SUC.getCode()).msg(CommonErrorCode.S_SUC.getMsg()).build();
     }
 
-    public static JsonResponse ok(Object data) {
+    public static JsonResponse<Object> ok(Object data) {
         return JsonResponse.builder().code(CommonErrorCode.S_SUC.getCode()).msg(CommonErrorCode.S_SUC.getMsg()).data(data).build();
     }
 
-    public static JsonResponse fail(CommonErrorCode errorCode) {
+    public static JsonResponse<Object> fail(CommonErrorCode errorCode) {
         return JsonResponse.builder().code(errorCode.getCode()).msg(errorCode.getMsg()).build();
     }
 
-    public static JsonResponse fail(String msg) {
+    public static JsonResponse<Object> fail(String msg) {
         return JsonResponse.builder().code(CommonErrorCode.S_FAIL.getCode()).msg(msg).build();
     }
 
-    public static JsonResponse fail(CommonErrorCode errorCode, Object data) {
+    public static JsonResponse<Object> fail(CommonErrorCode errorCode, Object data) {
         return JsonResponse.builder().code(errorCode.getCode()).msg(errorCode.getMsg()).data(data).build();
     }
 
-    public static JsonResponse fail(int code, String msg, Object data) {
+    public static JsonResponse<Object> fail(int code, String msg, Object data) {
         return JsonResponse.builder().code(code).msg(msg).data(data).build();
     }
 
-    public static JsonResponse fail(int code, String msg) {
+    public static JsonResponse<Object> fail(int code, String msg) {
         return fail(code, msg, null);
     }
 
