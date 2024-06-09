@@ -1,6 +1,7 @@
 package io.github.zhoujunlin94.meet.common.pojo;
 
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.annotation.JSONField;
 import io.github.zhoujunlin94.meet.common.exception.CommonErrorCode;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,6 +27,7 @@ public class JsonResponse<T> implements Serializable {
     private T data;
     private String msg;
 
+    @JSONField(deserialize = false, serialize = false)
     public boolean isOk() {
         return CommonErrorCode.S_SUC.getCode() == this.code;
     }
@@ -34,8 +36,8 @@ public class JsonResponse<T> implements Serializable {
         return JsonResponse.builder().code(CommonErrorCode.S_SUC.getCode()).msg(CommonErrorCode.S_SUC.getMsg()).build();
     }
 
-    public static JsonResponse<Object> ok(Object data) {
-        return JsonResponse.builder().code(CommonErrorCode.S_SUC.getCode()).msg(CommonErrorCode.S_SUC.getMsg()).data(data).build();
+    public static <T> JsonResponse<T> ok(T data) {
+        return JsonResponse.<T>builder().code(CommonErrorCode.S_SUC.getCode()).msg(CommonErrorCode.S_SUC.getMsg()).data(data).build();
     }
 
     public static JsonResponse<Object> fail(CommonErrorCode errorCode) {
@@ -46,12 +48,12 @@ public class JsonResponse<T> implements Serializable {
         return JsonResponse.builder().code(CommonErrorCode.S_FAIL.getCode()).msg(msg).build();
     }
 
-    public static JsonResponse<Object> fail(CommonErrorCode errorCode, Object data) {
-        return JsonResponse.builder().code(errorCode.getCode()).msg(errorCode.getMsg()).data(data).build();
+    public static <T> JsonResponse<T> fail(CommonErrorCode errorCode, T data) {
+        return JsonResponse.<T>builder().code(errorCode.getCode()).msg(errorCode.getMsg()).data(data).build();
     }
 
-    public static JsonResponse<Object> fail(int code, String msg, Object data) {
-        return JsonResponse.builder().code(code).msg(msg).data(data).build();
+    public static <T> JsonResponse<T> fail(int code, String msg, T data) {
+        return JsonResponse.<T>builder().code(code).msg(msg).data(data).build();
     }
 
     public static JsonResponse<Object> fail(int code, String msg) {
