@@ -1,11 +1,9 @@
 package io.github.zhoujunlin94.meet.common.util;
 
-import cn.hutool.core.date.DatePattern;
-import cn.hutool.core.util.RandomUtil;
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import io.github.zhoujunlin94.meet.common.pojo.RequestContext;
 
-import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -15,10 +13,10 @@ import java.util.Objects;
  */
 public final class RequestIdUtil {
 
-    public static final String REQUEST_ID = "requestId";
+    public static final String REQUEST_ID = "X-REQUEST-ID";
 
     public static String generateRequestId() {
-        return DatePattern.PURE_DATETIME_MS_FORMAT.format(new Date()) + RandomUtil.randomNumbers(6);
+        return IdUtil.fastSimpleUUID();
     }
 
     public static String getRequestId() {

@@ -28,6 +28,9 @@ public class HttpBaseInterceptor extends BaseInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String requestId = request.getHeader(RequestIdUtil.REQUEST_ID);
         if (StrUtil.isBlank(requestId)) {
+            requestId = response.getHeader(RequestIdUtil.REQUEST_ID);
+        }
+        if (StrUtil.isBlank(requestId)) {
             requestId = RequestIdUtil.generateRequestId();
         }
         RequestContext requestContext = RequestContext.builder().requestId(requestId).clientIP(ServletUtils.getClientIP()).build();
