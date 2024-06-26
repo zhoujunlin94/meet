@@ -20,7 +20,7 @@ public class TKHandler<M extends TKMapper<T>, T> {
     @Autowired
     protected M baseMapper;
 
-    private final Class<T> entityClass = (Class<T>) TypeUtil.getClass(TypeUtil.getTypeArgument(this.getClass()));
+    private final Class<T> entityClass = (Class<T>) TypeUtil.getClass(TypeUtil.getTypeArgument(this.getClass(), 1));
 
     protected String likeString(String value) {
         return "%" + value + "%";
