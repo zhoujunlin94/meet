@@ -29,10 +29,10 @@ public class GlobalResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     public Object beforeBodyWrite(Object body, @NonNull MethodParameter returnType, @NonNull MediaType selectedContentType,
                                   @NonNull Class<? extends HttpMessageConverter<?>> selectedConverterType,
                                   @NonNull ServerHttpRequest request, @NonNull ServerHttpResponse response) {
-        body = body instanceof JsonResponse ? body : JsonResponse.builder().code(CommonErrorCode.S_SUC.getCode()).
+        JsonResponse jsonResponse = body instanceof JsonResponse ? (JsonResponse) body : JsonResponse.builder().code(CommonErrorCode.S_SUC.getCode()).
                 msg(CommonErrorCode.S_SUC.getMsg()).data(body).build();
         Object result = MediaType.APPLICATION_JSON.equals(selectedContentType) || MediaType.APPLICATION_JSON_UTF8.equals(selectedContentType)
-                ? body : body.toString();
+                ? jsonResponse : body;
         log.warn("当前接口响应内容:{}", result);
         return result;
     }
