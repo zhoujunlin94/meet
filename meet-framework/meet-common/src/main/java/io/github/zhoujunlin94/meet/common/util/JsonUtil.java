@@ -1,6 +1,7 @@
 package io.github.zhoujunlin94.meet.common.util;
 
 import cn.hutool.core.lang.Assert;
+import cn.hutool.core.util.ArrayUtil;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.PrettyPrinter;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -13,7 +14,6 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.github.zhoujunlin94.meet.common.exception.CommonErrorCode;
 import io.github.zhoujunlin94.meet.common.exception.MeetException;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.ArrayUtils;
 
 import java.io.IOException;
 import java.util.TimeZone;
@@ -103,7 +103,7 @@ public class JsonUtil {
     }
 
     public static <T> T parseStr2Collection(byte[] jsonBytes, TypeReference<T> typeReference) {
-        if (ArrayUtils.isEmpty(jsonBytes)) {
+        if (ArrayUtil.isEmpty(jsonBytes)) {
             throw new IllegalArgumentException("jsonBytes不能为空");
         }
         Assert.notNull(typeReference, "typeReference不能为null");

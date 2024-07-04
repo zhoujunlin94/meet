@@ -10,7 +10,6 @@ import io.github.zhoujunlin94.meet.redis.constant.LimiterType;
 import io.github.zhoujunlin94.meet.redis.constant.RedisConstant;
 import io.github.zhoujunlin94.meet.redis.helper.RedisHelper;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -59,7 +58,7 @@ public class LimiterAspect {
                 key = limiterAnnotation.key();
                 break;
             default:
-                key = StringUtils.upperCase(method.getName());
+                key = method.getName().toUpperCase();
                 break;
         }
         String redisKey = StrUtil.join(":", limiterAnnotation.prefix(), key, ip);

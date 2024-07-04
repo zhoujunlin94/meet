@@ -18,6 +18,7 @@
         <module>meet-redis</module>
         <module>meet-tk_mybatis</module>
         <module>meet-web</module>
+        <module>meet-rocketmq</module>
     </modules>
 
 </project>

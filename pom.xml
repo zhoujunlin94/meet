@@ -56,45 +56,28 @@
         <spring.cloud.version>2021.0.4</spring.cloud.version>
         <spring.cloud.alibaba.version>2021.0.4.0</spring.cloud.alibaba.version>
 
-        <xxl-job.version>2.3.1</xxl-job.version>
-
-        <jsoup.version>1.15.3</jsoup.version>
-
         <lombok.version>1.18.24</lombok.version>
         <slf4j.version>1.7.25</slf4j.version>
 
         <hutool.version>5.8.11</hutool.version>
         <poi.version>5.0.0</poi.version>
         <easyexcel.verion>3.2.0</easyexcel.verion>
-        <velocity.version>2.3</velocity.version>
 
-        <jackson.version>2.13.3</jackson.version>
         <fastjson.version>1.2.83</fastjson.version>
         <transmittable-thread-local.version>2.14.2</transmittable-thread-local.version>
 
         <guava.version>31.1-jre</guava.version>
-        <guice.version>5.1.0</guice.version>
         <zxing.version>3.3.0</zxing.version>
 
-        <jsch.version>0.1.55</jsch.version>
         <tika-core.version>2.6.0</tika-core.version>
         <thumbnailator.version>0.4.11</thumbnailator.version>
-        <ip2region.version>2.6.6</ip2region.version>
         <pinyin4j.version>2.5.0</pinyin4j.version>
         <minio.version>8.5.1</minio.version>
 
-        <commons.lang>2.6</commons.lang>
-        <commons-lang3.version>3.8.1</commons-lang3.version>
-        <commons-net.version>3.8.0</commons-net.version>
-        <commons-collections4.version>4.2</commons-collections4.version>
-
-        <okhttp3.version>4.10.0</okhttp3.version>
         <openfeign.version>11.0</openfeign.version>
 
         <knife4j.version>3.0.3</knife4j.version>
 
-        <security-oauth2-version>2.2.1.RELEASE</security-oauth2-version>
-        <security-jwt-version>1.1.1.RELEASE</security-jwt-version>
         <jjwt-version>0.9.0</jjwt-version>
 
         <netty-all.version>4.1.86.Final</netty-all.version>
@@ -110,7 +93,6 @@
         <p6spy.version>3.9.1</p6spy.version>
         <pagehelper.version>5.1.11</pagehelper.version>
         <seata.version>1.5.2</seata.version>
-        <druid.version>1.2.21</druid.version>
 
         <rocketmq.version>2.1.1</rocketmq.version>
 
@@ -152,18 +134,6 @@
             </dependency>
 
             <dependency>
-                <groupId>com.xuxueli</groupId>
-                <artifactId>xxl-job-core</artifactId>
-                <version>${xxl-job.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.jsoup</groupId>
-                <artifactId>jsoup</artifactId>
-                <version>${jsoup.version}</version>
-            </dependency>
-
-            <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
@@ -189,11 +159,6 @@
                 <artifactId>easyexcel</artifactId>
                 <version>${easyexcel.verion}</version>
             </dependency>
-            <dependency>
-                <groupId>org.apache.velocity</groupId>
-                <artifactId>velocity-engine-core</artifactId>
-                <version>${velocity.version}</version>
-            </dependency>
 
             <dependency>
                 <groupId>com.alibaba</groupId>
@@ -212,20 +177,9 @@
                 <version>${guava.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.google.inject</groupId>
-                <artifactId>guice</artifactId>
-                <version>${guice.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>com.google.zxing</groupId>
                 <artifactId>javase</artifactId>
                 <version>${zxing.version}</version>
-            </dependency>
-            <!-- 解决 sftp 连接 -->
-            <dependency>
-                <groupId>com.jcraft</groupId>
-                <artifactId>jsch</artifactId>
-                <version>${jsch.version}</version>
             </dependency>
             <!-- 文件类型的识别 -->
             <dependency>
@@ -239,11 +193,6 @@
                 <version>${thumbnailator.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.lionsoul</groupId>
-                <artifactId>ip2region</artifactId>
-                <version>${ip2region.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>com.belerweb</groupId>
                 <artifactId>pinyin4j</artifactId>
                 <version>${pinyin4j.version}</version>
@@ -253,39 +202,7 @@
                 <artifactId>minio</artifactId>
                 <version>${minio.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.squareup.okio</groupId>
-                <artifactId>okio</artifactId>
-                <version>${okio.version}</version>
-            </dependency>
 
-            <dependency>
-                <groupId>commons-lang</groupId>
-                <artifactId>commons-lang</artifactId>
-                <version>${commons.lang}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-lang3</artifactId>
-                <version>${commons-lang3.version}</version>
-            </dependency>
-            <!-- 解决 ftp 连接 -->
-            <dependency>
-                <groupId>commons-net</groupId>
-                <artifactId>commons-net</artifactId>
-                <version>${commons-net.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-collections4</artifactId>
-                <version>${commons-collections4.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.squareup.okhttp3</groupId>
-                <artifactId>okhttp</artifactId>
-                <version>${okhttp3.version}</version>
-            </dependency>
             <dependency>
                 <groupId>io.github.openfeign</groupId>
                 <artifactId>feign-okhttp</artifactId>
@@ -303,22 +220,6 @@
                 <version>${knife4j.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>org.springframework.security.oauth</groupId>
-                <artifactId>spring-security-oauth2</artifactId>
-                <version>${security-oauth2-version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.security.oauth.boot</groupId>
-                <artifactId>spring-security-oauth2-autoconfigure</artifactId>
-                <version>${security-oauth2-version}</version>
-            </dependency>
-            <!-- jwt依赖 -->
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-jwt</artifactId>
-                <version>${security-jwt-version}</version>
-            </dependency>
             <!-- jwt依赖 -->
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
@@ -396,12 +297,6 @@
                         <artifactId>druid</artifactId>
                     </exclusion>
                 </exclusions>
-            </dependency>
-
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid</artifactId>
-                <version>${druid.version}</version>
             </dependency>
 
             <dependency>
