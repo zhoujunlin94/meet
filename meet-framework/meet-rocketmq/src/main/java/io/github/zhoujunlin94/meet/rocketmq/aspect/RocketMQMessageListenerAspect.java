@@ -24,7 +24,7 @@ public class RocketMQMessageListenerAspect {
     }
 
     @Around("onMessage()")
-    public Object beforeOnMessage(ProceedingJoinPoint joinPoint) throws Throwable {
+    public Object aroundOnMessage(ProceedingJoinPoint joinPoint) throws Throwable {
         MDC.put(RequestIdUtil.REQUEST_ID, RequestIdUtil.generateRequestId());
         StopWatch stopWatch = new StopWatch();
         try {
