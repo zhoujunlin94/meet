@@ -1,5 +1,7 @@
 package io.github.zhoujunlin94.meet.web.helper;
 
+import io.github.zhoujunlin94.meet.common.exception.CommonErrorCode;
+import io.github.zhoujunlin94.meet.common.exception.MeetException;
 import io.github.zhoujunlin94.meet.common.util.RequestContextUtil;
 
 import java.util.Objects;
@@ -16,7 +18,11 @@ public class LoginHelper {
     }
 
     public static Integer getUserId() {
-        return RequestContextUtil.get().getUserId();
+        Integer userId = RequestContextUtil.get().getUserId();
+        if (Objects.isNull(userId) || userId <= 0) {
+            throw MeetException.meet(CommonErrorCode.B_UN_LOGIN);
+        }
+        return userId;
     }
 
 }
