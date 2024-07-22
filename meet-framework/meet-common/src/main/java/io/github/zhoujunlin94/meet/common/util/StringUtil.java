@@ -2,8 +2,6 @@ package io.github.zhoujunlin94.meet.common.util;
 
 import cn.hutool.core.util.StrUtil;
 
-import java.util.Arrays;
-
 /**
  * @author zhoujl
  * @date 2020/5/5 13:52
@@ -19,7 +17,7 @@ public class StringUtil {
      * @return
      */
     public static boolean contains(String str, String subStr) {
-        return contains(",", str, subStr);
+        return contains(StrUtil.COMMA, str, subStr);
     }
 
     /**
@@ -34,6 +32,6 @@ public class StringUtil {
         if (StrUtil.isBlank(str) || StrUtil.isBlank(subStr) || StrUtil.isBlank(splitKey)) {
             return false;
         }
-        return Arrays.asList(str.split(splitKey)).contains(subStr);
+        return StrUtil.splitTrim(str, splitKey).contains(subStr);
     }
 }

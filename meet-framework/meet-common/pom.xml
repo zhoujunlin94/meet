@@ -5,7 +5,7 @@
     <parent>
         <artifactId>meet-framework</artifactId>
         <groupId>io.github.zhoujunlin94</groupId>
-        <version>1.1.9</version>
+        <version>1.1.10</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -54,10 +54,6 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.google.zxing</groupId>
-            <artifactId>javase</artifactId>
         </dependency>
 
         <!-- 如果项目中依赖了其它jar包中使用了log4j作为日志 将其桥接到slf4j -->
