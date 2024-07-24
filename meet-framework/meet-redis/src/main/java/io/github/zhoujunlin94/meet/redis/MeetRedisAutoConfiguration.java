@@ -1,6 +1,5 @@
 package io.github.zhoujunlin94.meet.redis;
 
-import io.github.zhoujunlin94.meet.redis.constant.RedisConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -23,8 +22,8 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 public class MeetRedisAutoConfiguration {
 
     @ConditionalOnBean(RedisConnectionFactory.class)
-    @Bean(RedisConstant.BeanName.MEET_REDIS_TEMPLATE)
-    public RedisTemplate<String, Object> redisTemplate(@Autowired RedisConnectionFactory redisConnectionFactory) {
+    @Bean
+    public RedisTemplate<String, Object> meetRedisTemplate(@Autowired RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setKeySerializer(RedisSerializer.string());
         redisTemplate.setValueSerializer(RedisSerializer.string());

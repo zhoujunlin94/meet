@@ -4,7 +4,6 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
-import io.github.zhoujunlin94.meet.redis.constant.RedisConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -27,7 +26,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @ConditionalOnBean(RedisTemplate.class)
-@Component(RedisConstant.BeanName.REDIS_HELPER)
+@Component
 public class RedisHelper {
 
     private static RedisTemplate<String, Object> redisTemplate;

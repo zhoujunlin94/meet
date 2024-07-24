@@ -1,6 +1,7 @@
 package io.github.zhoujunlin94.meet.redis.queue;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.IdUtil;
 import com.alibaba.fastjson.JSONObject;
 import io.github.zhoujunlin94.meet.common.util.RequestIdUtil;
@@ -13,7 +14,6 @@ import org.springframework.beans.factory.InitializingBean;
 import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -46,7 +46,7 @@ public class RedisDelayQueue implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        Executors.newFixedThreadPool(1).execute(this::start);
+        ThreadUtil.newExecutor().execute(this::start);
         log.warn("redis queue started...");
     }
 

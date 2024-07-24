@@ -1,4 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-io.github.zhoujunlin94.meet.redis.MeetRedisAutoConfiguration,\
-cn.hutool.extra.spring.SpringUtil
-
+io.github.zhoujunlin94.meet.redis.MeetRedisAutoConfiguration

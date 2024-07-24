@@ -26,7 +26,7 @@ import java.util.Objects;
 /**
  * 接口限流aop
  *
- * @author zhoujl
+ * @author zhoujunlin
  */
 @Slf4j
 @Lazy
@@ -36,7 +36,6 @@ public class LimiterAspect {
 
     @Pointcut("@annotation(io.github.zhoujunlin94.meet.redis.annotation.Limiter)")
     public void pointcut() {
-        // do nothing
     }
 
     @Around("pointcut()")
@@ -61,7 +60,7 @@ public class LimiterAspect {
                 key = method.getName().toUpperCase();
                 break;
         }
-        String redisKey = StrUtil.join(":", limiterAnnotation.prefix(), key, ip);
+        String redisKey = StrUtil.join(":", limiterAnnotation.prefix(), key);
         Long count = RedisHelper.execute(RedisConstant.LuaScripts.LIMITER_LUA, Collections.singletonList(redisKey), Arrays.asList(Convert.toStr(limiterCount), Convert.toStr(limiterPeriod)), Long.class);
         log.info("IP:{} 第 {} 次访问key为 {}，描述为 [{}] 的接口", ip, count, redisKey, name);
         if (Objects.nonNull(count) && count <= limiterCount) {

@@ -1,6 +1,5 @@
 package io.github.zhoujunlin94.meet.redis.registrar;
 
-import io.github.zhoujunlin94.meet.redis.constant.RedisConstant;
 import io.github.zhoujunlin94.meet.redis.dispatcher.QueueMsgDispatcher;
 import io.github.zhoujunlin94.meet.redis.queue.RedisDelayQueue;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +26,7 @@ public class RedisQueueRegistrar implements ImportBeanDefinitionRegistrar {
 
         GenericBeanDefinition redisDelayQueueBeanDefinition = new GenericBeanDefinition();
         redisDelayQueueBeanDefinition.setBeanClass(RedisDelayQueue.class);
-        redisDelayQueueBeanDefinition.setDependsOn(RedisConstant.BeanName.REDIS_HELPER);
+        redisDelayQueueBeanDefinition.setDependsOn("redisHelper");
         redisDelayQueueBeanDefinition.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);
         registry.registerBeanDefinition("redisDelayQueue", redisDelayQueueBeanDefinition);
     }

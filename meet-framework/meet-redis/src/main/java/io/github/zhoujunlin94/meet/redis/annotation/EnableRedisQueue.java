@@ -15,6 +15,4 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Import(RedisQueueRegistrar.class)
 public @interface EnableRedisQueue {
-
-
 }

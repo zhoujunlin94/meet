@@ -1,6 +1,6 @@
-package io.github.zhoujunlin94.meet.redis.handler;
+package io.github.zhoujunlin94.meet.redis.example.handler;
 
-import io.github.zhoujunlin94.meet.redis.constant.RedisConstant;
+import io.github.zhoujunlin94.meet.redis.handler.BasePubSubMsgHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * @desc
  **/
 @Slf4j
-@Component(RedisConstant.BeanName.DEFAULT_PUB_SUB_HANDLER)
+@Component
 public class DefaultPubSubMsgHandler implements BasePubSubMsgHandler {
 
     @Override

@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
+import org.springframework.lang.NonNull;
 
 import javax.annotation.Resource;
 
@@ -23,7 +24,7 @@ public class RedisPubSubMsgConsumer implements MessageListener {
     private PubSubMsgDispatcher pubSubDispatcher;
 
     @Override
-    public void onMessage(Message message, byte[] bytes) {
+    public void onMessage(@NonNull Message message, byte[] bytes) {
         try {
             String msg = new String(message.getBody());
             String channel = new String(message.getChannel());

@@ -1,6 +1,6 @@
-package io.github.zhoujunlin94.meet.redis.handler;
+package io.github.zhoujunlin94.meet.redis.example.handler;
 
-import io.github.zhoujunlin94.meet.redis.constant.RedisConstant;
+import io.github.zhoujunlin94.meet.redis.handler.BaseQueueMsgHandler;
 import io.github.zhoujunlin94.meet.redis.queue.TaskItem;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  * @desc
  */
 @Slf4j
-@Component(RedisConstant.BeanName.DEFAULT_QUEUE_HANDLER)
+@Component
 public class DefaultQueueMsgHandler implements BaseQueueMsgHandler {
 
     @Override

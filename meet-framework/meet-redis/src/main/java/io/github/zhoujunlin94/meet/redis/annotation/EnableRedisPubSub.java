@@ -15,6 +15,4 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Import(RedisPubSubRegistrar.class)
 public @interface EnableRedisPubSub {
-
-
 }

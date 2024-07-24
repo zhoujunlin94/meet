@@ -1,5 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-io.github.zhoujunlin94.meet.web.MeetWebAutoConfiguration,\
-cn.hutool.extra.spring.SpringUtil
+io.github.zhoujunlin94.meet.web.MeetWebAutoConfiguration
 org.springframework.context.ApplicationListener=\
 io.github.zhoujunlin94.meet.web.EnvironmentMergeListener

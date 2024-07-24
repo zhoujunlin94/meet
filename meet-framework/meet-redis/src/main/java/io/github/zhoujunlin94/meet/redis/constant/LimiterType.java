@@ -1,9 +1,7 @@
 package io.github.zhoujunlin94.meet.redis.constant;
 
 /**
- * @Author zhoujl
- * @Date 2020/5/4 12:06
- * @Description 限流类型
+ * @author zhoujunlin
  **/
 public enum LimiterType {
 

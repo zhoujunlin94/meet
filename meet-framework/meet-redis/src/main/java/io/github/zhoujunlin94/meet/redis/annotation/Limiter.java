@@ -6,7 +6,7 @@ import io.github.zhoujunlin94.meet.redis.constant.LimiterType;
 import java.lang.annotation.*;
 
 /**
- * @author zhoujl
+ * @author zhoujunlin
  * 限流注解
  */
 @Documented
