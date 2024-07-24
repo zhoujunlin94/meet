@@ -1,0 +1,5 @@
+###
+GET http://127.0.0.1:8082/provideMsg
+
+###
+GET http://127.0.0.1:8082/publishMsg
