@@ -41,37 +41,33 @@ public class PrintSQLInterceptor implements Interceptor {
     private boolean enable = false;
 
     @Override
-    public Object intercept(Invocation invocation) throws Throwable {
-        StopWatch stopWatch = new StopWatch();
-        stopWatch.start();
-        Object re = invocation.proceed();
-        stopWatch.stop();
-        long totalTimeMillis = stopWatch.getTotalTimeMillis();
+    public Object intercept(Invocation invocation) {
+        Object ret = null;
+        try {
+            StopWatch stopWatch = new StopWatch();
+            stopWatch.start();
+            ret = invocation.proceed();
+            stopWatch.stop();
+            long totalTimeMillis = stopWatch.getTotalTimeMillis();
 
-        // 获取执行方法的MappedStatement参数,不管是Executor的query方法还是update方法，第一个参数都是MappedStatement
-        MappedStatement mappedStatement = (MappedStatement) invocation.getArgs()[0];
-        Object parameter = null;
-        if (invocation.getArgs().length > 1) {
-            parameter = invocation.getArgs()[1];
+            // 获取执行方法的MappedStatement参数,不管是Executor的query方法还是update方法，第一个参数都是MappedStatement
+            MappedStatement mappedStatement = (MappedStatement) invocation.getArgs()[0];
+            Object parameter = null;
+            if (invocation.getArgs().length > 1) {
+                parameter = invocation.getArgs()[1];
+            }
+            String sqlId = mappedStatement.getId();
+            BoundSql boundSql = mappedStatement.getBoundSql(parameter);
+            Configuration configuration = mappedStatement.getConfiguration();
+            // 打印mysql执行语句
+            String sql = assembleSql(configuration, boundSql);
+            log.warn("{}方法对应的sql语句===>\n \n{}\n执行时间===>{}ms", sqlId, sql, totalTimeMillis);
+        } catch (Exception e) {
+            log.warn("PrintSQLInterceptor.intercept error", e);
         }
-        String sqlId = mappedStatement.getId();
-        BoundSql boundSql = mappedStatement.getBoundSql(parameter);
-        Configuration configuration = mappedStatement.getConfiguration();
-        // 打印mysql执行语句
-        String sql = getSql(configuration, boundSql, sqlId);
-        System.out.println(sql);
-
-        // 打印sql执行时间
-        String sqlTimeLog = sqlId + " 方法对应sql执行时间:" + totalTimeMillis + "ms";
-        System.out.println(sqlTimeLog);
-
-        return re;
+        return ret;
     }
 
-
-    private static String getSql(Configuration configuration, BoundSql boundSql, String sqlId) {
-        return sqlId + " 方法对应sql执行语句:" + assembleSql(configuration, boundSql);
-    }
 
     /**
      * 组装完整的sql语句 -- 把对应的参数都代入到sql语句里面
