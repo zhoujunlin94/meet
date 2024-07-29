@@ -41,12 +41,13 @@ public class PrintSQLInterceptor implements Interceptor {
     private boolean enable = false;
 
     @Override
-    public Object intercept(Invocation invocation) {
-        Object ret = null;
+    public Object intercept(Invocation invocation) throws Throwable {
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+
+        Object ret = invocation.proceed();
+
         try {
-            StopWatch stopWatch = new StopWatch();
-            stopWatch.start();
-            ret = invocation.proceed();
             stopWatch.stop();
             long totalTimeMillis = stopWatch.getTotalTimeMillis();
 
@@ -106,6 +107,7 @@ public class PrintSQLInterceptor implements Interceptor {
         return sql;
     }
 
+
     /**
      * 获取参数对应的string值
      *
@@ -126,6 +128,7 @@ public class PrintSQLInterceptor implements Interceptor {
         return Objects.nonNull(value) ? makeQueryStringAllRegExp(value) : value;
     }
 
+
     /**
      * 转义正则特殊字符 （$()*+.[]?\^{}
      * \\需要第一个替换，否则replace方法替换时会有逻辑bug
@@ -144,6 +147,7 @@ public class PrintSQLInterceptor implements Interceptor {
         return str;
     }
 
+
     @Override
     public Object plugin(Object target) {
         if (enable && target instanceof Executor) {
@@ -151,6 +155,7 @@ public class PrintSQLInterceptor implements Interceptor {
         }
         return target;
     }
+
 
     @Override
     public void setProperties(Properties properties) {
@@ -161,5 +166,6 @@ public class PrintSQLInterceptor implements Interceptor {
             log.error("PrintSQLInterceptor属性初始化出错", e);
         }
     }
+
 
 }
