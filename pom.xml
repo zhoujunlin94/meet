@@ -6,7 +6,7 @@
 
     <groupId>io.github.zhoujunlin94</groupId>
     <artifactId>meet</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
 
     <packaging>pom</packaging>
 
@@ -98,6 +98,8 @@
         <sa-token.version>1.35.0.RC</sa-token.version>
 
         <byte-buddy.version>1.10.9</byte-buddy.version>
+
+        <mqttv3.version>1.2.5</mqttv3.version>
     </properties>
 
     <dependencyManagement>
@@ -325,6 +327,12 @@
                 <groupId>net.bytebuddy</groupId>
                 <artifactId>byte-buddy-agent</artifactId>
                 <version>${byte-buddy.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.eclipse.paho</groupId>
+                <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
+                <version>${mqttv3.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

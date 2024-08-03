@@ -1,0 +1,15 @@
+mqtt:
+  client:
+    public:
+      id: b25b0d43dd134a52b4e1fedb486c335a
+      serverUri: tcp://broker.emqx.io:1883
+      options:
+        cleanSession: false
+        keepAliveInterval: 60
+        connectionTimeout: 60
+        automaticReconnect: true
+      subscribes:
+        # $share/{GroupID}/{Topic}  通过mqtt的共享主题模式达到集群消费模式
+        - topicFilter: $share/cluster/mqtt/test100
+          qos: 0
+        - topicFilter: mqtt/test101
