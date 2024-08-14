@@ -62,7 +62,8 @@ public class PrintSQLInterceptor implements Interceptor {
             Configuration configuration = mappedStatement.getConfiguration();
             // 打印mysql执行语句
             String sql = assembleSql(configuration, boundSql);
-            log.warn("{}方法对应的sql语句===>\n \n{}\n执行时间===>{}ms", sqlId, sql, totalTimeMillis);
+            String tag = "=================[PRINT_SQL]======================";
+            log.warn("\n{}\n=> {}\n\n=> {} \n\n=> 执行时间{}ms\n{}", tag, sqlId, sql, totalTimeMillis, tag);
         } catch (Exception e) {
             log.warn("PrintSQLInterceptor.intercept error", e);
         }
