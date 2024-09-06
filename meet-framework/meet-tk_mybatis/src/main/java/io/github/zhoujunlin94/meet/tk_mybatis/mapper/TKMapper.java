@@ -9,6 +9,8 @@ import tk.mybatis.mapper.common.MySqlMapper;
  * @desc
  */
 @tk.mybatis.mapper.annotation.RegisterMapper
-public interface TKMapper<T> extends Mapper<T>, MySqlMapper<T>, BatchUpdateMapper<T>, BatchInsertMapper<T> {
+public interface TKMapper<T> extends Mapper<T>, MySqlMapper<T>,
+        BatchUpdateMapper<T>, BatchInsertMapper<T>,
+        InsertMapper<T> {
 
 }
