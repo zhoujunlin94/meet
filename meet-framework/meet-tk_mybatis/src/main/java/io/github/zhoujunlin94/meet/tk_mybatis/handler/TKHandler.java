@@ -82,6 +82,10 @@ public class TKHandler<M extends TKMapper<T>, T> {
         return this.baseMapper.insertOrUpdate(record);
     }
 
+    public int insertIgnore(T record) {
+        return this.baseMapper.insertIgnore(record);
+    }
+
     public int batchUpdateSelective(List<T> recordList) {
         return CollUtil.isNotEmpty(recordList) ? this.baseMapper.batchUpdateSelective(recordList) : 0;
     }

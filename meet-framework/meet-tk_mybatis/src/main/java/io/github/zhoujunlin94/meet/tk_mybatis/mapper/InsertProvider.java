@@ -54,4 +54,35 @@ public class InsertProvider extends MapperTemplate {
         return sql.toString();
     }
 
+
+    public String insertIgnore(MappedStatement ms){
+        final Class<?> entityClass = getEntityClass(ms);
+        //开始拼sql
+        StringBuilder sql = new StringBuilder();
+        sql.append(" insert ignore into ");
+        sql.append(tableName(entityClass)).append(" ");
+
+        StringBuilder columns = new StringBuilder();
+        columns.append("<trim prefix=\"(\" suffix=\")\" suffixOverrides=\",\"> ");
+        Set<EntityColumn> columnSet = EntityHelper.getColumns(entityClass);
+        for (EntityColumn column : columnSet) {
+            columns.append("<if test=\"").append(column.getProperty()).append("!= null\"> ");
+            columns.append(column.getColumn()).append(", ");
+            columns.append("</if> ");
+        }
+        columns.append("</trim> ");
+        sql.append(columns);
+
+        sql.append(" VALUES ");
+
+        sql.append("<trim prefix=\"(\" suffix=\")\" suffixOverrides=\",\"> ");
+        for (EntityColumn column : columnSet) {
+            sql.append("<if test=\"").append(column.getProperty()).append("!= null\"> ");
+            sql.append("#{").append(column.getProperty()).append("}, ");
+            sql.append("</if> ");
+        }
+        sql.append("</trim>");
+        return sql.toString();
+    }
+
 }
