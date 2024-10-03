@@ -1,6 +1,7 @@
 package io.github.zhoujunlin94.meet.tk_mybatis.interceptor;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.StopWatch;
 import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -15,13 +16,15 @@ import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 
-import java.text.DateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
+import java.util.Properties;
 
 /**
  * @author zhoujunlin
  * @date 2023年04月15日 15:58
- * @desc 打印sql执行时间以及执行sql拦截器
+ * @desc 打印sql执行时间以及执行sql拦截器   获取执行sql,损耗性能  谨慎开启
  */
 @Slf4j
 @Intercepts({
@@ -43,14 +46,14 @@ public class PrintSQLInterceptor implements Interceptor {
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
         StopWatch stopWatch = new StopWatch();
-        stopWatch.start();
+        stopWatch.start("SQL执行");
 
         Object ret = invocation.proceed();
 
         try {
             stopWatch.stop();
-            long totalTimeMillis = stopWatch.getTotalTimeMillis();
 
+            stopWatch.start("SQL拼接打印");
             // 获取执行方法的MappedStatement参数,不管是Executor的query方法还是update方法，第一个参数都是MappedStatement
             MappedStatement mappedStatement = (MappedStatement) invocation.getArgs()[0];
             Object parameter = null;
@@ -62,8 +65,17 @@ public class PrintSQLInterceptor implements Interceptor {
             Configuration configuration = mappedStatement.getConfiguration();
             // 打印mysql执行语句
             String sql = assembleSql(configuration, boundSql);
-            String tag = "=================[PRINT_SQL]======================";
-            log.warn("\n{}\n=> {}\n\n=> {} \n\n=> 执行时间{}ms\n{}", tag, sqlId, sql, totalTimeMillis, tag);
+            stopWatch.stop();
+
+            StringBuilder logInfo = new StringBuilder("\n\n|=================[PRINT_SQL]======================\n")
+                    .append("|=> ").append(sqlId).append("\n|\n")
+                    .append("|=> ").append(sql).append("\n|\n");
+            for (StopWatch.TaskInfo taskInfo : stopWatch.getTaskInfo()) {
+                logInfo.append("|=> ").append(taskInfo.getTaskName()).append("执行耗时:").append(taskInfo.getTimeMillis()).append("ms\n");
+            }
+            logInfo.append("|=================[PRINT_SQL]======================\n");
+
+            log.warn(logInfo.toString());
         } catch (Exception e) {
             log.warn("PrintSQLInterceptor.intercept error", e);
         }
@@ -84,28 +96,66 @@ public class PrintSQLInterceptor implements Interceptor {
         // sql语句里面需要的参数 -- 真实需要用到的参数 因为sqlParameter里面的每个参数不一定都会用到
         List<ParameterMapping> parameterMappings = boundSql.getParameterMappings();
         // sql原始语句(?还没有替换成我们具体的参数)  空格、制表符（tab）、换行符、回车符等换成 " "
-        String sql = boundSql.getSql().replaceAll("[\\s]+", " ");
+        String sql = replaceWhiteSpace(boundSql.getSql());
+
         if (CollUtil.isNotEmpty(parameterMappings) && Objects.nonNull(sqlParameter)) {
             // sql语句里面的?替换成真实的参数
             TypeHandlerRegistry typeHandlerRegistry = configuration.getTypeHandlerRegistry();
             if (typeHandlerRegistry.hasTypeHandler(sqlParameter.getClass())) {
-                sql = sql.replaceFirst("\\?", getParameterValue(sqlParameter));
+                sql = replaceFirstQuestionMark(sql, getParameterValue(sqlParameter));
             } else {
                 MetaObject metaObject = configuration.newMetaObject(sqlParameter);
                 for (ParameterMapping parameterMapping : parameterMappings) {
                     // 一个一个把对应的值替换进去 按顺序把?替换成对应的值
                     String propertyName = parameterMapping.getProperty();
+                    Object value = null;
                     if (metaObject.hasGetter(propertyName)) {
-                        Object obj = metaObject.getValue(propertyName);
-                        sql = sql.replaceFirst("\\?", getParameterValue(obj));
+                        value = metaObject.getValue(propertyName);
                     } else if (boundSql.hasAdditionalParameter(propertyName)) {
-                        Object obj = boundSql.getAdditionalParameter(propertyName);
-                        sql = sql.replaceFirst("\\?", getParameterValue(obj));
+                        value = boundSql.getAdditionalParameter(propertyName);
+                    }
+                    if (value != null) {
+                        sql = replaceFirstQuestionMark(sql, getParameterValue(value));
                     }
                 }
             }
         }
         return sql;
+    }
+
+
+    private static String replaceWhiteSpace(String sql) {
+        StringBuilder sb = new StringBuilder(sql.length());
+        boolean inWhitespace = false;
+        for (int i = 0; i < sql.length(); i++) {
+            char c = sql.charAt(i);
+            if (Character.isWhitespace(c)) {
+                if (!inWhitespace) {
+                    sb.append(' ');
+                    inWhitespace = true;
+                }
+            } else {
+                sb.append(c);
+                inWhitespace = false;
+            }
+        }
+        return sb.toString();
+    }
+
+
+    private static String replaceFirstQuestionMark(String sql, String replacement) {
+        StringBuilder sb = new StringBuilder();
+        boolean replaced = false;
+        for (int i = 0; i < sql.length(); i++) {
+            char c = sql.charAt(i);
+            if (!replaced && c == '?') {
+                sb.append(replacement);
+                replaced = true;
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
     }
 
 
@@ -120,13 +170,12 @@ public class PrintSQLInterceptor implements Interceptor {
         if (obj instanceof String) {
             value = "'" + obj + "'";
         } else if (obj instanceof Date) {
-            DateFormat formatter = DateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.DEFAULT, Locale.CHINA);
-            value = "'" + formatter.format(obj) + "'";
+            value = "'" + DatePattern.NORM_DATETIME_MS_FORMAT.format(obj) + "'";
         } else {
             value = Objects.nonNull(obj) ? obj.toString() : StrUtil.EMPTY;
         }
         // 对特殊字符进行转义，方便之后处理替换
-        return Objects.nonNull(value) ? makeQueryStringAllRegExp(value) : value;
+        return Objects.nonNull(value) ? makeQueryStringAllRegExp(value) : StrUtil.EMPTY;
     }
 
 
@@ -134,18 +183,70 @@ public class PrintSQLInterceptor implements Interceptor {
      * 转义正则特殊字符 （$()*+.[]?\^{}
      * \\需要第一个替换，否则replace方法替换时会有逻辑bug
      */
-    private static String makeQueryStringAllRegExp(String str) {
-        if (str != null && !"".equals(str)) {
-            return str.replace("\\", "\\\\").replace("*", "\\*")
-                    .replace("+", "\\+").replace("|", "\\|")
-                    .replace("{", "\\{").replace("}", "\\}")
-                    .replace("(", "\\(").replace(")", "\\)")
-                    .replace("^", "\\^").replace("$", "\\$")
-                    .replace("[", "\\[").replace("]", "\\]")
-                    .replace("?", "\\?").replace(",", "\\,")
-                    .replace(".", "\\.").replace("&", "\\&");
+    private static String makeQueryStringAllRegExp(String queryString) {
+        if (StrUtil.isBlank(queryString)) {
+            return queryString;
         }
-        return str;
+
+        StringBuilder result = new StringBuilder(queryString.length());
+        for (int i = 0; i < queryString.length(); i++) {
+            char c = queryString.charAt(i);
+            switch (c) {
+                case '\\':
+                    result.append("\\\\");
+                    break;
+                case '*':
+                    result.append("\\*");
+                    break;
+                case '+':
+                    result.append("\\+");
+                    break;
+                case '|':
+                    result.append("\\|");
+                    break;
+                case '{':
+                    result.append("\\{");
+                    break;
+                case '}':
+                    result.append("\\}");
+                    break;
+                case '(':
+                    result.append("\\(");
+                    break;
+                case ')':
+                    result.append("\\)");
+                    break;
+                case '^':
+                    result.append("\\^");
+                    break;
+                case '$':
+                    result.append("\\$");
+                    break;
+                case '[':
+                    result.append("\\[");
+                    break;
+                case ']':
+                    result.append("\\]");
+                    break;
+                case '?':
+                    result.append("\\?");
+                    break;
+                case ',':
+                    result.append("\\,");
+                    break;
+                case '.':
+                    result.append("\\.");
+                    break;
+                case '&':
+                    result.append("\\&");
+                    break;
+                default:
+                    result.append(c);
+                    break;
+            }
+        }
+
+        return result.toString();
     }
 
 
