@@ -212,4 +212,5 @@ Temporary Items
 *.iml
 *.ipr
 rebel.xml
-## test/
+
+/**/.flattened-pom.xml

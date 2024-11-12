@@ -6,7 +6,7 @@
 
     <groupId>io.github.zhoujunlin94</groupId>
     <artifactId>meet</artifactId>
-    <version>1.2.6</version>
+    <version>${revision}</version>
 
     <packaging>pom</packaging>
 
@@ -40,6 +40,7 @@
     </scm>
 
     <properties>
+        <revision>1.2.7</revision>
         <java.version>1.8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -50,6 +51,7 @@
         <maven-javadoc.version>2.9.1</maven-javadoc.version>
         <maven-gpg.version>1.5</maven-gpg.version>
         <versions-maven.version>2.16.2</versions-maven.version>
+        <flatten-maven-plugin.version>1.6.0</flatten-maven-plugin.version>
 
         <!-- 统一依赖管理 -->
         <spring.boot.version>2.6.11</spring.boot.version>
@@ -339,6 +341,33 @@
 
     <build>
         <plugins>
+            <!-- 统一 revision 版本 -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>${flatten-maven-plugin.version}</version>
+                <configuration>
+                    <flattenMode>bom</flattenMode>
+                    <updatePomFile>true</updatePomFile>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                    </execution>
+                    <execution>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
