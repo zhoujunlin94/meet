@@ -7,6 +7,7 @@ package io.github.zhoujunlin94.meet.common.constant;
  */
 public final class CommonConstant {
 
+    public static final String EMPTY_JSON = "{}";
     public static final String MEET_THREAD_POOL = "meetThreadPool";
     public static final String IMG_BASE64_PREFIX = "data:image/jpeg;base64,";
     public static final String ERROR = "error";

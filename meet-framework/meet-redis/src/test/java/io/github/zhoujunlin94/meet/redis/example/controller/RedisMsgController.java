@@ -2,10 +2,13 @@ package io.github.zhoujunlin94.meet.redis.example.controller;
 
 import io.github.zhoujunlin94.meet.common.util.RequestIdUtil;
 import io.github.zhoujunlin94.meet.redis.annotation.Limiter;
+import io.github.zhoujunlin94.meet.redis.annotation.RedissonLocker;
 import io.github.zhoujunlin94.meet.redis.helper.RedisHelper;
 import io.github.zhoujunlin94.meet.redis.queue.RedisDelayQueue;
 import io.github.zhoujunlin94.meet.redis.queue.TaskItem;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -48,5 +51,13 @@ public class RedisMsgController {
     public String limit() {
         return "success";
     }
+
+    @GetMapping(value = "/lock", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RedissonLocker(prefix = "test", suffixEL = "#name", waitTime = 3)
+    public String lock(@RequestParam String name) throws InterruptedException {
+        TimeUnit.SECONDS.sleep(1000L);
+        return "success";
+    }
+
 
 }

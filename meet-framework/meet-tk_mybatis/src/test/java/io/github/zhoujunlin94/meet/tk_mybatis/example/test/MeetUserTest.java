@@ -26,8 +26,9 @@ public class MeetUserTest {
 
     @Test
     public void insertUser() {
-        MeetUser meetUser = new MeetUser().setUserId(10010).setUserName("zgyd222");
+        MeetUser meetUser = new MeetUser().setUserId(100258).setUserName("zgyd222");
         System.out.println(meetUserHandler.insertIgnore(meetUser));
+        System.out.println(meetUser.getId());
     }
 
 }
