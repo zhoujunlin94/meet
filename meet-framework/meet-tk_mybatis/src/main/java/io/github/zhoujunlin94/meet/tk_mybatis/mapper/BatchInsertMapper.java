@@ -1,6 +1,8 @@
 package io.github.zhoujunlin94.meet.tk_mybatis.mapper;
 
 import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,7 +20,8 @@ public interface BatchInsertMapper<T> {
      * @return
      */
     @InsertProvider(type = BatchInsertProvider.class, method = "dynamicSQL")
-    int batchInsertSelective(List<T> recordList);
+    @Options(useGeneratedKeys = true, keyProperty = "list.id")
+    int batchInsertSelective(@Param("list") List<T> recordList);
 
 
 }
