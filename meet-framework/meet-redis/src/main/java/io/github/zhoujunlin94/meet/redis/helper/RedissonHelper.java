@@ -1,6 +1,5 @@
 package io.github.zhoujunlin94.meet.redis.helper;
 
-import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,16 +84,6 @@ public class RedissonHelper {
     public static boolean tryAcquire(String limiterKey) {
         RRateLimiter rateLimiter = redissonClient.getRateLimiter(limiterKey);
         return rateLimiter.tryAcquire();
-    }
-
-    public static RDelayedQueue<String> getDelayedQueue(String queueName) {
-        RBlockingDeque<String> blockingDeque = redissonClient.getBlockingDeque(queueName);
-        return redissonClient.getDelayedQueue(blockingDeque);
-    }
-
-    public static void offer(String queueName, Object payload, long delay, TimeUnit timeUnit) {
-        String msg = payload instanceof String ? payload.toString() : JSONObject.toJSONString(payload);
-        getDelayedQueue(queueName).offer(msg, delay, timeUnit);
     }
 
 }
