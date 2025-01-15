@@ -86,4 +86,17 @@ public class RedissonHelper {
         return rateLimiter.tryAcquire();
     }
 
+
+    public static void offer(String queueName, String value, long delayTime, TimeUnit timeUnit) {
+        RBlockingQueue<String> blockingQueue = redissonClient.getBlockingQueue(queueName);
+        RDelayedQueue<String> delayedQueue = redissonClient.getDelayedQueue(blockingQueue);
+        delayedQueue.offer(value, delayTime, timeUnit);
+    }
+
+    public static RBlockingQueue<String> getBlockingQueue(String queueName) {
+        RBlockingQueue<String> blockingQueue = redissonClient.getBlockingQueue(queueName);
+        RDelayedQueue<String> delayedQueue = redissonClient.getDelayedQueue(blockingQueue);
+        return blockingQueue;
+    }
+
 }

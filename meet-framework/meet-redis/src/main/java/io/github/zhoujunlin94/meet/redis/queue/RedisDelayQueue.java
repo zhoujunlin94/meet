@@ -22,6 +22,7 @@ import java.util.concurrent.TimeUnit;
  * @desc
  */
 @Slf4j
+@Deprecated
 public class RedisDelayQueue implements InitializingBean {
 
     private static final String QUEUE_KEY = "queue:msg";

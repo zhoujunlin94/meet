@@ -5,6 +5,7 @@ import io.github.zhoujunlin94.meet.redis.annotation.Limiter;
 import io.github.zhoujunlin94.meet.redis.annotation.RedissonLocker;
 import io.github.zhoujunlin94.meet.redis.helper.RedisHelper;
 import io.github.zhoujunlin94.meet.redis.queue.RedisDelayQueue;
+import io.github.zhoujunlin94.meet.redis.queue.RedissonDelayedQueue;
 import io.github.zhoujunlin94.meet.redis.queue.TaskItem;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +23,11 @@ import java.util.concurrent.TimeUnit;
 @RestController
 public class RedisMsgController {
 
-    @Resource
+    // @Resource
     private RedisDelayQueue redisDelayQueue;
+
+    @Resource
+    private RedissonDelayedQueue redissonDelayedQueue;
 
     @GetMapping("/provideMsg")
     public String provider() {
@@ -33,6 +37,17 @@ public class RedisMsgController {
         //延迟5秒消费
         redisDelayQueue.delay("defaultQueueMsgHandler", "provider demo msg2", 5, TimeUnit.SECONDS);
         redisDelayQueue.delay("defaultQueueMsgHandler", "provider demo msg3", 30, TimeUnit.SECONDS);
+        return "success";
+    }
+
+    @GetMapping("/provideMsg2")
+    public String provider2() {
+        //验证redis 生产消费模式  起多台服务测试  - 一条消息只有一台机器消费（竞争关系）
+        //需要立即被消费
+        redissonDelayedQueue.delay("defaultQueueMsgHandler", "provider demo msg1", 0, TimeUnit.SECONDS);
+        //延迟5秒消费
+        redissonDelayedQueue.delay("defaultQueueMsgHandler", "provider demo msg2", 5, TimeUnit.SECONDS);
+        redissonDelayedQueue.delay("defaultQueueMsgHandler", "provider demo msg3", 30, TimeUnit.SECONDS);
         return "success";
     }
 
