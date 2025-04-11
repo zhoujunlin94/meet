@@ -32,7 +32,7 @@ public class CacheCfgTest {
 
     @Test
     public void insertCache() {
-        CacheCfg cacheCfg = new CacheCfg().setKey("test").setValue("abc").setDesc("cess");
+        CacheCfg cacheCfg = new CacheCfg().setKey("test100").setValue("abc").setDesc("cess");
         cacheCfgHandler.insertSelective(cacheCfg);
     }
 
