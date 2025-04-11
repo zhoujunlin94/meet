@@ -3,13 +3,12 @@ package io.github.zhoujunlin94.meet.tk_mybatis.example.test;
 import io.github.zhoujunlin94.meet.tk_mybatis.example.ExampleApp;
 import io.github.zhoujunlin94.meet.tk_mybatis.example.entity.meet.MeetUser;
 import io.github.zhoujunlin94.meet.tk_mybatis.example.handler.meet.MeetUserHandler;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import javax.annotation.Resource;
 
 /**
  * @author zhoujunlin

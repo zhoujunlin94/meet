@@ -1,18 +1,21 @@
 package io.github.zhoujunlin94.meet.common.util;
 
+import cn.hutool.core.exceptions.UtilException;
 import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.net.NetUtil;
+import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.extra.servlet.ServletUtil;
 import com.alibaba.fastjson.JSONObject;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.MediaType;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.Writer;
 import java.net.URLEncoder;
 
 /**
@@ -29,7 +32,21 @@ public class ServletUtils {
     @SuppressWarnings("deprecation") // 必须使用 APPLICATION_JSON_UTF8_VALUE，否则会乱码
     public static void writeJSON(HttpServletResponse response, Object object) {
         String content = JSONObject.toJSONString(object);
-        ServletUtil.write(response, content, MediaType.APPLICATION_JSON_UTF8_VALUE);
+        write(response, content, MediaType.APPLICATION_JSON_UTF8_VALUE);
+    }
+
+    public static void write(HttpServletResponse response, String text, String contentType) {
+        response.setContentType(contentType);
+        Writer writer = null;
+        try {
+            writer = response.getWriter();
+            writer.write(text);
+            writer.flush();
+        } catch (IOException e) {
+            throw new UtilException(e);
+        } finally {
+            IoUtil.close(writer);
+        }
     }
 
     /**
@@ -83,7 +100,29 @@ public class ServletUtils {
         if (request == null) {
             return null;
         }
-        return ServletUtil.getClientIP(request);
+        return getClientIP(request);
+    }
+
+    public static String getClientIP(HttpServletRequest request, String... otherHeaderNames) {
+        String[] headers = {"X-Forwarded-For", "X-Real-IP", "Proxy-Client-IP", "WL-Proxy-Client-IP", "HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR"};
+        if (ArrayUtil.isNotEmpty(otherHeaderNames)) {
+            headers = ArrayUtil.addAll(headers, otherHeaderNames);
+        }
+
+        return getClientIPByHeader(request, headers);
+    }
+
+    public static String getClientIPByHeader(HttpServletRequest request, String... headerNames) {
+        String ip;
+        for (String header : headerNames) {
+            ip = request.getHeader(header);
+            if (!NetUtil.isUnknown(ip)) {
+                return NetUtil.getMultistageReverseProxyIp(ip);
+            }
+        }
+
+        ip = request.getRemoteAddr();
+        return NetUtil.getMultistageReverseProxyIp(ip);
     }
 
     public static boolean isJsonRequest(ServletRequest request) {

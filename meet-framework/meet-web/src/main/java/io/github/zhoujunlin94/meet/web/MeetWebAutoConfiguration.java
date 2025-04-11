@@ -1,7 +1,6 @@
 package io.github.zhoujunlin94.meet.web;
 
 import cn.hutool.core.date.DatePattern;
-import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.PropertyNamingStrategy;
 import com.alibaba.fastjson.parser.Feature;
 import com.alibaba.fastjson.parser.ParserConfig;
@@ -10,19 +9,10 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import io.github.zhoujunlin94.meet.common.constant.CommonConstant;
-import org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties;
-import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
-import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortType;
-import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
-import org.springframework.boot.actuate.endpoint.web.*;
-import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointsSupplier;
-import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier;
-import org.springframework.boot.actuate.endpoint.web.servlet.WebMvcEndpointHandlerMapping;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -30,8 +20,6 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.TimeZone;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -114,36 +102,6 @@ public class MeetWebAutoConfiguration {
         fastConverter.setFastJsonConfig(jsonConfig);
 
         return fastConverter;
-    }
-
-    @Bean
-    public WebMvcEndpointHandlerMapping webEndpointServletHandlerMapping(WebEndpointsSupplier webEndpointsSupplier,
-                                                                         ServletEndpointsSupplier servletEndpointsSupplier,
-                                                                         ControllerEndpointsSupplier controllerEndpointsSupplier,
-                                                                         EndpointMediaTypes endpointMediaTypes,
-                                                                         CorsEndpointProperties corsProperties,
-                                                                         WebEndpointProperties webEndpointProperties,
-                                                                         Environment environment) {
-        Collection<ExposableWebEndpoint> webEndpoints = webEndpointsSupplier.getEndpoints();
-
-        List<ExposableEndpoint<?>> allEndpoints = new ArrayList<>();
-        allEndpoints.addAll(webEndpoints);
-        allEndpoints.addAll(servletEndpointsSupplier.getEndpoints());
-        allEndpoints.addAll(controllerEndpointsSupplier.getEndpoints());
-
-        String basePath = webEndpointProperties.getBasePath();
-        EndpointMapping endpointMapping = new EndpointMapping(basePath);
-        boolean shouldRegisterLinksMapping = webEndpointProperties.getDiscovery().isEnabled() &&
-                (StrUtil.isNotBlank(basePath) || ManagementPortType.DIFFERENT.equals(ManagementPortType.get(environment)));
-        return new WebMvcEndpointHandlerMapping(
-                endpointMapping,
-                webEndpoints,
-                endpointMediaTypes,
-                corsProperties.toCorsConfiguration(),
-                new EndpointLinksResolver(allEndpoints, basePath),
-                shouldRegisterLinksMapping,
-                null
-        );
     }
 
 }

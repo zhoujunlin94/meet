@@ -38,10 +38,4 @@ public final class Base62Generator {
         return num;
     }
 
-    /*public static void main(String[] args) {
-        long maxSixStrValue = decodeBase62("ZZZZZZ");
-        System.out.println(maxSixStrValue);
-        System.out.println(encodeBase62(maxSixStrValue, 6));
-    }*/
-
 }

@@ -8,13 +8,12 @@ import io.github.zhoujunlin94.meet.common.util.RequestIdUtil;
 import io.github.zhoujunlin94.meet.common.util.ServletUtils;
 import io.github.zhoujunlin94.meet.web.constant.HeaderConstant;
 import io.github.zhoujunlin94.meet.web.helper.ProjectHelper;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author zhoujl
@@ -27,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 public class HttpBaseInterceptor extends BaseInterceptor {
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String requestId = request.getHeader(HeaderConstant.X_REQUEST_ID);
         if (StrUtil.isBlank(requestId)) {
             requestId = response.getHeader(HeaderConstant.X_REQUEST_ID);

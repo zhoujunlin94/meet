@@ -4,6 +4,8 @@ import cn.hutool.core.util.StrUtil;
 import io.github.zhoujunlin94.meet.common.exception.CommonErrorCode;
 import io.github.zhoujunlin94.meet.common.exception.MeetException;
 import io.github.zhoujunlin94.meet.common.pojo.JsonResponse;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -13,8 +15,6 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.Iterator;
 import java.util.Optional;

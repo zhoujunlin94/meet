@@ -1,12 +1,12 @@
 package io.github.zhoujunlin94.meet.web.helper;
 
 import io.github.zhoujunlin94.meet.common.pojo.JsonResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.util.Objects;
 

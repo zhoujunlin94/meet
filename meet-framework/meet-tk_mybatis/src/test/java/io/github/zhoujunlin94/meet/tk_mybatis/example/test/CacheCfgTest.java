@@ -6,6 +6,7 @@ import io.github.zhoujunlin94.meet.common.exception.MeetException;
 import io.github.zhoujunlin94.meet.tk_mybatis.example.ExampleApp;
 import io.github.zhoujunlin94.meet.tk_mybatis.example.entity.base.CacheCfg;
 import io.github.zhoujunlin94.meet.tk_mybatis.example.handler.base.CacheCfgHandler;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +14,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 

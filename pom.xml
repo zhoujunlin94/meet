@@ -61,7 +61,7 @@
         <lombok.version>1.18.24</lombok.version>
         <slf4j.version>1.7.25</slf4j.version>
 
-        <hutool.version>5.8.11</hutool.version>
+        <hutool.version>5.8.37</hutool.version>
         <poi.version>5.0.0</poi.version>
         <easyexcel.verion>3.2.0</easyexcel.verion>
 
@@ -206,7 +206,7 @@
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
-                <version>4.4.0</version>
+                <version>${knife4j.version}</version>
             </dependency>
 
             <!-- jwt依赖 -->

@@ -8,10 +8,10 @@ import io.github.zhoujunlin94.meet.common.util.RequestIdUtil;
 import io.github.zhoujunlin94.meet.redis.constant.RedisConstant;
 import io.github.zhoujunlin94.meet.redis.dispatcher.QueueMsgDispatcher;
 import io.github.zhoujunlin94.meet.redis.helper.RedisHelper;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 
-import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;

@@ -2,12 +2,12 @@ package io.github.zhoujunlin94.meet.web.filter;
 
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
@@ -41,5 +41,5 @@ public class SeataFilter implements Filter {
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }
-    
+
 }
