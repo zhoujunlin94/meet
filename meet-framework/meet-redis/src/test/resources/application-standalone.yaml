@@ -1,10 +1,10 @@
 spring:
   data:
     redis:
-      host: dev.redis.gaodunwangxiao.com
-      port: 6379
+      host: localhost
+      port: 16379
       # 空密码需要注释掉  否则redisson会报错
-      password: Zjreg9CLterPZyJVFJVW
+      password: meetredis
       database: 21
       lettuce:
         pool:
