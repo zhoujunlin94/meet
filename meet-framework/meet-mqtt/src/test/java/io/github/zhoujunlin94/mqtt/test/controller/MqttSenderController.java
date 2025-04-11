@@ -32,7 +32,7 @@ public class MqttSenderController {
         message.setQos(0);
 
         // 发布消息
-        publicMqttClient.publish("mqtt/test", message);
+        publicMqttClient.publish("mqtt/test101", message);
     }
 
 
