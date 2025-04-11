@@ -40,8 +40,8 @@
     </scm>
 
     <properties>
-        <revision>1.2.9</revision>
-        <java.version>1.8</java.version>
+        <revision>3.0.0</revision>
+        <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -54,9 +54,9 @@
         <flatten-maven-plugin.version>1.6.0</flatten-maven-plugin.version>
 
         <!-- 统一依赖管理 -->
-        <spring.boot.version>2.6.11</spring.boot.version>
-        <spring.cloud.version>2021.0.4</spring.cloud.version>
-        <spring.cloud.alibaba.version>2021.0.4.0</spring.cloud.alibaba.version>
+        <spring.boot.version>3.0.2</spring.boot.version>
+        <spring.cloud.version>2022.0.0</spring.cloud.version>
+        <spring.cloud.alibaba.version>2022.0.0.2</spring.cloud.alibaba.version>
 
         <lombok.version>1.18.24</lombok.version>
         <slf4j.version>1.7.25</slf4j.version>
@@ -75,7 +75,7 @@
 
         <openfeign.version>11.0</openfeign.version>
 
-        <knife4j.version>3.0.3</knife4j.version>
+        <knife4j.version>4.4.0</knife4j.version>
 
         <jjwt-version>0.9.0</jjwt-version>
 
@@ -89,7 +89,6 @@
         <mysql-connector-java.version>8.0.17</mysql-connector-java.version>
         <tk.mybatis.version>2.0.0</tk.mybatis.version>
         <mybatisplus.version>3.5.3.1</mybatisplus.version>
-        <p6spy.version>3.9.1</p6spy.version>
         <pagehelper.version>5.1.11</pagehelper.version>
         <seata.version>1.5.2</seata.version>
 
@@ -206,8 +205,8 @@
 
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-spring-boot-starter</artifactId>
-                <version>${knife4j.version}</version>
+                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+                <version>4.4.0</version>
             </dependency>
 
             <!-- jwt依赖 -->
@@ -266,11 +265,6 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatisplus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>p6spy</groupId>
-                <artifactId>p6spy</artifactId>
-                <version>${p6spy.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.pagehelper</groupId>
