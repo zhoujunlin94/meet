@@ -1,4 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-io.github.zhoujunlin94.meet.tk_mybatis.MeetTKMybatisAutoConfiguration
-org.springframework.context.ApplicationListener=\
-io.github.zhoujunlin94.meet.tk_mybatis.EnvironmentMergeListener

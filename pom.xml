@@ -87,8 +87,7 @@
 
         <elasticsearch.version>6.8.0</elasticsearch.version>
         <mysql-connector-java.version>8.0.17</mysql-connector-java.version>
-        <tk.mybatis.version>2.0.0</tk.mybatis.version>
-        <mybatisplus.version>3.5.3.1</mybatisplus.version>
+        <tk.mybatis.version>5.0.1</tk.mybatis.version>
         <pagehelper.version>5.1.11</pagehelper.version>
         <seata.version>1.5.2</seata.version>
 
@@ -262,11 +261,6 @@
                 <version>${tk.mybatis.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatisplus.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>com.github.pagehelper</groupId>
                 <artifactId>pagehelper</artifactId>
                 <version>${pagehelper.version}</version>
@@ -361,22 +355,10 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
                 <version>${versions-maven.version}</version> <!-- 使用最新稳定版本 -->
-            </plugin>
-            <!--   central发布插件    -->
-            <plugin>
-                <groupId>org.sonatype.central</groupId>
-                <artifactId>central-publishing-maven-plugin</artifactId>
-                <version>${central-publishing.version}</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <publishingServerId>central</publishingServerId>
-                    <tokenAuth>true</tokenAuth>
-                </configuration>
             </plugin>
             <!--   source源码插件 -->
             <plugin>
@@ -415,6 +397,18 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!--   central发布插件    -->
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>${central-publishing.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                    <tokenAuth>true</tokenAuth>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
@@ -436,6 +430,7 @@
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
     </build>
 

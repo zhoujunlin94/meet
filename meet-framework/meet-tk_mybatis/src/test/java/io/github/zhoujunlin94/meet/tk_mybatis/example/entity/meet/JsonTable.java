@@ -2,16 +2,15 @@ package io.github.zhoujunlin94.meet.tk_mybatis.example.entity.meet;
 
 import com.alibaba.fastjson.JSON;
 import io.github.zhoujunlin94.meet.tk_mybatis.handler.JsonTypeHandler;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import tk.mybatis.mapper.annotation.ColumnType;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Data
 @Builder
