@@ -8,7 +8,6 @@ import org.junit.runner.RunWith;
 import org.redisson.api.RateIntervalUnit;
 import org.redisson.api.RateType;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.concurrent.TimeUnit;
@@ -20,7 +19,6 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @RunWith(SpringRunner.class)
-@ActiveProfiles(profiles = "standalone")
 @SpringBootTest(classes = ExampleApp.class)
 public class LockTest {
 

@@ -23,7 +23,6 @@ import java.util.concurrent.TimeUnit;
 @RestController
 public class RedisMsgController {
 
-    // @Resource
     private RedisDelayQueue redisDelayQueue;
 
     @Resource
@@ -62,7 +61,7 @@ public class RedisMsgController {
     }
 
     @GetMapping("/limit")
-    @Limiter(name = "testLimiter", key = "TestLimiterKey", period = 1000, count = 1)
+    @Limiter(name = "testLimiter", key = "TestLimiterKey3", period = 1000, count = 1)
     public String limit() {
         return "success";
     }
@@ -70,7 +69,7 @@ public class RedisMsgController {
     @GetMapping(value = "/lock", produces = MediaType.APPLICATION_JSON_VALUE)
     @RedissonLocker(prefix = "test", suffixEL = "#name", waitTime = 3)
     public String lock(@RequestParam String name) throws InterruptedException {
-        TimeUnit.SECONDS.sleep(1000L);
+        TimeUnit.SECONDS.sleep(5L);
         return "success";
     }
 

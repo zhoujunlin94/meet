@@ -61,9 +61,8 @@ public class LimiterAspect {
                 break;
         }
         String redisKey = StrUtil.join(":", limiterAnnotation.prefix(), key);
-        String countStr = RedisHelper.execute(RedisConstant.LuaScripts.LIMITER_LUA, Collections.singletonList(redisKey), Arrays.asList(Convert.toStr(limiterCount), Convert.toStr(limiterPeriod)), String.class);
-        log.info("IP:{} 第 {} 次访问key为 {}，描述为 [{}] 的接口", ip, countStr, redisKey, name);
-        Integer count = Convert.toInt(countStr, 0);
+        Long count = RedisHelper.execute(RedisConstant.LuaScripts.LIMITER_LUA, Collections.singletonList(redisKey), Arrays.asList(Convert.toStr(limiterCount), Convert.toStr(limiterPeriod)), Long.class);
+        log.info("IP:{} 第 {} 次访问key为 {}，描述为 [{}] 的接口", ip, count, redisKey, name);
         if (Objects.nonNull(count) && count <= limiterCount) {
             return point.proceed();
         } else {
