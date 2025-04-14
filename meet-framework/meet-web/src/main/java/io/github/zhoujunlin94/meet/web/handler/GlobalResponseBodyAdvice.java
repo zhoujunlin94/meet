@@ -31,7 +31,7 @@ public class GlobalResponseBodyAdvice implements ResponseBodyAdvice<Object> {
                                   @NonNull ServerHttpRequest request, @NonNull ServerHttpResponse response) {
         JsonResponse jsonResponse = body instanceof JsonResponse ? (JsonResponse) body : JsonResponse.builder().code(CommonErrorCode.S_SUC.getCode()).
                 msg(CommonErrorCode.S_SUC.getMsg()).data(body).build();
-        Object result = MediaType.APPLICATION_JSON.equals(selectedContentType) || MediaType.APPLICATION_JSON_UTF8.equals(selectedContentType)
+        Object result = MediaType.APPLICATION_JSON.equals(selectedContentType)
                 ? jsonResponse : body;
         log.warn("当前接口响应内容:{}", result);
         return result;
@@ -43,7 +43,11 @@ public class GlobalResponseBodyAdvice implements ResponseBodyAdvice<Object> {
         List<String> notSupportClazz = CollUtil.newArrayList(
                 "springfox.documentation.swagger2.web.Swagger2ControllerWebMvc",
                 "springfox.documentation.swagger.web.ApiResourceController",
-                "org.springdoc.webmvc.ui.SwaggerConfigResource"
+                "org.springdoc.webmvc.ui.SwaggerConfigResource",
+                "org.springdoc.webmvc.api.MultipleOpenApiWebMvcResource",
+                "org.springdoc.webmvc.api.OpenApiWebMvcResource",
+                "org.springdoc.webmvc.api.OpenApiActuatorResource",
+                "org.springdoc.webmvc.api.MultipleOpenApiActuatorResource"
         );
         return !CollUtil.contains(notSupportClazz, executorClazzName);
     }

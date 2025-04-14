@@ -40,7 +40,7 @@
     </scm>
 
     <properties>
-        <revision>3.0.4</revision>
+        <revision>3.0.5</revision>
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -65,7 +65,7 @@
         <poi.version>5.0.0</poi.version>
         <easyexcel.verion>3.2.0</easyexcel.verion>
 
-        <fastjson.version>1.2.83</fastjson.version>
+        <fastjson.version>2.0.57</fastjson.version>
         <transmittable-thread-local.version>2.14.2</transmittable-thread-local.version>
 
         <guava.version>31.1-jre</guava.version>
@@ -165,10 +165,16 @@
             </dependency>
 
             <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
                 <version>${fastjson.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2-extension-spring6</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>transmittable-thread-local</artifactId>
