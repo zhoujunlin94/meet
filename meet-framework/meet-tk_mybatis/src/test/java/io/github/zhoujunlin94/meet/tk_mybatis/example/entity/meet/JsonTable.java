@@ -2,6 +2,7 @@ package io.github.zhoujunlin94.meet.tk_mybatis.example.entity.meet;
 
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
+import io.github.zhoujunlin94.meet.tk_mybatis.handler.JsonArrayTypeHandler;
 import io.github.zhoujunlin94.meet.tk_mybatis.handler.JsonTypeHandler;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
@@ -36,7 +37,7 @@ public class JsonTable {
     /**
      * json类型
      */
-    @ColumnType(column = "json_obj", typeHandler = JSONArray.class)
+    @ColumnType(column = "json_obj", typeHandler = JsonArrayTypeHandler.class)
     private JSONArray jsonObj;
 
 }
