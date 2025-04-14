@@ -40,7 +40,7 @@
     </scm>
 
     <properties>
-        <revision>3.0.5</revision>
+        <revision>3.0.6</revision>
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -59,7 +59,7 @@
         <spring.cloud.alibaba.version>2022.0.0.2</spring.cloud.alibaba.version>
 
         <lombok.version>1.18.24</lombok.version>
-        <slf4j.version>1.7.25</slf4j.version>
+        <slf4j.version>2.0.6</slf4j.version>
 
         <hutool.version>5.8.37</hutool.version>
         <poi.version>5.0.0</poi.version>
@@ -144,7 +144,7 @@
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
-                <artifactId>log4j-over-slf4j</artifactId>
+                <artifactId>slf4j-api</artifactId>
                 <version>${slf4j.version}</version>
             </dependency>
 
