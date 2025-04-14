@@ -42,7 +42,8 @@ public class GlobalResponseBodyAdvice implements ResponseBodyAdvice<Object> {
         String executorClazzName = returnType.getExecutable().getDeclaringClass().getName();
         List<String> notSupportClazz = CollUtil.newArrayList(
                 "springfox.documentation.swagger2.web.Swagger2ControllerWebMvc",
-                "springfox.documentation.swagger.web.ApiResourceController"
+                "springfox.documentation.swagger.web.ApiResourceController",
+                "org.springdoc.webmvc.ui.SwaggerConfigResource"
         );
         return !CollUtil.contains(notSupportClazz, executorClazzName);
     }
