@@ -1,6 +1,6 @@
 package io.github.zhoujunlin94.meet.redis.consumer;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import io.github.zhoujunlin94.meet.common.util.RequestIdUtil;
 import io.github.zhoujunlin94.meet.redis.dispatcher.PubSubMsgDispatcher;
 import io.github.zhoujunlin94.meet.redis.queue.TaskItem;

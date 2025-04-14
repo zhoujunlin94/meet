@@ -1,7 +1,7 @@
 package io.github.zhoujunlin94.mqtt.test.handler;
 
 import cn.hutool.core.collection.CollUtil;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import io.github.zhoujunlin94.mqtt.handler.MqttMessageHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.MqttMessage;

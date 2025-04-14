@@ -1,8 +1,7 @@
 package io.github.zhoujunlin94.meet.tk_mybatis.example.test;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONArray;
+import com.alibaba.fastjson2.JSONObject;
 import io.github.zhoujunlin94.meet.tk_mybatis.example.ExampleApp;
 import io.github.zhoujunlin94.meet.tk_mybatis.example.entity.meet.JsonTable;
 import io.github.zhoujunlin94.meet.tk_mybatis.example.mapper.meet.JsonTableMapper;
@@ -29,21 +28,19 @@ public class JSONTableTest {
 
     @Test
     public void insert() {
-        JSON json2 = new JSONObject();
-        JSON json1 = new JSONObject();
+        JSONObject json2 = new JSONObject();
+        JSONArray json1 = new JSONArray();
         jsonTableMapper.insert(JsonTable.builder()
-                .jsonStr(json1)
-                .jsonObj(json2)
+                .jsonStr(json2)
+                .jsonObj(json1)
                 .build());
     }
 
     @Test
     public void insert2() {
-        JSON json2 = null;
-        JSON json1 = null;
         jsonTableMapper.insertSelective(JsonTable.builder()
-                .jsonStr(json1)
-                .jsonObj(json2)
+                .jsonStr(null)
+                .jsonObj(null)
                 .build());
     }
 
@@ -53,10 +50,10 @@ public class JSONTableTest {
         json1.put("userName", "zhoujl");
 
         JSONObject json2 = new JSONObject();
-        json2.put("userName", "zhoujl");
+        json2.put("userName", "zhoujl2");
         jsonTableMapper.insert(JsonTable.builder()
                 .jsonStr(json1)
-                .jsonObj(json2)
+                .jsonObj(JSONArray.of(json1, json2))
                 .build());
     }
 
@@ -71,7 +68,7 @@ public class JSONTableTest {
         jsonArray.add(jsonObject);
 
         jsonTableMapper.insert(JsonTable.builder()
-                .jsonStr(jsonArray)
+                .jsonStr(jsonObject)
                 .jsonObj(jsonArray)
                 .build());
     }
@@ -88,11 +85,9 @@ public class JSONTableTest {
         System.out.println(jsonTable.getJsonObj().toJSONString());
         System.out.println(jsonTable.getJsonStr().toJSONString());
 
-        JSONArray jsonArray = (JSONArray) jsonTable.getJsonObj();
+        JSONArray jsonArray = jsonTable.getJsonObj();
         System.out.println(jsonArray.get(0));
         System.out.println(jsonArray.get(1));
-
-
     }
 
 

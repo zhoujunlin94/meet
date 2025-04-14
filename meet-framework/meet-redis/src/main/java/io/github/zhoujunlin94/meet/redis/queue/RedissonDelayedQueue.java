@@ -3,7 +3,7 @@ package io.github.zhoujunlin94.meet.redis.queue;
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import io.github.zhoujunlin94.meet.common.util.RequestIdUtil;
 import io.github.zhoujunlin94.meet.redis.constant.RedisConstant;
 import io.github.zhoujunlin94.meet.redis.dispatcher.QueueMsgDispatcher;
