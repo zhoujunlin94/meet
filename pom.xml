@@ -40,15 +40,15 @@
     </scm>
 
     <properties>
-        <revision>3.0.11</revision>
+        <revision>3.0.12</revision>
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <central-publishing.version>0.4.0</central-publishing.version>
-        <maven-source.version>2.2.1</maven-source.version>
-        <maven-javadoc.version>2.9.1</maven-javadoc.version>
+        <maven-source.version>3.0.1</maven-source.version>
+        <maven-javadoc.version>3.0.1</maven-javadoc.version>
         <maven-gpg.version>1.5</maven-gpg.version>
         <versions-maven.version>2.16.2</versions-maven.version>
         <flatten-maven-plugin.version>1.6.0</flatten-maven-plugin.version>
@@ -292,10 +292,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
             <!-- 统一 revision 版本 -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -326,17 +322,23 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
                 <version>${versions-maven.version}</version> <!-- 使用最新稳定版本 -->
+                <configuration>
+                    <generateBackupPoms>false</generateBackupPoms>
+                </configuration>
             </plugin>
             <!--   source源码插件 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
                 <version>${maven-source.version}</version>
+                <configuration>
+                    <attach>true</attach>
+                </configuration>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
                         <goals>
-                            <goal>jar-no-fork</goal>
+                            <goal>jar</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -347,8 +349,10 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${maven-javadoc.version}</version>
                 <configuration>
+                    <additionalOptions>
+                        <additionalOption>-Xdoclint:none</additionalOption>
+                    </additionalOptions>
                     <encoding>UTF-8</encoding>
-                    <aggregate>true</aggregate>
                     <charset>UTF-8</charset>
                     <docencoding>UTF-8</docencoding>
                 </configuration>
@@ -358,9 +362,6 @@
                         <goals>
                             <goal>jar</goal>
                         </goals>
-                        <configuration>
-                            <additionalparam>-Xdoclint:none</additionalparam>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
