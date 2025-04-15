@@ -40,7 +40,7 @@
     </scm>
 
     <properties>
-        <revision>3.0.8</revision>
+        <revision>3.0.9</revision>
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -292,6 +292,10 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
             <!-- 统一 revision 版本 -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
