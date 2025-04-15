@@ -40,7 +40,7 @@
     </scm>
 
     <properties>
-        <revision>3.0.6</revision>
+        <revision>3.0.7</revision>
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -76,8 +76,6 @@
         <openfeign.version>11.0</openfeign.version>
 
         <knife4j.version>4.4.0</knife4j.version>
-
-        <jjwt-version>0.9.0</jjwt-version>
 
         <netty-all.version>4.1.86.Final</netty-all.version>
         <netty-socketio.version>1.7.17</netty-socketio.version>
@@ -212,13 +210,6 @@
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
                 <version>${knife4j.version}</version>
-            </dependency>
-
-            <!-- jwt依赖 -->
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt</artifactId>
-                <version>${jjwt-version}</version>
             </dependency>
 
             <dependency>
