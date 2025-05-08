@@ -40,18 +40,19 @@
     </scm>
 
     <properties>
-        <revision>3.0.12</revision>
+        <revision>3.0.13</revision>
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <central-publishing.version>0.4.0</central-publishing.version>
-        <maven-source.version>3.0.1</maven-source.version>
-        <maven-javadoc.version>3.0.1</maven-javadoc.version>
-        <maven-gpg.version>1.5</maven-gpg.version>
-        <versions-maven.version>2.16.2</versions-maven.version>
         <flatten-maven-plugin.version>1.6.0</flatten-maven-plugin.version>
+        <versions-maven.version>2.16.2</versions-maven.version>
+        <maven-source.version>3.2.1</maven-source.version>
+        <maven-javadoc.version>3.5.0</maven-javadoc.version>
+        <maven-compiler.version>3.11.0</maven-compiler.version>
+        <maven-gpg.version>1.5</maven-gpg.version>
+        <central-publishing.version>0.4.0</central-publishing.version>
 
         <!-- 统一依赖管理 -->
         <spring.boot.version>3.0.2</spring.boot.version>
@@ -365,16 +366,14 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <!--   central发布插件    -->
             <plugin>
-                <groupId>org.sonatype.central</groupId>
-                <artifactId>central-publishing-maven-plugin</artifactId>
-                <version>${central-publishing.version}</version>
-                <extensions>true</extensions>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler.version}</version>
                 <configuration>
-                    <publishingServerId>central</publishingServerId>
-                    <tokenAuth>true</tokenAuth>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
             <plugin>
@@ -398,7 +397,17 @@
                     </execution>
                 </executions>
             </plugin>
-
+            <!--   central发布插件    -->
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>${central-publishing.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                    <tokenAuth>true</tokenAuth>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
