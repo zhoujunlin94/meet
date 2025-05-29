@@ -40,7 +40,7 @@
     </scm>
 
     <properties>
-        <revision>3.0.13</revision>
+        <revision>3.0.14</revision>
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -101,12 +101,27 @@
             <dependency>
                 <groupId>io.github.zhoujunlin94</groupId>
                 <artifactId>meet-common</artifactId>
-                <version>${project.version}</version>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.zhoujunlin94</groupId>
+                <artifactId>meet-feign</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.zhoujunlin94</groupId>
+                <artifactId>meet-redis</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.zhoujunlin94</groupId>
+                <artifactId>meet-tk_mybatis</artifactId>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>io.github.zhoujunlin94</groupId>
                 <artifactId>meet-web</artifactId>
-                <version>${project.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <dependency>
