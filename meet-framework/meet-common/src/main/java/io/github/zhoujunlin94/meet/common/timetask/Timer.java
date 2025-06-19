@@ -1,12 +1,17 @@
 package io.github.zhoujunlin94.meet.common.timetask;
 
-import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicInteger;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.concurrent.DelayQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author zhoujunlin
  * @date 2025-06-19-15:29
  */
+@Slf4j
 public class Timer {
 
     /**
@@ -24,20 +29,22 @@ public class Timer {
      */
     private final ExecutorService workerThreadPool;
 
-    /**
-     * 构造函数
-     */
-    public Timer() {
-        timeWheel = new TimeWheel(1, 20, System.currentTimeMillis(), delayQueue);
-        workerThreadPool = Executors.newFixedThreadPool(100);
+
+    public Timer(int tickMs, int wheelSize, int workerThreads, int delayQueuePollTimeout) {
+        timeWheel = new TimeWheel(tickMs, wheelSize, System.currentTimeMillis(), delayQueue);
+        workerThreadPool = Executors.newFixedThreadPool(workerThreads);
         // 轮询delayQueue获取过期任务线程
         ExecutorService bossThreadPool = Executors.newFixedThreadPool(1);
         // 20ms获取一次过期任务
         bossThreadPool.submit(() -> {
             while (true) {
-                this.advanceClock(20);
+                this.advanceClock(delayQueuePollTimeout);
             }
         });
+    }
+
+    public Timer() {
+        this(1, 20, 100, 20);
     }
 
     /**
@@ -59,42 +66,11 @@ public class Timer {
             if (timerTaskSlot != null) {
                 //推进时间
                 timeWheel.advanceClock(timerTaskSlot.getExpiration());
-                //执行过期任务（包含降级操作）
+                // 执行过期任务（包含降级操作）
                 timerTaskSlot.flush(this::addTask);
             }
         } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    public static void main(String[] args) {
-        CountDownLatch countDownLatch = new CountDownLatch(1000);
-        AtomicInteger runCount = new AtomicInteger();
-        int inCount = 0;
-        Timer timer = new Timer();
-        for (int i = 1; i <= 1000; i++) {
-            TimerTask timerTask = new TimerTask(i, () -> {
-                countDownLatch.countDown();
-                int index = runCount.incrementAndGet();
-                System.out.println(index + "----------执行");
-            });
-            timer.addTask(timerTask);
-            System.out.println(i + "++++++++++加入");
-            inCount++;
-        }
-        TimerTask timerTask = new TimerTask(5000, () -> {
-            countDownLatch.countDown();
-            int index = runCount.incrementAndGet();
-            System.out.println(index + "----------执行");
-        });
-        timer.addTask(timerTask);
-        try {
-            countDownLatch.await();
-            System.out.println("inCount" + inCount);
-            System.out.println("runCount" + runCount);
-        } catch (Exception e) {
-            e.printStackTrace();
+            log.error("advanceClock error", e);
         }
     }
 

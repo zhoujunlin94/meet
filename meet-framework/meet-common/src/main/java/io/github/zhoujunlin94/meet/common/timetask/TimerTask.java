@@ -46,6 +46,12 @@ public class TimerTask {
         this.task = task;
     }
 
+    public TimerTask(long delayMs, Runnable task, String desc) {
+        this.delayMs = System.currentTimeMillis() + delayMs;
+        this.task = task;
+        this.desc = desc;
+    }
+
     @Override
     public String toString() {
         return desc;
