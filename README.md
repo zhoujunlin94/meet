@@ -6,7 +6,10 @@
 
 doc-开发环境搭建文档积累
 
-一键更新版本号 mvn versions:set "-DnewVersion=1.2.3"
+一键更新版本号
+
+1. mvn versions:set "-DnewVersion=1.2.3"
+2. 直接修改父pom revision （推荐）
 
 如何将自己开发的jar上传到maven中央仓库？ 参考：https://juejin.cn/post/7347207466818289703
 
