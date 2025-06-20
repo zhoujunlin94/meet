@@ -11,6 +11,8 @@
 
     <artifactId>meet-framework</artifactId>
 
+    <name>meet-framework</name>
+
     <packaging>pom</packaging>
     <modules>
         <module>meet-common</module>
