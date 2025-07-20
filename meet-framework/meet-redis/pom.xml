@@ -6,11 +6,11 @@
         <artifactId>meet-framework</artifactId>
         <groupId>io.github.zhoujunlin94</groupId>
         <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>meet-redis</artifactId>
-
     <name>meet-redis</name>
 
     <properties>

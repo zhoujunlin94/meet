@@ -16,7 +16,7 @@
 
     <name>meet</name>
     <url>https://github.com/zhoujunlin94/meet.git</url>
-    <description>meet with springboot</description>
+    <description>meet with spring</description>
     <developers>
         <developer>
             <name>zhoujunlin</name>
@@ -40,7 +40,7 @@
     </scm>
 
     <properties>
-        <revision>3.1.0</revision>
+        <revision>3.1.1</revision>
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -91,8 +91,6 @@
 
         <sa-token.version>1.35.0.RC</sa-token.version>
 
-        <byte-buddy.version>1.10.9</byte-buddy.version>
-
         <mqttv3.version>1.2.5</mqttv3.version>
     </properties>
 
@@ -110,7 +108,17 @@
             </dependency>
             <dependency>
                 <groupId>io.github.zhoujunlin94</groupId>
+                <artifactId>meet-mqtt</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.zhoujunlin94</groupId>
                 <artifactId>meet-redis</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.zhoujunlin94</groupId>
+                <artifactId>meet-rocketmq</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
@@ -150,11 +158,6 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${slf4j.version}</version>
             </dependency>
 
             <dependency>
@@ -284,18 +287,6 @@
                 <groupId>cn.dev33</groupId>
                 <artifactId>sa-token-jwt</artifactId>
                 <version>${sa-token.version}</version>
-            </dependency>
-
-            <!-- Byte-buddy -->
-            <dependency>
-                <groupId>net.bytebuddy</groupId>
-                <artifactId>byte-buddy</artifactId>
-                <version>${byte-buddy.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.bytebuddy</groupId>
-                <artifactId>byte-buddy-agent</artifactId>
-                <version>${byte-buddy.version}</version>
             </dependency>
 
             <dependency>

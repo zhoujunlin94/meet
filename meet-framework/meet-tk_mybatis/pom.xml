@@ -6,11 +6,11 @@
         <artifactId>meet-framework</artifactId>
         <groupId>io.github.zhoujunlin94</groupId>
         <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>meet-tk_mybatis</artifactId>
-
     <name>meet-tk_mybatis</name>
 
     <properties>
