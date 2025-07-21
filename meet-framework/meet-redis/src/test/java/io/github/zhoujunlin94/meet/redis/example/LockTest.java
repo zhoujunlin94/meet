@@ -3,12 +3,10 @@ package io.github.zhoujunlin94.meet.redis.example;
 import cn.hutool.core.date.DateUtil;
 import io.github.zhoujunlin94.meet.redis.helper.RedissonHelper;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.redisson.api.RateIntervalUnit;
 import org.redisson.api.RateType;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,7 +16,6 @@ import java.util.concurrent.TimeUnit;
  * @desc
  */
 @Slf4j
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = ExampleApp.class)
 public class LockTest {
 

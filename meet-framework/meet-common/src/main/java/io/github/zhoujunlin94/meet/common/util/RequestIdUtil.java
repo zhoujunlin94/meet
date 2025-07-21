@@ -21,12 +21,14 @@ public final class RequestIdUtil {
     }
 
     public static String getRequestId() {
-        String requestId = MDC.get(REQUEST_ID);
+        String requestId = StrUtil.EMPTY;
+        RequestContext requestContext = RequestContextUtil.get();
+        if (Objects.nonNull(requestContext)) {
+            requestId = requestContext.getRequestId();
+        }
+
         if (StrUtil.isBlank(requestId)) {
-            RequestContext requestContext = RequestContextUtil.get();
-            if (Objects.nonNull(requestContext)) {
-                requestId = requestContext.getRequestId();
-            }
+            requestId = MDC.get(REQUEST_ID);
         }
 
         if (StrUtil.isBlank(requestId)) {

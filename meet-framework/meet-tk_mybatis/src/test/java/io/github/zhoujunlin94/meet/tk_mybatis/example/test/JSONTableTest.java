@@ -7,10 +7,8 @@ import io.github.zhoujunlin94.meet.tk_mybatis.example.entity.meet.JsonTable;
 import io.github.zhoujunlin94.meet.tk_mybatis.example.mapper.meet.JsonTableMapper;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * @author zhoujunlin
@@ -18,7 +16,6 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @desc
  */
 @Slf4j
-@RunWith(SpringRunner.class)
 // @ActiveProfiles(profiles = "dev")
 @SpringBootTest(classes = ExampleApp.class)
 public class JSONTableTest {

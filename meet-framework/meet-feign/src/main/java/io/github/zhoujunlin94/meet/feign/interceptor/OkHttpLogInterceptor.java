@@ -1,6 +1,7 @@
 package io.github.zhoujunlin94.meet.feign.interceptor;
 
 import cn.hutool.core.date.StopWatch;
+import cn.hutool.core.util.StrUtil;
 import io.github.zhoujunlin94.meet.common.util.RequestIdUtil;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
@@ -21,12 +22,10 @@ public class OkHttpLogInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
-
-        MDC.put(RequestIdUtil.REQUEST_ID, request.header(RequestIdUtil.REQUEST_ID));
-        StringBuilder logInfo = new StringBuilder("\n|=================[PRINT_REQUEST]======================\n")
-                .append("|=> 请求URL: ").append(request.url()).append("\n")
-                .append("|=> 请求Method: ").append(request.method()).append("\n")
-                .append("|=> 请求Headers:").append(request.headers()).append("\n");
+        String requestId = StrUtil.blankToDefault(request.header(RequestIdUtil.REQUEST_ID), RequestIdUtil.getRequestId());
+        MDC.put(RequestIdUtil.REQUEST_ID, requestId);
+        log.warn(">>>请求URL: {} {}", request.method(), request.url());
+        log.warn(">>>请求Headers: {}", request.headers());
 
         // 打印请求体（如果有）
         RequestBody requestBody = request.body();
@@ -34,7 +33,7 @@ public class OkHttpLogInterceptor implements Interceptor {
             Buffer buffer = new Buffer();
             requestBody.writeTo(buffer);
             String body = buffer.readString(StandardCharsets.UTF_8);
-            logInfo.append("|=> 请求Body: ").append(body).append("\n");
+            log.warn(">>>请求Body: {}", body);
         }
 
         // 执行请求
@@ -42,15 +41,13 @@ public class OkHttpLogInterceptor implements Interceptor {
         stopWatch.start();
         Response response = chain.proceed(request);
         stopWatch.stop();
-        logInfo.append("|=> 请求耗时: ").append(stopWatch.getTotalTimeMillis()).append("ms").append("\n");
+        log.warn("<<<请求耗时: {}ms", stopWatch.getTotalTimeMillis());
 
         // 打印响应信息
-        logInfo.append("|=> 响应Code: ").append(response.code()).append("\n");
+        log.warn("<<<响应code: {}", response.code());
         // 不消耗原始流
         ResponseBody responseBody = response.peekBody(Long.MAX_VALUE);
-        logInfo.append("|=> 响应Body: ").append(responseBody.string()).append("\n");
-        logInfo.append("|=================[PRINT_REQUEST]======================\n");
-        log.warn(logInfo.toString());
+        log.warn("<<<响应body: {}", responseBody.string());
         return response;
     }
 

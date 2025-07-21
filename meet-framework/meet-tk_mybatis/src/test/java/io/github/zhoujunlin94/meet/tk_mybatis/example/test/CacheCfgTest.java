@@ -8,10 +8,8 @@ import io.github.zhoujunlin94.meet.tk_mybatis.example.entity.base.CacheCfg;
 import io.github.zhoujunlin94.meet.tk_mybatis.example.handler.base.CacheCfgHandler;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -22,7 +20,6 @@ import java.util.List;
  * @date 2024/4/21 10:05
  */
 @Slf4j
-@RunWith(SpringRunner.class)
 // @ActiveProfiles(profiles = "dev")
 @SpringBootTest(classes = ExampleApp.class)
 public class CacheCfgTest {

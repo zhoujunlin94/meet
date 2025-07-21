@@ -18,7 +18,7 @@ import org.springframework.util.StopWatch;
 @Slf4j
 @Aspect
 @Component
-@ConditionalOnProperty(name = "feign.log.enable", havingValue = "true")
+@ConditionalOnProperty(name = "feign.log.style", havingValue = "aop")
 public class FeignLogAspect {
 
     @Pointcut("@within(org.springframework.cloud.openfeign.FeignClient)")

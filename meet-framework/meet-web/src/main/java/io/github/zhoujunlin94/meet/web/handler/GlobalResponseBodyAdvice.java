@@ -1,6 +1,7 @@
 package io.github.zhoujunlin94.meet.web.handler;
 
 import cn.hutool.core.collection.CollUtil;
+import com.alibaba.fastjson2.JSON;
 import io.github.zhoujunlin94.meet.common.exception.CommonErrorCode;
 import io.github.zhoujunlin94.meet.common.pojo.JsonResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -29,10 +30,16 @@ public class GlobalResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     public Object beforeBodyWrite(Object body, @NonNull MethodParameter returnType, @NonNull MediaType selectedContentType,
                                   @NonNull Class<? extends HttpMessageConverter<?>> selectedConverterType,
                                   @NonNull ServerHttpRequest request, @NonNull ServerHttpResponse response) {
-        JsonResponse jsonResponse = body instanceof JsonResponse ? (JsonResponse) body : JsonResponse.builder().code(CommonErrorCode.S_SUC.getCode()).
-                msg(CommonErrorCode.S_SUC.getMsg()).data(body).build();
+        if (body instanceof JsonResponse) {
+            return body;
+        }
+
+        JsonResponse<Object> jsonResponse = JsonResponse.builder().code(CommonErrorCode.S_SUC.getCode()).msg(CommonErrorCode.S_SUC.getMsg()).data(body).build();
         Object result = MediaType.APPLICATION_JSON.equals(selectedContentType)
                 ? jsonResponse : body;
+        if (returnType.getParameterType().equals(String.class)) {
+            result = JSON.toJSONString(result);
+        }
         log.warn("当前接口响应内容:{}", result);
         return result;
     }

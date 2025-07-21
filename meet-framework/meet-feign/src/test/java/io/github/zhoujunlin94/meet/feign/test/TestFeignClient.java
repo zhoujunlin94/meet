@@ -1,6 +1,7 @@
-package io.github.zhoujunlin94.meet.feign;
+package io.github.zhoujunlin94.meet.feign.test;
 
 import com.alibaba.fastjson2.JSONObject;
+import io.github.zhoujunlin94.meet.feign.ExampleApp;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,7 @@ public class TestFeignClient {
 
     @Test
     public void test() {
-        demoFeignClient.update(new JSONObject().fluentPut("handlerName", "giftPackDetailHandler")
+        demoFeignClient.hello(new JSONObject().fluentPut("handlerName", "helloHandler")
                 .fluentPut("id", 88888888));
     }
 
