@@ -9,3 +9,11 @@ spring:
           demoFeignClient:
             connectTimeout: 3000
             readTimeout: 3000
+
+
+log:
+  feign:
+    # 不开启feign日志
+    #    style: none
+    #    style: aop
+    style: interceptor

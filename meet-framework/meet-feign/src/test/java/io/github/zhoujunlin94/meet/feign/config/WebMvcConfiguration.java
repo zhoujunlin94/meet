@@ -1,4 +1,4 @@
-package io.github.zhoujunlin94.mqtt.test.config;
+package io.github.zhoujunlin94.meet.feign.config;
 
 import io.github.zhoujunlin94.meet.common.constant.FastJsonConfigConst;
 import io.github.zhoujunlin94.meet.web.interceptor.HttpBaseInterceptor;
@@ -27,7 +27,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         // 基础http请求拦截器
         registry.addInterceptor(httpBaseInterceptor)
                 .excludePathPatterns("/favicon.ico", "/assets/**/*", "/**/*.js", "/**/*.html", "/**/*.css")
-                .excludePathPatterns("/swagger-resources", "/v3/api-docs")
+                .excludePathPatterns("/swagger-resources", "/v3/api-docs/**/*")
         ;
     }
 

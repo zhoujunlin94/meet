@@ -13,6 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface DemoFeignClient {
 
     @PostMapping(value = "/test/hello")
-    String hello(@RequestBody JSONObject jsonObject);
+    JSONObject hello(@RequestBody JSONObject jsonObject);
 
 }

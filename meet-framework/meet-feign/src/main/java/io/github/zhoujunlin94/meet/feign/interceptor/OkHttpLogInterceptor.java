@@ -25,7 +25,7 @@ public class OkHttpLogInterceptor implements Interceptor {
         String requestId = StrUtil.blankToDefault(request.header(RequestIdUtil.REQUEST_ID), RequestIdUtil.getRequestId());
         MDC.put(RequestIdUtil.REQUEST_ID, requestId);
         log.warn(">>>请求URL: {} {}", request.method(), request.url());
-        log.warn(">>>请求Headers: {}", request.headers());
+        log.warn(">>>请求Headers: \n{}", request.headers());
 
         // 打印请求体（如果有）
         RequestBody requestBody = request.body();
@@ -47,7 +47,7 @@ public class OkHttpLogInterceptor implements Interceptor {
         log.warn("<<<响应code: {}", response.code());
         // 不消耗原始流
         ResponseBody responseBody = response.peekBody(Long.MAX_VALUE);
-        log.warn("<<<响应body: {}", responseBody.string());
+        log.warn("<<<响应body: \n{}", responseBody.string());
         return response;
     }
 

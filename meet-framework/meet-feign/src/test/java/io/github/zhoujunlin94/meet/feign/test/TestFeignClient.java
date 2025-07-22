@@ -22,8 +22,8 @@ public class TestFeignClient {
 
     @Test
     public void test() {
-        demoFeignClient.hello(new JSONObject().fluentPut("handlerName", "helloHandler")
-                .fluentPut("id", 88888888));
+        System.out.println(demoFeignClient.hello(new JSONObject().fluentPut("handlerName", "helloHandler")
+                .fluentPut("id", 88888888)).toJSONString());
     }
 
 }

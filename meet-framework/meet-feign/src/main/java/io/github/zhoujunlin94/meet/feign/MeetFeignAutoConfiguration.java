@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan
 public class MeetFeignAutoConfiguration {
 
-    @Value("${feign.log.style:interceptor}")
+    @Value("${log.feign.style:interceptor}")
     private String feignLogStyle;
 
     @Bean
