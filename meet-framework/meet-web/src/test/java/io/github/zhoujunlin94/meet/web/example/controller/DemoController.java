@@ -28,9 +28,12 @@ public class DemoController {
             @Parameter(name = "token", description = "请求token", required = true, in = ParameterIn.HEADER),
             @Parameter(name = "name", description = "文件名称", required = true, in = ParameterIn.QUERY)
     })
-    @PostMapping("/{id}/get")
-    public DemoVO bodyParamHeaderPath(@PathVariable("id") String id, @RequestHeader("token") String token, @RequestParam("name") String name,
-                                      @RequestBody JSONObject requestBody) {
+    @PostMapping("/{id}/post")
+    public DemoVO demo(Integer a,
+                       @PathVariable("id") String id,
+                       @RequestHeader("token") String token,
+                       @RequestParam("name") String name,
+                       @RequestBody JSONObject requestBody) {
         log.warn(Objects.isNull(requestBody) ? CommonConstant.EMPTY_JSON : requestBody.toJSONString());
         return new DemoVO(id, token, name, new Date());
     }

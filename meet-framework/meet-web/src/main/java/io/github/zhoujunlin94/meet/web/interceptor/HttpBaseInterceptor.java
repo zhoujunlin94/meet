@@ -49,7 +49,7 @@ public class HttpBaseInterceptor extends BaseInterceptor {
         response.addHeader(WebConstant.X_REQUEST_ID, requestId);
 
         log.warn("开始访问:{} {}", request.getMethod(), request.getRequestURL().toString());
-        log.warn("ip地址:{}", requestContext.getClientIp());
+        log.warn("clientIp:{}", requestContext.getClientIp());
         Enumeration<String> headerNames = request.getHeaderNames();
         Map<String, String> headers = new HashMap<>();
         while (headerNames.hasMoreElements()) {
@@ -57,7 +57,7 @@ public class HttpBaseInterceptor extends BaseInterceptor {
             headers.put(headerName, request.getHeader(headerName));
         }
         if (CollUtil.isNotEmpty(headers)) {
-            log.warn("请求头:{}", JSON.toJSONString(headers));
+            log.warn("headers:{}", JSON.toJSONString(headers));
         }
 
         Map<String, String[]> parameterMap = request.getParameterMap();

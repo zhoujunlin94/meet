@@ -1,5 +1,5 @@
 ###
-POST http://localhost:8080/demo/1/get?name=zhou
+POST http://localhost:8080/demo/1/post?name=zhou
 Content-Type: application/json
 token: abcd
 
