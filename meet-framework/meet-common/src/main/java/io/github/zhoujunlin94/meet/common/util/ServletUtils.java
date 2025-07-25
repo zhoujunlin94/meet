@@ -17,6 +17,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import java.io.IOException;
 import java.io.Writer;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 /**
  * 客户端工具类
@@ -59,7 +60,7 @@ public class ServletUtils {
      */
     public static void writeAttachment(HttpServletResponse response, String filename, byte[] content) throws IOException {
         // 设置 header 和 contentType
-        response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(filename, "UTF-8"));
+        response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(filename, StandardCharsets.UTF_8));
         response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
         // 输出附件
         IoUtil.write(response.getOutputStream(), false, content);
@@ -71,7 +72,7 @@ public class ServletUtils {
      */
     public static String getUserAgent(HttpServletRequest request) {
         String ua = request.getHeader("User-Agent");
-        return ua != null ? ua : "";
+        return StrUtil.blankToDefault(ua, StrUtil.EMPTY);
     }
 
     /**

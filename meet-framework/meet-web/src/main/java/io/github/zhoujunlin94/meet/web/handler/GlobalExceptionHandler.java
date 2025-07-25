@@ -30,9 +30,9 @@ import java.util.Optional;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler({MethodArgumentNotValidException.class})
-    public JsonResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+    public JsonResponse<Object> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         Iterator<ObjectError> errorIterator = e.getBindingResult().getAllErrors().iterator();
-        JsonResponse jsonResponse = JsonResponse.builder().code(CommonErrorCode.P_BAD_PARAMETER.getCode()).msg(e.getMessage()).build();
+        JsonResponse<Object> jsonResponse = JsonResponse.create(CommonErrorCode.P_BAD_PARAMETER.getCode(), e.getMessage());
         if (errorIterator.hasNext()) {
             ObjectError error = errorIterator.next();
             jsonResponse.setMsg(error.getDefaultMessage());
@@ -41,33 +41,33 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler({MissingServletRequestParameterException.class})
-    public JsonResponse handleMissingServletRequestParameterException(MissingServletRequestParameterException e) {
-        return JsonResponse.builder().code(CommonErrorCode.P_BAD_PARAMETER.getCode()).msg(e.getMessage()).build();
+    public JsonResponse<Object> handleMissingServletRequestParameterException(MissingServletRequestParameterException e) {
+        return JsonResponse.create(CommonErrorCode.P_BAD_PARAMETER.getCode(), e.getMessage());
     }
 
     @ExceptionHandler({MeetException.class})
-    public JsonResponse handleMeetException(MeetException e) {
-        return JsonResponse.builder().code(e.getCode()).data(e.getData()).msg(e.getMsg()).build();
+    public JsonResponse<Object> handleMeetException(MeetException e) {
+        return JsonResponse.create(e.getCode(), e.getMsg(), e.getData());
     }
 
     @ExceptionHandler({Exception.class})
-    public JsonResponse handleUnknownException(Exception e) {
+    public JsonResponse<Object> handleUnknownException(Exception e) {
         log.error("未知异常:", e);
         if (e instanceof UndeclaredThrowableException) {
             Throwable undeclaredThrowable = ((UndeclaredThrowableException) e).getUndeclaredThrowable();
             // todo 后续有一些可预期的异常可以instanceof判断生成相应响应
         }
-        return JsonResponse.builder().code(CommonErrorCode.S_SYSTEM_BUSY.getCode()).msg(e.getMessage()).build();
+        return JsonResponse.create(CommonErrorCode.S_SYSTEM_BUSY.getCode(), e.getMessage());
     }
 
     @ExceptionHandler({ConstraintViolationException.class})
-    public JsonResponse handleConstraintViolationException(ConstraintViolationException e) {
+    public JsonResponse<Object> handleConstraintViolationException(ConstraintViolationException e) {
         Optional<ConstraintViolation<?>> constraintViolationOpt = e.getConstraintViolations().stream().findFirst();
         String messageTemplate = StrUtil.EMPTY;
         if (constraintViolationOpt.isPresent()) {
             messageTemplate = constraintViolationOpt.get().getMessageTemplate();
         }
-        return JsonResponse.builder().code(CommonErrorCode.P_PARAM_CHECK_ERROR.getCode()).msg("参数校验未通过!").data(messageTemplate).build();
+        return JsonResponse.create(CommonErrorCode.P_PARAM_CHECK_ERROR.getCode(), "参数校验未通过!" + messageTemplate);
     }
 
 }

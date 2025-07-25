@@ -2,7 +2,6 @@ package io.github.zhoujunlin94.meet.web.handler;
 
 import cn.hutool.core.collection.CollUtil;
 import com.alibaba.fastjson2.JSON;
-import io.github.zhoujunlin94.meet.common.exception.CommonErrorCode;
 import io.github.zhoujunlin94.meet.common.pojo.JsonResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
@@ -34,7 +33,7 @@ public class GlobalResponseBodyAdvice implements ResponseBodyAdvice<Object> {
             return body;
         }
 
-        JsonResponse<Object> jsonResponse = JsonResponse.builder().code(CommonErrorCode.S_SUC.getCode()).msg(CommonErrorCode.S_SUC.getMsg()).data(body).build();
+        JsonResponse<Object> jsonResponse = JsonResponse.success(body);
         Object result = MediaType.APPLICATION_JSON.equals(selectedContentType)
                 ? jsonResponse : body;
         if (returnType.getParameterType().equals(String.class)) {

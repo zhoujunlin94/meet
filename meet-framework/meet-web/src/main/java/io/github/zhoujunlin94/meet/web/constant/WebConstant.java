@@ -4,7 +4,9 @@ package io.github.zhoujunlin94.meet.web.constant;
  * @author zhoujunlin
  * @date 2024-07-08-16:49
  */
-public final class HeaderConstant {
+public final class WebConstant {
+
+    public static final String MEET_THREAD_POOL = "MeetThreadPool";
 
     public static final String X_REAL_IP = "X-Real-IP";
     public static final String X_REQUEST_ID = "X-REQUEST-ID";

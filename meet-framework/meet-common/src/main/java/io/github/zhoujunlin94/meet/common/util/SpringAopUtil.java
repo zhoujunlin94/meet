@@ -8,7 +8,7 @@ import org.springframework.aop.support.AopUtils;
 /**
  * Spring AOP 工具类
  */
-public class SpringAopUtils {
+public class SpringAopUtil {
 
     /**
      * 获取代理的目标对象

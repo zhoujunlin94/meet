@@ -1,7 +1,5 @@
 package io.github.zhoujunlin94.meet.common.util;
 
-import cn.hutool.core.util.StrUtil;
-
 import java.math.BigDecimal;
 import java.util.Optional;
 
@@ -13,7 +11,7 @@ public final class NumberUtil {
 
     public static String stripTrailingZeros(BigDecimal value) {
         return Optional.ofNullable(value).map(BigDecimal::stripTrailingZeros).map(BigDecimal::toPlainString)
-                .orElse(StrUtil.EMPTY);
+                .orElse("0");
     }
 
 }

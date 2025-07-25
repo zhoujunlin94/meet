@@ -1,6 +1,6 @@
 package io.github.zhoujunlin94.mqtt.test.config;
 
-import io.github.zhoujunlin94.meet.common.constant.FastJsonConfigConst;
+import io.github.zhoujunlin94.meet.web.constant.FastJsonConfigConst;
 import io.github.zhoujunlin94.meet.web.interceptor.HttpBaseInterceptor;
 import jakarta.annotation.Resource;
 import org.springframework.context.annotation.Configuration;

@@ -1,10 +1,9 @@
 package io.github.zhoujunlin94.meet.common.pojo;
 
+import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.fastjson2.JSONObject;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 /**
  * @author zhoujunlin
@@ -12,18 +11,18 @@ import lombok.NoArgsConstructor;
  * @desc
  */
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Accessors(chain = true)
 public class RequestContext {
 
     private String requestId;
 
     private Integer userId;
 
-    private String clientIP;
+    private String clientIp;
 
-    @Builder.Default
-    private JSONObject extJSONObject = new JSONObject();
+    private JSONObject extendContext;
 
+    public JSONObject getExtendContext() {
+        return ObjectUtil.defaultIfNull(this.extendContext, new JSONObject());
+    }
 }

@@ -21,7 +21,7 @@ public final class RequestIdUtil {
     }
 
     public static String getRequestId() {
-        String requestId = StrUtil.EMPTY;
+        String requestId = null;
         RequestContext requestContext = RequestContextUtil.get();
         if (Objects.nonNull(requestContext)) {
             requestId = requestContext.getRequestId();

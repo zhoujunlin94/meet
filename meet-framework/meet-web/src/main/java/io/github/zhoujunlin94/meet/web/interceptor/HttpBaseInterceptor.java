@@ -6,7 +6,7 @@ import io.github.zhoujunlin94.meet.common.pojo.RequestContext;
 import io.github.zhoujunlin94.meet.common.util.RequestContextUtil;
 import io.github.zhoujunlin94.meet.common.util.RequestIdUtil;
 import io.github.zhoujunlin94.meet.common.util.ServletUtils;
-import io.github.zhoujunlin94.meet.web.constant.HeaderConstant;
+import io.github.zhoujunlin94.meet.web.constant.WebConstant;
 import io.github.zhoujunlin94.meet.web.helper.ProjectHelper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -27,23 +27,23 @@ public class HttpBaseInterceptor extends BaseInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        String requestId = request.getHeader(HeaderConstant.X_REQUEST_ID);
+        String requestId = request.getHeader(WebConstant.X_REQUEST_ID);
         if (StrUtil.isBlank(requestId)) {
-            requestId = response.getHeader(HeaderConstant.X_REQUEST_ID);
+            requestId = response.getHeader(WebConstant.X_REQUEST_ID);
         }
         if (StrUtil.isBlank(requestId)) {
             requestId = RequestIdUtil.generateRequestId();
         }
-        Integer userId = Convert.toInt(request.getHeader(HeaderConstant.X_GATEWAY_UID));
-        RequestContext requestContext = RequestContext.builder().requestId(requestId)
-                .userId(userId).clientIP(ServletUtils.getClientIP()).build();
+        Integer userId = Convert.toInt(request.getHeader(WebConstant.X_GATEWAY_UID));
+        RequestContext requestContext = new RequestContext().setRequestId(requestId)
+                .setUserId(userId).setClientIp(ServletUtils.getClientIP());
         RequestContextUtil.set(requestContext);
 
-        MDC.put(HeaderConstant.X_REQUEST_ID, requestId);
-        response.addHeader(HeaderConstant.X_REQUEST_ID, requestId);
+        MDC.put(WebConstant.X_REQUEST_ID, requestId);
+        response.addHeader(WebConstant.X_REQUEST_ID, requestId);
 
         log.warn("开始访问:{} {}", request.getMethod(), request.getRequestURL().toString());
-        log.warn("ip地址:{}", requestContext.getClientIP());
+        log.warn("ip地址:{}", requestContext.getClientIp());
         request.setAttribute("startTime", System.currentTimeMillis());
         request.setAttribute("ctx", ProjectHelper.getProjectBasePath(request));
         return true;
@@ -57,7 +57,7 @@ public class HttpBaseInterceptor extends BaseInterceptor {
             log.warn("结束加载请求:{},总用时:{}ms", request.getRequestURL().toString(), end - start);
         } finally {
             try {
-                MDC.remove(HeaderConstant.X_REQUEST_ID);
+                MDC.remove(WebConstant.X_REQUEST_ID);
             } catch (Exception ignore) {
             }
             try {

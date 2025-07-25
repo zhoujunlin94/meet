@@ -17,14 +17,15 @@ public abstract class BaseInterceptor implements HandlerInterceptor {
     protected void failed(HttpServletResponse response, String message) {
         response.setStatus(HttpServletResponse.SC_OK);
         response.setCharacterEncoding("UTF-8");
-        JsonResponse jsonResponse = JsonResponse.builder().code(CommonErrorCode.S_SYSTEM_BUSY.getCode()).msg(message).build();
+
+        JsonResponse<Object> jsonResponse = JsonResponse.fail(message);
         ServletUtils.writeJSON(response, jsonResponse);
     }
 
     protected void fail(HttpServletResponse response, String redirectUrl) {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setCharacterEncoding("UTF-8");
-        JsonResponse jsonResponse = JsonResponse.builder().code(CommonErrorCode.S_SYSTEM_BUSY.getCode()).data(redirectUrl).build();
+        JsonResponse<String> jsonResponse = JsonResponse.create(CommonErrorCode.S_FAIL.getCode(), CommonErrorCode.S_FAIL.getMsg(), redirectUrl);
         ServletUtils.writeJSON(response, jsonResponse);
     }
 }

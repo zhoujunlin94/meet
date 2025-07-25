@@ -1,4 +1,4 @@
-package io.github.zhoujunlin94.meet.web.example;
+package io.github.zhoujunlin94.meet.common.timetask;
 
 import cn.hutool.core.util.IdUtil;
 import io.github.zhoujunlin94.meet.common.thread.MDCThreadPoolExecutor;
@@ -19,7 +19,7 @@ public class TestMDCThreadPoolExecutor {
     public static void main(String[] args) {
         MDCThreadPoolExecutor executor = new MDCThreadPoolExecutor(
                 Runtime.getRuntime().availableProcessors() * 2 + 1, 100, 300, TimeUnit.SECONDS,
-                new LinkedBlockingQueue<>(100), Executors.defaultThreadFactory(), new ThreadPoolExecutor.CallerRunsPolicy());
+                new LinkedBlockingQueue<>(1024), Executors.defaultThreadFactory(), new ThreadPoolExecutor.CallerRunsPolicy());
 
         // 在主线程中设置 MDC 上下文
         MDC.put("traceId", IdUtil.fastSimpleUUID());

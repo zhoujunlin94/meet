@@ -1,4 +1,4 @@
-package io.github.zhoujunlin94.meet.common.constant;
+package io.github.zhoujunlin94.meet.web.constant;
 
 import cn.hutool.core.date.DatePattern;
 import com.alibaba.fastjson2.JSONReader;

@@ -8,6 +8,8 @@ import cn.hutool.core.io.FileUtil;
  */
 public final class RedisConstant {
 
+    public static final String IMG_BASE64_PREFIX = "data:image/jpeg;base64,";
+
     public static final String DEFAULT_DELAYED_QUEUE_NAME = "default_delayed_queue";
 
     public static class LuaScripts {

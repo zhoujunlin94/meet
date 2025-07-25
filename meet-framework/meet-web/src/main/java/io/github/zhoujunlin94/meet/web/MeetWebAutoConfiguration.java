@@ -1,6 +1,6 @@
 package io.github.zhoujunlin94.meet.web;
 
-import io.github.zhoujunlin94.meet.common.constant.CommonConstant;
+import io.github.zhoujunlin94.meet.web.constant.WebConstant;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +24,7 @@ public class MeetWebAutoConfiguration {
      * 当拒绝处理任务时的策略:由主线程处理该任务
      */
     @Primary
-    @Bean(CommonConstant.MEET_THREAD_POOL)
+    @Bean(WebConstant.MEET_THREAD_POOL)
     public ThreadPoolTaskExecutor meetThreadPool() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         // 核心线程数  IO密集型 2*n+1  CPU密集型  n+1
