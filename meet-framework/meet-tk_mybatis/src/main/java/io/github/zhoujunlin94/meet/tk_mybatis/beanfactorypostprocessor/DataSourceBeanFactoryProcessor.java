@@ -69,7 +69,7 @@ public class DataSourceBeanFactoryProcessor implements BeanDefinitionRegistryPos
 
     @Override
     public void postProcessBeanDefinitionRegistry(@NonNull BeanDefinitionRegistry registry) throws BeansException {
-        DynamicDataSourceProperties dynamicDataSourceProperties = Binder.get(this.environment).bind(TkMybatisConstant.DYNAMIC_PREFIX, DynamicDataSourceProperties.class).get();
+        DynamicDataSourceProperties dynamicDataSourceProperties = Binder.get(this.environment).bind(TkMybatisConstant.DYNAMIC_PREFIX, DynamicDataSourceProperties.class).orElse(null);
         if (Objects.isNull(dynamicDataSourceProperties) || CollUtil.isEmpty(dynamicDataSourceProperties.getDatasource())) {
             return;
         }

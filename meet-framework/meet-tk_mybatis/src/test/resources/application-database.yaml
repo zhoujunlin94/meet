@@ -55,9 +55,8 @@ spring:
           connectionTimeout: 30000
           connectionTestQuery: SELECT 1
         mybatis:
-          typeAliasesPackage: io.github.zhoujunlin94.meet.tk_mybatis.example.entity.base
-          mapperLocation: classpath:mybatis/base/*.xml
-          basePackages: io.github.zhoujunlin94.meet.tk_mybatis.example.mapper.base
+          entityPackage: io.github.zhoujunlin94.meet.tk_mybatis.example.entity.base
+          mapperPackage: io.github.zhoujunlin94.meet.tk_mybatis.example.mapper.base
           interceptors:
             - clazz: com.github.pagehelper.PageInterceptor
               properties:
