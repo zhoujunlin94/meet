@@ -29,7 +29,8 @@ public class RocketMQMessageListenerAspect {
         StopWatch stopWatch = new StopWatch();
         try {
             String className = joinPoint.getSignature().getDeclaringType().getSimpleName();
-            log.warn("RocketMQ监听对象{}开始消费", className);
+            String methodName = joinPoint.getSignature().getName();
+            log.warn("RocketMQ监听对象{}#{}开始消费", className, methodName);
             Object[] args = joinPoint.getArgs();
             if (ArrayUtil.isNotEmpty(args)) {
                 log.warn("消息体:{}", JSONObject.toJSONString(args[0]));

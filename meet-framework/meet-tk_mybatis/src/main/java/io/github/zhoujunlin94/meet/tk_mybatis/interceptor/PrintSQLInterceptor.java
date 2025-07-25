@@ -34,8 +34,8 @@ import java.util.Properties;
                 args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}
         ),
         @Signature(
-                type = Executor.class,
                 method = "update",
+                type = Executor.class,
                 args = {MappedStatement.class, Object.class}
         )
 })
@@ -192,57 +192,23 @@ public class PrintSQLInterceptor implements Interceptor {
         for (int i = 0; i < queryString.length(); i++) {
             char c = queryString.charAt(i);
             switch (c) {
-                case '\\':
-                    result.append("\\\\");
-                    break;
-                case '*':
-                    result.append("\\*");
-                    break;
-                case '+':
-                    result.append("\\+");
-                    break;
-                case '|':
-                    result.append("\\|");
-                    break;
-                case '{':
-                    result.append("\\{");
-                    break;
-                case '}':
-                    result.append("\\}");
-                    break;
-                case '(':
-                    result.append("\\(");
-                    break;
-                case ')':
-                    result.append("\\)");
-                    break;
-                case '^':
-                    result.append("\\^");
-                    break;
-                case '$':
-                    result.append("\\$");
-                    break;
-                case '[':
-                    result.append("\\[");
-                    break;
-                case ']':
-                    result.append("\\]");
-                    break;
-                case '?':
-                    result.append("\\?");
-                    break;
-                case ',':
-                    result.append("\\,");
-                    break;
-                case '.':
-                    result.append("\\.");
-                    break;
-                case '&':
-                    result.append("\\&");
-                    break;
-                default:
-                    result.append(c);
-                    break;
+                case '\\' -> result.append("\\\\");
+                case '*' -> result.append("\\*");
+                case '+' -> result.append("\\+");
+                case '|' -> result.append("\\|");
+                case '{' -> result.append("\\{");
+                case '}' -> result.append("\\}");
+                case '(' -> result.append("\\(");
+                case ')' -> result.append("\\)");
+                case '^' -> result.append("\\^");
+                case '$' -> result.append("\\$");
+                case '[' -> result.append("\\[");
+                case ']' -> result.append("\\]");
+                case '?' -> result.append("\\?");
+                case ',' -> result.append("\\,");
+                case '.' -> result.append("\\.");
+                case '&' -> result.append("\\&");
+                default -> result.append(c);
             }
         }
 

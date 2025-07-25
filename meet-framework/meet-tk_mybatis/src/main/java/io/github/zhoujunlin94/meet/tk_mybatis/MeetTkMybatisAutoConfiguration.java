@@ -1,6 +1,7 @@
 package io.github.zhoujunlin94.meet.tk_mybatis;
 
 import io.github.zhoujunlin94.meet.tk_mybatis.beanfactorypostprocessor.DataSourceBeanFactoryProcessor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 public class MeetTkMybatisAutoConfiguration {
 
     @Bean
+    @ConditionalOnProperty(name = "spring.dynamic.datasource")
     public DataSourceBeanFactoryProcessor dataSourceBeanFactoryProcessor() {
         return new DataSourceBeanFactoryProcessor();
     }

@@ -9,7 +9,7 @@ import java.util.Map;
  * @date 2024-04-19-14:30
  */
 @Data
-public class MultipleDataSourceProperties {
+public class DynamicDataSourceProperties {
 
     private Map<String, DatasourceConfig> datasource;
 

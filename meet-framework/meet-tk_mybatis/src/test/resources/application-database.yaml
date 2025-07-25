@@ -1,5 +1,5 @@
 spring:
-  multiple:
+  dynamic:
     datasource:
       # 数据源-1
       meet:
@@ -25,9 +25,9 @@ spring:
           # 连接测试query
           connectionTestQuery: SELECT 1
         mybatis:
-          typeAliasesPackage: io.github.zhoujunlin94.meet.tk_mybatis.example.entity.meet
-          mapperLocation: classpath:mybatis/meet/*.xml
-          basePackages: io.github.zhoujunlin94.meet.tk_mybatis.example.mapper.meet
+          entityPackage: io.github.zhoujunlin94.meet.tk_mybatis.example.entity.meet
+          mapperXmlLocation: classpath:mybatis/meet/*.xml
+          mapperPackages: io.github.zhoujunlin94.meet.tk_mybatis.example.mapper.meet
           interceptors:
             - clazz: com.github.pagehelper.PageInterceptor
               properties:

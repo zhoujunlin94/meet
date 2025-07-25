@@ -1,8 +1,8 @@
 package io.github.zhoujunlin94.meet.tk_mybatis.properties;
 
 import cn.hutool.core.util.StrUtil;
-import io.github.zhoujunlin94.meet.common.exception.MeetException;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Objects;
 import java.util.Properties;
@@ -12,6 +12,7 @@ import java.util.Properties;
  * @date 2024-04-19-14:42
  */
 @Data
+@Slf4j
 public class DatasourceConfig {
 
     private String url;
@@ -22,17 +23,22 @@ public class DatasourceConfig {
 
     private MybatisConfig mybatis;
 
-    public void checkDatasource() {
+    public boolean checkDatasource() {
         if (StrUtil.hasBlank(url, driverClassName, username, password)) {
-            throw MeetException.meet("请检查数据源配置");
+            log.error("请检查数据源配置");
+            return false;
         }
+
+        return true;
     }
 
-    public void checkMyBatis() {
-        if (Objects.isNull(mybatis) ||
-                StrUtil.hasBlank(mybatis.getTypeAliasesPackage(), mybatis.getBasePackages(), mybatis.getMapperLocation())) {
-            throw MeetException.meet("请检查MyBatis配置");
+    public boolean checkMyBatis() {
+        if (Objects.isNull(mybatis) || StrUtil.hasBlank(mybatis.getEntityPackage(), mybatis.getMapperPackage())) {
+            log.error("请检查MyBatis配置");
+            return false;
         }
+
+        return true;
     }
 
 }

@@ -11,9 +11,9 @@ import java.util.List;
 @Data
 public class MybatisConfig {
 
-    private String typeAliasesPackage;
-    private String basePackages;
-    private String mapperLocation;
+    private String entityPackage;
+    private String mapperPackage;
+    private String mapperXmlLocation;
     private List<InterceptorConfig> interceptors;
 
 }

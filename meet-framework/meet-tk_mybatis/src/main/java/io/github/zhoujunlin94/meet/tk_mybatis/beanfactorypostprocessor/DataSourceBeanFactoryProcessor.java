@@ -6,10 +6,10 @@ import cn.hutool.core.util.StrUtil;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import io.github.zhoujunlin94.meet.common.exception.MeetException;
-import io.github.zhoujunlin94.meet.tk_mybatis.constant.Constant;
+import io.github.zhoujunlin94.meet.tk_mybatis.constant.TkMybatisConstant;
 import io.github.zhoujunlin94.meet.tk_mybatis.properties.DatasourceConfig;
+import io.github.zhoujunlin94.meet.tk_mybatis.properties.DynamicDataSourceProperties;
 import io.github.zhoujunlin94.meet.tk_mybatis.properties.InterceptorConfig;
-import io.github.zhoujunlin94.meet.tk_mybatis.properties.MultipleDataSourceProperties;
 import io.github.zhoujunlin94.meet.tk_mybatis.properties.MybatisConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Mapper;
@@ -69,39 +69,41 @@ public class DataSourceBeanFactoryProcessor implements BeanDefinitionRegistryPos
 
     @Override
     public void postProcessBeanDefinitionRegistry(@NonNull BeanDefinitionRegistry registry) throws BeansException {
-        MultipleDataSourceProperties multipleDataSourceProperties = Binder.get(this.environment).bind(Constant.MULTIPLE_PREFIX, MultipleDataSourceProperties.class).get();
-        if (Objects.isNull(multipleDataSourceProperties) || CollUtil.isEmpty(multipleDataSourceProperties.getDatasource())) {
+        DynamicDataSourceProperties dynamicDataSourceProperties = Binder.get(this.environment).bind(TkMybatisConstant.DYNAMIC_PREFIX, DynamicDataSourceProperties.class).get();
+        if (Objects.isNull(dynamicDataSourceProperties) || CollUtil.isEmpty(dynamicDataSourceProperties.getDatasource())) {
             return;
         }
 
-        multipleDataSourceProperties.getDatasource().forEach((name, datasourceConfig) -> {
+        dynamicDataSourceProperties.getDatasource().forEach((name, datasourceConfig) -> {
             String datasourceName = name + "Datasource";
             String dataSourceTransactionManagerName = name + "TransactionManager";
             String sqlSessionFactoryName = name + "SqlSessionFactory";
             // 1. 数据源
-            buildDataSource(datasourceName, datasourceConfig, registry);
-            // 2. 事务管理器
-            buildDataSourceTransactionManager(datasourceName, dataSourceTransactionManagerName, registry);
-            // 3. 构建SqlSessionFactory
-            buildSqlSessionFactory(datasourceName, sqlSessionFactoryName, datasourceConfig, registry);
-            // 4. 注册mapper
-            registerMapper(sqlSessionFactoryName, datasourceConfig, registry);
+            if (buildDataSource(datasourceName, datasourceConfig, registry)) {
+                // 2. 事务管理器
+                buildDataSourceTransactionManager(datasourceName, dataSourceTransactionManagerName, registry);
+
+                // 3. 构建SqlSessionFactory
+                if (buildSqlSessionFactory(datasourceName, sqlSessionFactoryName, datasourceConfig, registry)) {
+
+                    // 4. 注册mapper
+                    registerMapper(sqlSessionFactoryName, datasourceConfig, registry);
+                }
+            }
         });
 
     }
 
     private void registerMapper(String sqlSessionFactoryName, DatasourceConfig datasourceConfig, BeanDefinitionRegistry registry) {
-        datasourceConfig.checkMyBatis();
-
-        ClassPathMapperScanner scanner = new ClassPathMapperScanner(registry);
-        if (resourceLoader != null) {
+        ClassPathMapperScanner scanner = new ClassPathMapperScanner(registry, environment);
+        if (Objects.nonNull(resourceLoader)) {
             scanner.setResourceLoader(resourceLoader);
         }
 
         scanner.setAnnotationClass(Mapper.class);
         scanner.setSqlSessionFactoryBeanName(sqlSessionFactoryName);
 
-        List<String> basePackages = StrUtil.splitTrim(datasourceConfig.getMybatis().getBasePackages(), StrUtil.COMMA);
+        List<String> mapperPackages = StrUtil.splitTrim(datasourceConfig.getMybatis().getMapperPackage(), StrUtil.COMMA);
 
         try {
             scanner.setMapperProperties(this.environment);
@@ -111,30 +113,36 @@ public class DataSourceBeanFactoryProcessor implements BeanDefinitionRegistryPos
                     "如果你使用 tk.mybatis.mapper.session.Configuration 配置的通用 Mapper，你可以忽略该错误!", e);
         }
         scanner.registerFilters();
-        scanner.doScan(StringUtils.toStringArray(basePackages));
+        scanner.doScan(StringUtils.toStringArray(mapperPackages));
     }
 
-    private void buildSqlSessionFactory(String datasourceName, String sqlSessionFactoryName, DatasourceConfig datasourceConfig, BeanDefinitionRegistry registry) {
+    private boolean buildSqlSessionFactory(String datasourceName, String sqlSessionFactoryName, DatasourceConfig datasourceConfig, BeanDefinitionRegistry registry) {
+        if (!datasourceConfig.checkMyBatis()) {
+            return false;
+        }
+
         GenericBeanDefinition sqlSessionFactoryBeanDefinition = new GenericBeanDefinition();
         sqlSessionFactoryBeanDefinition.setBeanClass(SqlSessionFactory.class);
 
         sqlSessionFactoryBeanDefinition.setInstanceSupplier(() -> {
             try {
-                datasourceConfig.checkMyBatis();
                 MybatisConfig mybatisConfig = datasourceConfig.getMybatis();
 
                 SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
                 sqlSessionFactoryBean.setDataSource(applicationContext.getBean(datasourceName, DataSource.class));
-                sqlSessionFactoryBean.setTypeAliasesPackage(mybatisConfig.getTypeAliasesPackage());
-                sqlSessionFactoryBean.setMapperLocations(
-                        new PathMatchingResourcePatternResolver().getResources(mybatisConfig.getMapperLocation())
-                );
+                sqlSessionFactoryBean.setTypeAliasesPackage(mybatisConfig.getEntityPackage());
+                if (StrUtil.isNotBlank(mybatisConfig.getMapperXmlLocation())) {
+                    sqlSessionFactoryBean.setMapperLocations(
+                            new PathMatchingResourcePatternResolver().getResources(mybatisConfig.getMapperXmlLocation())
+                    );
+                }
                 // 插件
                 if (CollUtil.isNotEmpty(mybatisConfig.getInterceptors())) {
                     List<Interceptor> interceptors = new ArrayList<>();
                     for (InterceptorConfig interceptorConfig : mybatisConfig.getInterceptors()) {
-                        interceptorConfig.checkInterceptor();
-
+                        if (StrUtil.isBlank(interceptorConfig.getClazz())) {
+                            continue;
+                        }
                         Interceptor interceptor = ReflectUtil.newInstance(interceptorConfig.getClazz());
                         if (Objects.nonNull(interceptorConfig.getProperties())) {
                             interceptor.setProperties(interceptorConfig.getProperties());
@@ -157,6 +165,8 @@ public class DataSourceBeanFactoryProcessor implements BeanDefinitionRegistryPos
         });
 
         registry.registerBeanDefinition(sqlSessionFactoryName, sqlSessionFactoryBeanDefinition);
+
+        return true;
     }
 
     private void buildDataSourceTransactionManager(String datasourceName, String dataSourceTransactionManagerName, BeanDefinitionRegistry registry) {
@@ -168,13 +178,15 @@ public class DataSourceBeanFactoryProcessor implements BeanDefinitionRegistryPos
         registry.registerBeanDefinition(dataSourceTransactionManagerName, dataSourceTransactionManagerBeanDefinition);
     }
 
-    private void buildDataSource(String datasourceName, DatasourceConfig datasourceConfig, BeanDefinitionRegistry registry) {
+    private boolean buildDataSource(String datasourceName, DatasourceConfig datasourceConfig, BeanDefinitionRegistry registry) {
+        if (!datasourceConfig.checkDatasource()) {
+            return false;
+        }
+
         GenericBeanDefinition datasourceBeanDefinition = new GenericBeanDefinition();
         datasourceBeanDefinition.setBeanClass(DataSource.class);
 
         datasourceBeanDefinition.setInstanceSupplier(() -> {
-            datasourceConfig.checkDatasource();
-
             Properties configHikari = datasourceConfig.getHikari();
             configHikari.put("jdbcUrl", datasourceConfig.getUrl());
             configHikari.put("driverClassName", datasourceConfig.getDriverClassName());
@@ -186,6 +198,8 @@ public class DataSourceBeanFactoryProcessor implements BeanDefinitionRegistryPos
         });
 
         registry.registerBeanDefinition(datasourceName, datasourceBeanDefinition);
+
+        return true;
     }
 
     @Override
