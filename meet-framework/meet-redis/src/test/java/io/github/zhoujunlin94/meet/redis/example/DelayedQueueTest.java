@@ -18,14 +18,14 @@ public class DelayedQueueTest {
 
     @Test
     public void offer() {
-        RedissonHelper.offer("test", "task1", 0, TimeUnit.SECONDS);
-        RedissonHelper.offer("test", "task2", 10, TimeUnit.SECONDS);
-        RedissonHelper.offer("test", "task3", 30, TimeUnit.SECONDS);
+        RedissonHelper.offer("testRBlockingQueue", "task1", 0, TimeUnit.SECONDS);
+        RedissonHelper.offer("testRBlockingQueue", "task2", 10, TimeUnit.SECONDS);
+        RedissonHelper.offer("testRBlockingQueue", "task3", 30, TimeUnit.SECONDS);
     }
 
     @Test
     public void consumer() {
-        RBlockingQueue<String> queue = RedissonHelper.getBlockingQueue("test");
+        RBlockingQueue<String> queue = RedissonHelper.getBlockingQueue("testRBlockingQueue");
 
         while (true) {
             try {

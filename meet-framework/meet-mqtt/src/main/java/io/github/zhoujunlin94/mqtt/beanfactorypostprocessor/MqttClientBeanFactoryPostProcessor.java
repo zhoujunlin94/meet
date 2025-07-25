@@ -56,7 +56,7 @@ public class MqttClientBeanFactoryPostProcessor implements BeanDefinitionRegistr
                     throw new RuntimeException(e);
                 }
             });
-            registry.registerBeanDefinition(clientName + "MqttClient", mqttClientBeanDefinition);
+            registry.registerBeanDefinition(clientName, mqttClientBeanDefinition);
         });
 
     }

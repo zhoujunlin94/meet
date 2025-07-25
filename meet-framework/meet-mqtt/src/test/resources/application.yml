@@ -1,6 +1,6 @@
 mqtt:
   client:
-    public:
+    publicMqttClient:
       id: b25b0d43dd134a52b4e1fedb486c335a
       serverUri: tcp://broker.emqx.io:1883
       options:

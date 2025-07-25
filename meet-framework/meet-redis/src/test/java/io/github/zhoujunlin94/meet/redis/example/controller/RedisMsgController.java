@@ -28,7 +28,7 @@ public class RedisMsgController {
     @Resource
     private RedissonDelayedQueue redissonDelayedQueue;
 
-    @GetMapping("/provideMsg")
+    // @GetMapping("/provideMsg")
     public String provider() {
         //验证redis 生产消费模式  起多台服务测试  - 一条消息只有一台机器消费（竞争关系）
         //需要立即被消费
@@ -61,15 +61,15 @@ public class RedisMsgController {
     }
 
     @GetMapping("/limit")
-    @Limiter(name = "testLimiter", key = "TestLimiterKey3", period = 1000, count = 1)
+    @Limiter(name = "testLimiter", key = "TestLimiterKey", period = 1000, count = 1)
     public String limit() {
         return "success";
     }
 
     @GetMapping(value = "/lock", produces = MediaType.APPLICATION_JSON_VALUE)
-    @RedissonLocker(prefix = "test", suffixEL = "#name", waitTime = 3)
+    @RedissonLocker(prefix = "test", suffixEL = "#name", waitTime = 5)
     public String lock(@RequestParam String name) throws InterruptedException {
-        TimeUnit.SECONDS.sleep(5L);
+        TimeUnit.SECONDS.sleep(100L);
         return "success";
     }
 

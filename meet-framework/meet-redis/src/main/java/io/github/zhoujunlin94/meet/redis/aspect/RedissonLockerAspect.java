@@ -3,6 +3,8 @@ package io.github.zhoujunlin94.meet.redis.aspect;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
+import io.github.zhoujunlin94.meet.common.exception.CommonErrorCode;
+import io.github.zhoujunlin94.meet.common.exception.MeetException;
 import io.github.zhoujunlin94.meet.redis.annotation.RedissonLocker;
 import io.github.zhoujunlin94.meet.redis.helper.RedissonHelper;
 import lombok.extern.slf4j.Slf4j;
@@ -59,14 +61,13 @@ public class RedissonLockerAspect {
                 return point.proceed();
             } else {
                 log.warn("获取锁失败lockKey->{}", lockKey);
+                throw MeetException.meet(CommonErrorCode.S_SYSTEM_BUSY);
             }
         } finally {
             if (locked) {
                 RedissonHelper.unLock(lockKey);
             }
         }
-
-        return null;
     }
 
 
