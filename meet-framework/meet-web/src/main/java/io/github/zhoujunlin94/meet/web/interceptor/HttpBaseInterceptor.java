@@ -1,7 +1,9 @@
 package io.github.zhoujunlin94.meet.web.interceptor;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson2.JSON;
 import io.github.zhoujunlin94.meet.common.pojo.RequestContext;
 import io.github.zhoujunlin94.meet.common.util.RequestContextUtil;
 import io.github.zhoujunlin94.meet.common.util.RequestIdUtil;
@@ -14,6 +16,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author zhoujl
@@ -44,6 +50,21 @@ public class HttpBaseInterceptor extends BaseInterceptor {
 
         log.warn("开始访问:{} {}", request.getMethod(), request.getRequestURL().toString());
         log.warn("ip地址:{}", requestContext.getClientIp());
+        Enumeration<String> headerNames = request.getHeaderNames();
+        Map<String, String> headers = new HashMap<>();
+        while (headerNames.hasMoreElements()) {
+            String headerName = headerNames.nextElement();
+            headers.put(headerName, request.getHeader(headerName));
+        }
+        if (CollUtil.isNotEmpty(headers)) {
+            log.warn("请求头:{}", JSON.toJSONString(headers));
+        }
+
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        if (CollUtil.isNotEmpty(parameterMap)) {
+            log.warn("parameterMap:{}", JSON.toJSONString(parameterMap));
+        }
+
         request.setAttribute("startTime", System.currentTimeMillis());
         request.setAttribute("ctx", ProjectHelper.getProjectBasePath(request));
         return true;

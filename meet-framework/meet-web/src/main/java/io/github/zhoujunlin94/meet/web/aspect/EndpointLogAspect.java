@@ -1,7 +1,5 @@
 package io.github.zhoujunlin94.meet.web.aspect;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.Method;
 import com.alibaba.fastjson2.JSONObject;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,9 +14,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -49,16 +44,6 @@ public class EndpointLogAspect {
             String methodName = pjp.getSignature().getName();
             log.warn("接口执行路径: {}#{}", className, methodName);
 
-            Enumeration<String> headerNames = request.getHeaderNames();
-            Map<String, Object> headerMap = new HashMap<>();
-            while (headerNames.hasMoreElements()) {
-                String headerName = headerNames.nextElement();
-                headerMap.put(headerName, request.getHeader(headerName));
-            }
-            if (CollUtil.isNotEmpty(headerMap)) {
-                log.warn("Headers:\n{}", JSONObject.toJSONString(headerMap));
-            }
-
             String method = request.getMethod();
             if (Method.POST.toString().equalsIgnoreCase(method) || Method.PUT.toString().equalsIgnoreCase(method)) {
                 Object[] args = pjp.getArgs();
@@ -67,15 +52,6 @@ public class EndpointLogAspect {
                         log.warn("RequestBody: {}", JSONObject.toJSONString(arg));
                     }
                 }
-            }
-
-            Map<String, String[]> parameterMap = request.getParameterMap();
-            if (CollUtil.isNotEmpty(parameterMap)) {
-                log.warn("ParameterMap: {}", JSONObject.toJSONString(parameterMap));
-            }
-            String queryString = request.getQueryString();
-            if (StrUtil.isNotBlank(queryString)) {
-                log.warn("QueryString: {}", queryString);
             }
         } catch (Exception ex) {
             log.error("EndpointLogAspect logMethodInfo Meet Exception:", ex);
