@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.common.collect.Lists;
 import io.github.zhoujunlin94.meet.common.constant.CommonConstant;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.TimeZone;
 
 /**
  * @author zhoujunlin
@@ -43,10 +45,14 @@ public final class JacksonUtil {
                 .defaultDateFormat(new SimpleDateFormat(DatePattern.NORM_DATETIME_PATTERN))
                 .build();
 
+        OBJECT_MAPPER.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
+        OBJECT_MAPPER.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+
         // BigDecimal 使用普通字符串序列化，避免科学计数法
         SimpleModule simpleModule = new SimpleModule();
         simpleModule.addSerializer(BigDecimal.class, ToStringSerializer.instance);
         OBJECT_MAPPER.registerModule(simpleModule);
+        OBJECT_MAPPER.registerModule(new JavaTimeModule());
     }
 
     public static ObjectMapper getObjectMapper() {
