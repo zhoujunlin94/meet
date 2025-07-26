@@ -27,7 +27,7 @@ spring:
         mybatis:
           entityPackage: io.github.zhoujunlin94.meet.tk_mybatis.example.entity.meet
           mapperXmlLocation: classpath:mybatis/meet/*.xml
-          mapperPackages: io.github.zhoujunlin94.meet.tk_mybatis.example.mapper.meet
+          mapperPackage: io.github.zhoujunlin94.meet.tk_mybatis.example.mapper.meet
           interceptors:
             - clazz: com.github.pagehelper.PageInterceptor
               properties:
