@@ -329,39 +329,34 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
                 <version>${flatten-maven-plugin.version}</version>
-                <inherited>true</inherited>
                 <configuration>
                     <flattenMode>bom</flattenMode>
                     <updatePomFile>true</updatePomFile>
                 </configuration>
                 <executions>
                     <execution>
-                        <id>flatten</id>
-                        <phase>process-resources</phase>
                         <goals>
                             <goal>flatten</goal>
                         </goals>
-                        <configuration>
-                            <updatePomFile>true</updatePomFile>
-                            <flattenMode>ossrh</flattenMode>
-                            <pomElements>
-                                <distributionManagement>remove</distributionManagement>
-                                <dependencyManagement>remove</dependencyManagement>
-                                <repositories>remove</repositories>
-                                <scm>keep</scm>
-                                <url>keep</url>
-                                <organization>resolve</organization>
-                            </pomElements>
-                        </configuration>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
                     </execution>
                     <execution>
-                        <id>flatten.clean</id>
-                        <phase>clean</phase>
                         <goals>
                             <goal>clean</goal>
                         </goals>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>${versions-maven.version}</version> <!-- 使用最新稳定版本 -->
+                <configuration>
+                    <generateBackupPoms>false</generateBackupPoms>
+                </configuration>
             </plugin>
             <!--   source源码插件 -->
             <plugin>
@@ -401,16 +396,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler.version}</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
