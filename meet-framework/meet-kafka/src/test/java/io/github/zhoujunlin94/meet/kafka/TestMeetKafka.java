@@ -1,10 +1,12 @@
 package io.github.zhoujunlin94.meet.kafka;
 
 import jakarta.annotation.Resource;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
 
 /**
  * @author zhoujunlin
@@ -16,15 +18,24 @@ import org.springframework.kafka.core.KafkaTemplate;
 public class TestMeetKafka {
 
     @Resource
-    private KafkaTemplate kafkaTemplate;
+    private KafkaTemplate<String, String> kafkaTemplate;
     @Resource
-    private KafkaTemplate meetKafkaTemplate;
+    private KafkaTemplate<String, String> meetKafkaTemplate;
     @Resource
-    private KafkaTemplate item1KafkaTemplate;
+    private KafkaTemplate<String, String> item1KafkaTemplate;
 
     @Test
+    @SneakyThrows
     public void test() {
-        log.info("test");
+        SendResult<String, String> ret1 = kafkaTemplate.send("abc", "test1").get();
+        log.warn("ret1: {}", ret1);
+
+        SendResult<String, String> ret2 = meetKafkaTemplate.send("abc", "test2").get();
+        log.warn("ret2: {}", ret2);
+
+        SendResult<String, String> ret3 = item1KafkaTemplate.send("abc", "test3").get();
+        log.warn("ret3: {}", ret3);
+
     }
 
 
