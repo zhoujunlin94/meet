@@ -39,7 +39,7 @@ public class MeetKafkaProducerAutoConfiguration {
 
         MeetKafkaProducerProperties producerProps = meetKafkaProperties.getProducer();
 
-        ProducerFactory<String, Object> meetProducerFactory = new DefaultKafkaProducerFactory<>(producerProps.buildProperties(), producerProps.getKeySerializer(), producerProps.getValueSerializer());
+        ProducerFactory<String, Object> meetProducerFactory = new DefaultKafkaProducerFactory<>(producerProps.buildProperties(), producerProps.getKeySerializerInstance(), producerProps.getValueSerializerInstance());
         KafkaTemplate<String, Object> meetKafkaTemplate = new KafkaTemplate<>(meetProducerFactory);
         String beanName = StrUtil.blankToDefault(producerProps.getName(), "meet") + "KafkaTemplate";
         templates.put(beanName, meetKafkaTemplate);
@@ -48,7 +48,7 @@ public class MeetKafkaProducerAutoConfiguration {
         if (CollUtil.isNotEmpty(producerProps.getItems())) {
             producerProps.getItems().forEach(item -> {
                 if (StrUtil.isNotBlank(item.getName()) && CollUtil.isNotEmpty(item.getBootstrapServers())) {
-                    ProducerFactory<String, Object> itemProducerFactory = new DefaultKafkaProducerFactory<>(item.buildProperties(), item.getKeySerializer(), item.getValueSerializer());
+                    ProducerFactory<String, Object> itemProducerFactory = new DefaultKafkaProducerFactory<>(item.buildProperties(), item.getKeySerializerInstance(), item.getValueSerializerInstance());
                     KafkaTemplate<String, Object> itemKafkaTemplate = new KafkaTemplate<>(itemProducerFactory);
                     String itemBeanName = item.getName() + "KafkaTemplate";
                     templates.put(itemBeanName, itemKafkaTemplate);

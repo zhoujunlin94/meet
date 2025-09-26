@@ -53,7 +53,7 @@ public class MeetKafkaProducerProperties {
         return producerProperties;
     }
 
-    public Serializer getKeySerializer() {
+    public Serializer getKeySerializerInstance() {
         try {
             if (Objects.nonNull(this.keySerializer)) {
                 return (Serializer) this.keySerializer.getDeclaredConstructor().newInstance();
@@ -63,7 +63,7 @@ public class MeetKafkaProducerProperties {
         return new StringSerializer();
     }
 
-    public Serializer getValueSerializer() {
+    public Serializer getValueSerializerInstance() {
         try {
             if (Objects.nonNull(this.valueSerializer)) {
                 return (Serializer) this.valueSerializer.getDeclaredConstructor().newInstance();
