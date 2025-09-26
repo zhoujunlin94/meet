@@ -3,7 +3,6 @@ package io.github.zhoujunlin94.meet.kafka.properties;
 import cn.hutool.core.collection.CollUtil;
 import lombok.Data;
 import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.clients.producer.ProducerInterceptor;
 import org.apache.kafka.common.serialization.Serializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 
@@ -29,7 +28,7 @@ public class MeetKafkaProducerProperties {
     private Class<?> valueSerializer;
     private String acks = "1";
     private Integer retries = 0;
-    private List<ProducerInterceptor> interceptors;
+    private List<String> interceptors;
 
     private List<MeetKafkaProducerProperties> items;
 

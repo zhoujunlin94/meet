@@ -2,6 +2,7 @@ package io.github.zhoujunlin94.meet.kafka.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 /**
  * @author zhoujunlin
@@ -12,6 +13,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "meet.kafka")
 public class MeetKafkaProperties {
 
+    @NestedConfigurationProperty
     private MeetKafkaProducerProperties producer;
 
 
