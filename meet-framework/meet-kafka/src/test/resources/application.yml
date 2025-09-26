@@ -1,0 +1,27 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:9095
+
+meet:
+  kafka:
+    producer:
+      bootstrap-servers:
+        - localhost:9093
+      batch-size: 16384
+      buffer-memory: 1048576
+      linger-ms: 10
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: "1"
+      retries: 0
+      items:
+        - name: item1
+          bootstrap-servers:
+            - localhost:9094
+          batch-size: 16384
+          buffer-memory: 1048576
+          linger-ms: 10
+          key-serializer: org.apache.kafka.common.serialization.StringSerializer
+          value-serializer: org.apache.kafka.common.serialization.StringSerializer
+          acks: "1"
+          retries: 0

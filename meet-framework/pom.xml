@@ -23,6 +23,7 @@
         <module>meet-rocketmq</module>
         <module>meet-tk_mybatis</module>
         <module>meet-web</module>
+        <module>meet-kafka</module>
     </modules>
 
 </project>
