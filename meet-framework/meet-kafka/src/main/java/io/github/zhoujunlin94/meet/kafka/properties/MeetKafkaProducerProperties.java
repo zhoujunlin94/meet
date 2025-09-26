@@ -25,8 +25,8 @@ public class MeetKafkaProducerProperties {
     private Integer batchSize = 16384;
     private Long bufferMemory = 1048576L;
     private Long lingerMs = 10L;
-    private Class<?> keySerializer = StringSerializer.class;
-    private Class<?> valueSerializer = StringSerializer.class;
+    private Class<?> keySerializer;
+    private Class<?> valueSerializer;
     private String acks = "1";
     private Integer retries = 0;
     private List<ProducerInterceptor> interceptors;

@@ -1,6 +1,7 @@
 package io.github.zhoujunlin94.meet.kafka;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
 import io.github.zhoujunlin94.meet.kafka.properties.MeetKafkaProducerProperties;
 import io.github.zhoujunlin94.meet.kafka.properties.MeetKafkaProperties;
 import lombok.RequiredArgsConstructor;
@@ -40,17 +41,19 @@ public class MeetKafkaProducerAutoConfiguration {
 
         ProducerFactory<String, Object> meetProducerFactory = new DefaultKafkaProducerFactory<>(producerProps.buildProperties(), producerProps.getKeySerializer(), producerProps.getValueSerializer());
         KafkaTemplate<String, Object> meetKafkaTemplate = new KafkaTemplate<>(meetProducerFactory);
-        String beanName = "meetKafkaTemplate";
+        String beanName = StrUtil.blankToDefault(producerProps.getName(), "meet") + "KafkaTemplate";
         templates.put(beanName, meetKafkaTemplate);
         beanFactory.registerSingleton(beanName, meetKafkaTemplate);
 
         if (CollUtil.isNotEmpty(producerProps.getItems())) {
             producerProps.getItems().forEach(item -> {
-                ProducerFactory<String, Object> itemProducerFactory = new DefaultKafkaProducerFactory<>(item.buildProperties(), item.getKeySerializer(), item.getValueSerializer());
-                KafkaTemplate<String, Object> itemKafkaTemplate = new KafkaTemplate<>(itemProducerFactory);
-                String itemBeanName = item.getName() + "KafkaTemplate";
-                templates.put(itemBeanName, itemKafkaTemplate);
-                beanFactory.registerSingleton(itemBeanName, itemKafkaTemplate);
+                if (StrUtil.isNotBlank(item.getName()) && CollUtil.isNotEmpty(item.getBootstrapServers())) {
+                    ProducerFactory<String, Object> itemProducerFactory = new DefaultKafkaProducerFactory<>(item.buildProperties(), item.getKeySerializer(), item.getValueSerializer());
+                    KafkaTemplate<String, Object> itemKafkaTemplate = new KafkaTemplate<>(itemProducerFactory);
+                    String itemBeanName = item.getName() + "KafkaTemplate";
+                    templates.put(itemBeanName, itemKafkaTemplate);
+                    beanFactory.registerSingleton(itemBeanName, itemKafkaTemplate);
+                }
             });
         }
 
