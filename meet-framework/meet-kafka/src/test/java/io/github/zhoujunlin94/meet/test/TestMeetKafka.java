@@ -1,4 +1,4 @@
-package io.github.zhoujunlin94.meet.kafka;
+package io.github.zhoujunlin94.meet.test;
 
 import jakarta.annotation.Resource;
 import lombok.SneakyThrows;
@@ -9,6 +9,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * @author zhoujunlin
@@ -20,17 +21,17 @@ import java.util.Map;
 public class TestMeetKafka {
 
     @Resource
-    private KafkaTemplate<String, String> kafkaTemplate;
+    private KafkaTemplate<String, Object> kafkaTemplate;
     @Resource
-    private KafkaTemplate<String, String> meetKafkaTemplate;
+    private KafkaTemplate<String, Object> meet;
     @Resource
-    private KafkaTemplate<String, String> item1KafkaTemplate;
+    private KafkaTemplate<String, Object> producerItem1;
 
     @Resource
     private Map<String, KafkaTemplate<String, Object>> kafkaTemplates;
 
     @Test
-    public void print() {
+    public void printProducers() {
         kafkaTemplates.forEach((name, template) -> {
             log.warn("name: {}, template: {}", name, template);
         });
@@ -39,15 +40,23 @@ public class TestMeetKafka {
     @Test
     @SneakyThrows
     public void testSend() {
-        SendResult<String, String> ret1 = kafkaTemplate.send("abc", "test1").get();
+        SendResult<String, Object> ret1 = kafkaTemplate.send("abc", "test1").get();
         log.warn("ret1: {}", ret1);
 
-        SendResult<String, String> ret2 = meetKafkaTemplate.send("abc", "test2").get();
+        SendResult<String, Object> ret2 = meet.send("abc", "test2").get();
         log.warn("ret2: {}", ret2);
 
-        SendResult<String, String> ret3 = item1KafkaTemplate.send("abc", "test3").get();
+        SendResult<String, Object> ret3 = producerItem1.send("abc", "test3").get();
         log.warn("ret3: {}", ret3);
 
+    }
+
+
+    @Test
+    @SneakyThrows
+    public void testConsumer() {
+        // 阻塞 观察消费是否完成
+        new CountDownLatch(1).await();
     }
 
 

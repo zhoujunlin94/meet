@@ -29,7 +29,7 @@ public class MeetKafkaProducerProperties {
     private Long lingerMs = 10L;
     private Class<?> keySerializer;
     private Class<?> valueSerializer;
-    private String acks = "1";
+    private String acks = "all";
     private Integer retries = 0;
     private List<String> interceptors;
 
