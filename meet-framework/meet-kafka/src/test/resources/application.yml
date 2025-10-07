@@ -12,5 +12,13 @@ meet:
       items:
         - name: item1
           bootstrap-servers: localhost:9094
-          key-serializer: org.apache.kafka.common.serialization.StringSerializer
-          value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      name: main
+      bootstrap-servers: localhost:9093
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      max-poll-records: 100
+      items:
+        - name: item1
+          bootstrap-servers: localhost:9094

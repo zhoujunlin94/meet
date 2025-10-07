@@ -16,5 +16,7 @@ public class MeetKafkaProperties {
     @NestedConfigurationProperty
     private MeetKafkaProducerProperties producer;
 
+    @NestedConfigurationProperty
+    private MeetKafkaConsumerProperties consumer;
 
 }

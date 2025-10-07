@@ -19,6 +19,9 @@ import java.util.Objects;
 @Data
 public class MeetKafkaProducerProperties {
 
+    /**
+     * 主配置
+     */
     private String name;
     private List<String> bootstrapServers;
     private Integer batchSize = 16384;
@@ -30,6 +33,10 @@ public class MeetKafkaProducerProperties {
     private Integer retries = 0;
     private List<String> interceptors;
 
+    /**
+     * 多实例配置，每个实例可以配置不同的bootstrap-servers、key-serializer、value-serializer等
+     * 非必填，默认与主配置相同  覆盖主配置
+     */
     private List<MeetKafkaProducerProperties> items;
 
 
