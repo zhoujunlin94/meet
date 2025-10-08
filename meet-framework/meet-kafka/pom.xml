@@ -11,7 +11,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>meet-kafka</artifactId>
-    <description>meet-kafka</description>
+    <name>meet-kafka</name>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
