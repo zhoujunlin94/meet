@@ -17,3 +17,4 @@ doc-开发环境搭建文档积累
    mvn clean deploy -pl meet-framework/meet-common -DskipTests "-Dgpg.passphrase=密码"
 
 2. 自动发布 github action 每次修改maven_settings.xml中的用户+密码即可
+
