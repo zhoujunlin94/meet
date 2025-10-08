@@ -9,6 +9,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -49,6 +50,19 @@ public class TestMeetKafka {
         SendResult<String, Object> ret3 = producerItem1.send("abc", "test3").get();
         log.warn("ret3: {}", ret3);
 
+    }
+
+
+    @Test
+    @SneakyThrows
+    public void testBatchSend() {
+        CompletableFuture[] futures = new CompletableFuture[10];
+        for (int i = 0; i < 10; i++) {
+            futures[i] = producerItem1.send("abc", "test" + i);
+        }
+        // 等待所有消息发送完成
+        CompletableFuture.allOf(futures).join();
+        log.warn("done..");
     }
 
 

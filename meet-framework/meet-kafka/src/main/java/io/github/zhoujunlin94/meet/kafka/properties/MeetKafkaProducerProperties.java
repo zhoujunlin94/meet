@@ -1,15 +1,14 @@
 package io.github.zhoujunlin94.meet.kafka.properties;
 
-import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.ObjectUtil;
+import io.github.zhoujunlin94.meet.kafka.interceptor.RequestIdProducerInterceptor;
 import lombok.Data;
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.clients.producer.ProducerInterceptor;
 import org.apache.kafka.common.serialization.Serializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author zhoujunlin
@@ -27,11 +26,11 @@ public class MeetKafkaProducerProperties {
     private Integer batchSize = 16384;
     private Long bufferMemory = 1048576L;
     private Long lingerMs = 10L;
-    private Class<?> keySerializer;
-    private Class<?> valueSerializer;
+    private Class<? extends Serializer> keySerializer;
+    private Class<? extends Serializer> valueSerializer;
     private String acks = "all";
     private Integer retries = 0;
-    private List<String> interceptors;
+    private List<Class<? extends ProducerInterceptor>> interceptors;
 
     /**
      * 多实例配置，每个实例可以配置不同的bootstrap-servers、key-serializer、value-serializer等
@@ -53,9 +52,9 @@ public class MeetKafkaProducerProperties {
         //生产者可以使用的总内存字节来缓冲等待发送到服务器的记录
         producerProperties.put(ProducerConfig.BUFFER_MEMORY_CONFIG, this.bufferMemory);
         producerProperties.put(ProducerConfig.ACKS_CONFIG, this.acks);
-        if (CollUtil.isNotEmpty(this.interceptors)) {
-            producerProperties.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG, this.interceptors);
-        }
+        List<Class<? extends ProducerInterceptor>> interceptors = ObjectUtil.defaultIfNull(this.interceptors, new ArrayList<>());
+        interceptors.add(RequestIdProducerInterceptor.class);
+        producerProperties.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG, interceptors);
 
         return producerProperties;
     }

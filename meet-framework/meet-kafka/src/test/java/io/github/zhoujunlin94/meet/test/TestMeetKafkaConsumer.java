@@ -3,13 +3,14 @@ package io.github.zhoujunlin94.meet.test;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.stereotype.Component;
 
 /**
  * @author zhoujunlin
  * @date 2025/10/7 21:14
  */
 @Slf4j
-// @Component
+@Component
 public class TestMeetKafkaConsumer {
 
     @KafkaListener(
@@ -19,7 +20,7 @@ public class TestMeetKafkaConsumer {
             concurrency = "3"
     )
     public void test1(ConsumerRecord<String, Object> consumerRecord) {
-        log.info("test1: {}", consumerRecord);
+        log.info("main: {}", consumerRecord.value());
     }
 
     @KafkaListener(
@@ -29,7 +30,7 @@ public class TestMeetKafkaConsumer {
             concurrency = "3"
     )
     public void test2(ConsumerRecord<String, Object> consumerRecord) {
-        log.info("test2: {}", consumerRecord);
+        log.info("consumerItem1: {}", consumerRecord.value());
     }
 
 
