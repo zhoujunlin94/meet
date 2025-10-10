@@ -82,10 +82,8 @@ public class DataSourceBeanFactoryProcessor implements BeanDefinitionRegistryPos
             if (buildDataSource(datasourceName, datasourceConfig, registry)) {
                 // 2. 事务管理器
                 buildDataSourceTransactionManager(datasourceName, dataSourceTransactionManagerName, registry);
-
                 // 3. 构建SqlSessionFactory
                 if (buildSqlSessionFactory(datasourceName, sqlSessionFactoryName, datasourceConfig, registry)) {
-
                     // 4. 注册mapper
                     registerMapper(sqlSessionFactoryName, datasourceConfig, registry);
                 }
@@ -187,7 +185,7 @@ public class DataSourceBeanFactoryProcessor implements BeanDefinitionRegistryPos
         datasourceBeanDefinition.setBeanClass(DataSource.class);
 
         datasourceBeanDefinition.setInstanceSupplier(() -> {
-            Properties configHikari = datasourceConfig.getHikari();
+            Properties configHikari = datasourceConfig.getHikari().buildProperties();
             configHikari.put("jdbcUrl", datasourceConfig.getUrl());
             configHikari.put("driverClassName", datasourceConfig.getDriverClassName());
             configHikari.put("username", datasourceConfig.getUsername());

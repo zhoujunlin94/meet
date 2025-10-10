@@ -6,6 +6,6 @@ package io.github.zhoujunlin94.meet.tk_mybatis.constant;
  */
 public class TkMybatisConstant {
 
-    public static final String DYNAMIC_PREFIX = "spring.dynamic";
+    public static final String DYNAMIC_PREFIX = "meet.dynamic";
 
 }
