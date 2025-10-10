@@ -2,6 +2,7 @@ package io.github.zhoujunlin94.mqtt.beanfactorypostprocessor;
 
 import cn.hutool.core.collection.CollUtil;
 import io.github.zhoujunlin94.mqtt.callback.MqttClientCallBack;
+import io.github.zhoujunlin94.mqtt.constant.MqttConstant;
 import io.github.zhoujunlin94.mqtt.properties.Client;
 import io.github.zhoujunlin94.mqtt.properties.MqttClientProperties;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,6 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
 import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Component;
 
 import java.util.Map;
 import java.util.Objects;
@@ -31,7 +31,6 @@ import java.util.Optional;
  * @date 2024/8/3 18:41
  */
 @Slf4j
-@Component
 public class MqttClientBeanFactoryPostProcessor implements BeanDefinitionRegistryPostProcessor, EnvironmentAware, ApplicationContextAware {
 
     private Environment environment;
@@ -40,7 +39,7 @@ public class MqttClientBeanFactoryPostProcessor implements BeanDefinitionRegistr
 
     @Override
     public void postProcessBeanDefinitionRegistry(@NonNull BeanDefinitionRegistry registry) throws BeansException {
-        MqttClientProperties mqttClientProperties = Binder.get(this.environment).bind("mqtt", MqttClientProperties.class).get();
+        MqttClientProperties mqttClientProperties = Binder.get(this.environment).bind(MqttConstant.MQTT_PROPERTIES_PREFIX, MqttClientProperties.class).get();
         if (Objects.isNull(mqttClientProperties) || CollUtil.isEmpty(mqttClientProperties.getClient())) {
             return;
         }

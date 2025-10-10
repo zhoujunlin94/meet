@@ -18,7 +18,7 @@ import java.util.Collection;
 @Slf4j
 public class MqttClientCallBack implements MqttCallback {
 
-    private Collection<MqttMessageHandler> mqttMessageHandlers;
+    private final Collection<MqttMessageHandler> mqttMessageHandlers;
 
     public MqttClientCallBack(ApplicationContext applicationContext) {
         this.mqttMessageHandlers = applicationContext.getBeansOfType(MqttMessageHandler.class).values();
