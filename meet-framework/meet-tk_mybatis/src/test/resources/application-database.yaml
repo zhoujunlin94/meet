@@ -10,23 +10,8 @@ meet:
         # hikari连接池配置 对应 HikariConfig 配置属性类
         hikari:
           poolName: HikariCP-meet
-          #最小空闲连接数
-          minimumIdle: 20
-          # 空闲连接存活最大时间，默认10分钟
-          idleTimeout: 600000
-          # 连接池最大连接数，默认是10
-          maximumPoolSize: 100
-          # 此属性控制从池返回的连接的默认自动提交行为,默认值：true
-          autoCommit: true
-          # 此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认30分钟
-          maxLifetime: 1800000
-          # 数据库连接超时时间,默认30秒
-          connectionTimeout: 30000
-          # 连接测试query
-          connectionTestQuery: SELECT 1
         mybatis:
           entityPackage: io.github.zhoujunlin94.meet.tk_mybatis.example.entity.meet
-          mapperXmlLocation: classpath:mybatis/meet/*.xml
           mapperPackage: io.github.zhoujunlin94.meet.tk_mybatis.example.mapper.meet
           interceptors:
             - clazz: com.github.pagehelper.PageInterceptor
@@ -47,13 +32,6 @@ meet:
         # hikari连接池配置
         hikari:
           poolName: HikariCP-base
-          minimumIdle: 5
-          idleTimeout: 600000
-          maximumPoolSize: 10
-          autoCommit: true
-          maxLifetime: 1800000
-          connectionTimeout: 30000
-          connectionTestQuery: SELECT 1
         mybatis:
           entityPackage: io.github.zhoujunlin94.meet.tk_mybatis.example.entity.base
           mapperPackage: io.github.zhoujunlin94.meet.tk_mybatis.example.mapper.base
