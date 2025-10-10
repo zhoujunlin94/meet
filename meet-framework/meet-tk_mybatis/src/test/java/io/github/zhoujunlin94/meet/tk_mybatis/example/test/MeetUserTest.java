@@ -22,7 +22,7 @@ public class MeetUserTest {
 
     @Test
     public void insertUser() {
-        MeetUser meetUser = new MeetUser().setUserId(1002587665).setUserName("zgyd222");
+        MeetUser meetUser = new MeetUser().setUserId(10000).setUserName("zgyd222");
         // 影响行数
         System.out.println(meetUserHandler.insertIgnore(meetUser));
         // ignore  没有id返回

@@ -57,7 +57,7 @@ public class CacheCfgTest {
 
     @Test
     public void deleteCache() {
-        cacheCfgHandler.deleteByPrimaryKey("test");
+        cacheCfgHandler.deleteByPrimaryKey("test100");
     }
 
     @Test
