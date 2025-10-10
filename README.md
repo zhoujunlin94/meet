@@ -2,7 +2,7 @@
 
 #### 介绍
 
-工作学习代码idea小合集
+工作学习代码合集
 
 doc-开发环境搭建文档积累
 
@@ -16,5 +16,4 @@ doc-开发环境搭建文档积累
 1. 手动发布 打包 mvn clean deploy -DskipTests "-Dgpg.passphrase=密码"
    mvn clean deploy -pl meet-framework/meet-common -DskipTests "-Dgpg.passphrase=密码"
 
-2. 自动发布 github action 每次修改maven_settings.xml中的用户+密码即可
-
+2. 自动发布 github action 修改maven_settings.xml中的用户+密码即可
