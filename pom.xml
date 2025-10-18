@@ -88,7 +88,7 @@
 
         <jasypt.version>3.0.2</jasypt.version>
 
-        <sa-token.version>1.35.0.RC</sa-token.version>
+        <sa-token.version>1.44.0</sa-token.version>
 
         <mqttv3.version>1.2.5</mqttv3.version>
     </properties>
@@ -273,7 +273,7 @@
             <!-- 权限相关 -->
             <dependency>
                 <groupId>cn.dev33</groupId>
-                <artifactId>sa-token-spring-boot-starter</artifactId>
+                <artifactId>sa-token-spring-boot3-starter</artifactId>
                 <version>${sa-token.version}</version>
             </dependency>
             <dependency>
