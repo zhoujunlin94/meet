@@ -3,9 +3,9 @@ package io.github.zhoujunlin94.meet.tk_mybatis.properties;
 import cn.hutool.core.util.StrUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 import java.util.Objects;
-import java.util.Properties;
 
 /**
  * @author zhoujunlin
@@ -19,8 +19,11 @@ public class DatasourceConfig {
     private String driverClassName;
     private String username;
     private String password;
-    private Properties hikari;
 
+    @NestedConfigurationProperty
+    private HikariCpConfig hikari;
+
+    @NestedConfigurationProperty
     private MybatisConfig mybatis;
 
     public boolean checkDatasource() {

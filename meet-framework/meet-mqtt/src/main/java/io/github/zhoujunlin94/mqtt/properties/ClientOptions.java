@@ -9,12 +9,12 @@ import lombok.Data;
 @Data
 public class ClientOptions {
 
-    private boolean cleanSession;
+    private boolean cleanSession = false;
 
     private Integer keepAliveInterval = 60;
 
     private Integer connectionTimeout = 60;
 
-    private boolean automaticReconnect;
+    private boolean automaticReconnect = true;
 
 }

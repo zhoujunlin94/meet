@@ -73,12 +73,12 @@ public class JSONTableTest {
     @Test
     public void print() {
 
-        JsonTable jsonTable = jsonTableMapper.selectByPrimaryKey(18);
+        JsonTable jsonTable = jsonTableMapper.selectByPrimaryKey(22);
         System.out.println(jsonTable.getJsonObj().toJSONString());
         System.out.println(jsonTable.getJsonStr().toJSONString());
 
 
-        jsonTable = jsonTableMapper.selectByPrimaryKey(19);
+        jsonTable = jsonTableMapper.selectByPrimaryKey(23);
         System.out.println(jsonTable.getJsonObj().toJSONString());
         System.out.println(jsonTable.getJsonStr().toJSONString());
 

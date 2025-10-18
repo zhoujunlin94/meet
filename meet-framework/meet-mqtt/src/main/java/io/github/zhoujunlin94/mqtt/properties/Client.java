@@ -3,6 +3,7 @@ package io.github.zhoujunlin94.mqtt.properties;
 import cn.hutool.core.util.StrUtil;
 import lombok.Data;
 import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class Client {
 
     private String serverUri;
 
+    @NestedConfigurationProperty
     private ClientOptions options;
 
     private List<SubscribeTopic> subscribes;
