@@ -40,8 +40,8 @@
     </scm>
 
     <properties>
-        <revision>3.2.3</revision>
-        <java.version>17</java.version>
+        <revision>2.0.0</revision>
+        <java.version>1.8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -56,16 +56,16 @@
         <central-publishing.version>0.4.0</central-publishing.version>
 
         <!-- 统一依赖管理 -->
-        <spring.boot.version>3.3.6</spring.boot.version>
-        <spring.cloud.version>2022.0.0</spring.cloud.version>
-        <spring.cloud.alibaba.version>2022.0.0.2</spring.cloud.alibaba.version>
+        <spring.boot.version>2.7.18</spring.boot.version>
+        <spring.cloud.version>2021.0.8</spring.cloud.version>
+        <spring.cloud.alibaba.version>2021.0.5.0</spring.cloud.alibaba.version>
 
         <lombok.version>1.18.24</lombok.version>
-        <hutool.version>5.8.37</hutool.version>
-        <poi.version>5.2.3</poi.version>
+        <hutool.version>5.8.11</hutool.version>
+        <poi.version>5.0.0</poi.version>
         <easyexcel.version>3.2.0</easyexcel.version>
 
-        <fastjson.version>2.0.57</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <transmittable-thread-local.version>2.14.2</transmittable-thread-local.version>
 
         <guava.version>31.1-jre</guava.version>
@@ -75,16 +75,16 @@
 
         <openfeign.version>11.0</openfeign.version>
 
-        <knife4j.version>4.4.0</knife4j.version>
+        <knife4j.version>3.0.3</knife4j.version>
 
-        <redisson.version>3.23.1</redisson.version>
+        <redisson.version>3.18.0</redisson.version>
 
         <mysql-connector-java.version>8.0.17</mysql-connector-java.version>
-        <tk.mybatis.version>5.0.1</tk.mybatis.version>
+        <tk.mybatis.version>2.0.0</tk.mybatis.version>
         <pagehelper.version>5.1.11</pagehelper.version>
-        <seata.version>1.6.1</seata.version>
+        <seata.version>1.5.2</seata.version>
 
-        <rocketmq.version>2.2.0</rocketmq.version>
+        <rocketmq.version>2.1.1</rocketmq.version>
 
         <jasypt.version>3.0.2</jasypt.version>
 
@@ -176,13 +176,8 @@
             </dependency>
 
             <dependency>
-                <groupId>com.alibaba.fastjson2</groupId>
-                <artifactId>fastjson2</artifactId>
-                <version>${fastjson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba.fastjson2</groupId>
-                <artifactId>fastjson2-extension-spring6</artifactId>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
             </dependency>
 
@@ -221,7 +216,7 @@
 
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+                <artifactId>knife4j-spring-boot-starter</artifactId>
                 <version>${knife4j.version}</version>
             </dependency>
 
@@ -273,7 +268,7 @@
             <!-- 权限相关 -->
             <dependency>
                 <groupId>cn.dev33</groupId>
-                <artifactId>sa-token-spring-boot3-starter</artifactId>
+                <artifactId>sa-token-spring-boot-starter</artifactId>
                 <version>${sa-token.version}</version>
             </dependency>
             <dependency>
