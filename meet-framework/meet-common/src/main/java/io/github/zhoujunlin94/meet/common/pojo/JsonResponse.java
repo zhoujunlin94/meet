@@ -1,6 +1,6 @@
 package io.github.zhoujunlin94.meet.common.pojo;
 
-import com.alibaba.fastjson2.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 import io.github.zhoujunlin94.meet.common.exception.CommonErrorCode;
 import lombok.Data;
 import lombok.experimental.Accessors;

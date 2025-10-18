@@ -1,15 +1,16 @@
 package io.github.zhoujunlin94.meet.redis.consumer;
 
-import com.alibaba.fastjson2.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 import io.github.zhoujunlin94.meet.common.util.RequestIdUtil;
 import io.github.zhoujunlin94.meet.redis.dispatcher.PubSubMsgDispatcher;
 import io.github.zhoujunlin94.meet.redis.queue.TaskItem;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.lang.NonNull;
+
+import javax.annotation.Resource;
 
 /**
  * @author zhoujl

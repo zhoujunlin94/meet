@@ -3,8 +3,9 @@ package io.github.zhoujunlin94.meet.web.interceptor;
 import io.github.zhoujunlin94.meet.common.exception.CommonErrorCode;
 import io.github.zhoujunlin94.meet.common.pojo.JsonResponse;
 import io.github.zhoujunlin94.meet.common.util.ServletUtils;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
+
+import javax.servlet.http.HttpServletResponse;
 
 
 /**

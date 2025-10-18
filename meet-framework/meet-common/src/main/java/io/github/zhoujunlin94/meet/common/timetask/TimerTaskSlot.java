@@ -95,8 +95,8 @@ public class TimerTaskSlot implements Delayed {
 
     @Override
     public int compareTo(@Nonnull Delayed obj) {
-        if (obj instanceof TimerTaskSlot another) {
-            return Long.compare(expiration.get(), another.expiration.get());
+        if (obj instanceof TimerTaskSlot) {
+            return Long.compare(expiration.get(), ((TimerTaskSlot) obj).expiration.get());
         }
         return 0;
     }

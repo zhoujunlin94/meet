@@ -1,8 +1,7 @@
 package io.github.zhoujunlin94.meet.web.aspect;
 
 import cn.hutool.http.Method;
-import com.alibaba.fastjson2.JSONObject;
-import jakarta.servlet.http.HttpServletRequest;
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -16,6 +15,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.lang.annotation.Annotation;
 import java.util.Objects;
 

@@ -1,6 +1,6 @@
 package io.github.zhoujunlin94.meet.tk_mybatis.handler;
 
-import com.alibaba.fastjson2.JSONArray;
+import com.alibaba.fastjson.JSONArray;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.type.*;
 

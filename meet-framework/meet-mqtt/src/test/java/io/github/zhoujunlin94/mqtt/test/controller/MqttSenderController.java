@@ -1,8 +1,7 @@
 package io.github.zhoujunlin94.mqtt.test.controller;
 
 import cn.hutool.core.util.IdUtil;
-import com.alibaba.fastjson2.JSONObject;
-import jakarta.annotation.Resource;
+import com.alibaba.fastjson.JSONObject;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.nio.charset.StandardCharsets;
 
 /**

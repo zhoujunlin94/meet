@@ -1,15 +1,17 @@
 package io.github.zhoujunlin94.meet.web.constant;
 
 import cn.hutool.core.date.DatePattern;
-import com.alibaba.fastjson2.JSONReader;
-import com.alibaba.fastjson2.JSONWriter;
-import com.alibaba.fastjson2.support.config.FastJsonConfig;
-import com.alibaba.fastjson2.support.spring6.http.converter.FastJsonHttpMessageConverter;
+import com.alibaba.fastjson.PropertyNamingStrategy;
+import com.alibaba.fastjson.parser.Feature;
+import com.alibaba.fastjson.parser.ParserConfig;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.support.config.FastJsonConfig;
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 
 import java.nio.charset.StandardCharsets;
-import java.util.List;
+import java.util.Collections;
 import java.util.TimeZone;
 
 /**
@@ -28,26 +30,30 @@ public class FastJsonConfigConst {
         // 设置字符编码
         fastJsonConfig.setCharset(StandardCharsets.UTF_8);
         // 设置序列化特性
-        fastJsonConfig.setWriterFeatures(
-                JSONWriter.Feature.PrettyFormat,
-                JSONWriter.Feature.WriteBigDecimalAsPlain,
-                JSONWriter.Feature.WriteMapNullValue,
-                JSONWriter.Feature.WriteEnumUsingToString,
-                JSONWriter.Feature.ReferenceDetection
+        fastJsonConfig.setSerializerFeatures(
+                SerializerFeature.SortField,
+                SerializerFeature.PrettyFormat,
+                SerializerFeature.WriteDateUseDateFormat,
+                SerializerFeature.WriteNullListAsEmpty,
+                SerializerFeature.WriteNullStringAsEmpty,
+                SerializerFeature.WriteEnumUsingToString,
+                SerializerFeature.DisableCircularReferenceDetect
+        );
+        fastJsonConfig.setFeatures(
+                Feature.IgnoreNotMatch,
+                Feature.OrderedField
         );
 
-        // 设置反序列化特性
-        fastJsonConfig.setReaderFeatures(
-                JSONReader.Feature.IgnoreAutoTypeNotMatch,
-                JSONReader.Feature.SupportSmartMatch
-        );
-
+        ParserConfig globalInstance = ParserConfig.getGlobalInstance();
+        globalInstance.propertyNamingStrategy = PropertyNamingStrategy.SnakeCase;
+        globalInstance.setAutoTypeSupport(true);
+        fastJsonConfig.setParserConfig(globalInstance);
         return fastJsonConfig;
     }
-    
+
     public static HttpMessageConverter<Object> defaultFastJsonHttpMessageConverter() {
         FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
-        fastConverter.setSupportedMediaTypes(List.of(MediaType.APPLICATION_JSON));
+        fastConverter.setSupportedMediaTypes(Collections.singletonList(MediaType.APPLICATION_JSON));
         fastConverter.setFastJsonConfig(defaultFastJsonConfig());
         return fastConverter;
     }

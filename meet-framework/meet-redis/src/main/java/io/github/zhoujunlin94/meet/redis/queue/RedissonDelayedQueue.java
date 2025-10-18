@@ -3,16 +3,16 @@ package io.github.zhoujunlin94.meet.redis.queue;
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
-import com.alibaba.fastjson2.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 import io.github.zhoujunlin94.meet.common.util.RequestIdUtil;
 import io.github.zhoujunlin94.meet.redis.constant.RedisConstant;
 import io.github.zhoujunlin94.meet.redis.dispatcher.QueueMsgDispatcher;
 import io.github.zhoujunlin94.meet.redis.helper.RedissonHelper;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RBlockingQueue;
 import org.springframework.beans.factory.InitializingBean;
 
+import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
 
 /**

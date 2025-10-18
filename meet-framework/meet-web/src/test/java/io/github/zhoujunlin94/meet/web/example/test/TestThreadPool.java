@@ -2,7 +2,6 @@ package io.github.zhoujunlin94.meet.web.example.test;
 
 import cn.hutool.core.util.IdUtil;
 import io.github.zhoujunlin94.meet.web.example.ExampleApp;
-import jakarta.annotation.Resource;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -10,6 +9,7 @@ import org.slf4j.MDC;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+import javax.annotation.Resource;
 import java.util.concurrent.CountDownLatch;
 
 /**

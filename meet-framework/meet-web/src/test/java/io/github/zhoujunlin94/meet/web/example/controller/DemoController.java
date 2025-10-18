@@ -1,6 +1,6 @@
 package io.github.zhoujunlin94.meet.web.example.controller;
 
-import com.alibaba.fastjson2.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 import io.github.zhoujunlin94.meet.common.constant.CommonConstant;
 import io.github.zhoujunlin94.meet.web.example.vo.DemoVO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -8,10 +8,10 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Date;
 import java.util.Objects;
 

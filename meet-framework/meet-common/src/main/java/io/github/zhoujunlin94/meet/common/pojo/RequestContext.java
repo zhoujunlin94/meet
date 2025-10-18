@@ -1,7 +1,7 @@
 package io.github.zhoujunlin94.meet.common.pojo;
 
 import cn.hutool.core.util.ObjectUtil;
-import com.alibaba.fastjson2.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
 import lombok.experimental.Accessors;
 

@@ -1,6 +1,6 @@
 package io.github.zhoujunlin94.mqtt.callback;
 
-import com.alibaba.fastjson2.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 import io.github.zhoujunlin94.mqtt.handler.MqttMessageHandler;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
