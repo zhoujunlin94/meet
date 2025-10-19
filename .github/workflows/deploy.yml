@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - main
+      - release/springboot2_jdk8
+      - release/springboot3_jdk17
 
 jobs:
   publish:
