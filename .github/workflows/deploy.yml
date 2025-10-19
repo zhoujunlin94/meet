@@ -22,4 +22,3 @@ jobs:
         uses: zhoujunlin94/auto_deploy_maven_central@1.8
         with:
           GPG_PASSPHRASE: ${{ vars.GPG_PASSPHRASE }}
-
