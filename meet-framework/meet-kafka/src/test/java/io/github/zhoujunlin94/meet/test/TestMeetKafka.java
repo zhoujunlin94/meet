@@ -6,11 +6,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
+import org.springframework.util.concurrent.ListenableFuture;
 
 import javax.annotation.Resource;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CountDownLatch;
 
 /**
  * @author zhoujunlin
@@ -56,22 +55,15 @@ public class TestMeetKafka {
     @Test
     @SneakyThrows
     public void testBatchSend() {
-        CompletableFuture[] futures = new CompletableFuture[10];
+        ListenableFuture[] futures = new ListenableFuture[10];
         for (int i = 0; i < 10; i++) {
             futures[i] = producerItem1.send("abc", "test" + i);
         }
         // 等待所有消息发送完成
-        CompletableFuture.allOf(futures).join();
+        for (ListenableFuture future : futures) {
+            future.get();
+        }
         log.warn("done..");
     }
-
-
-    @Test
-    @SneakyThrows
-    public void testConsumer() {
-        // 阻塞 观察消费是否完成
-        new CountDownLatch(1).await();
-    }
-
 
 }

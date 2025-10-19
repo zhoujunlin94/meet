@@ -21,6 +21,11 @@ import java.util.Objects;
 public class MDCRecordInterceptor<K, V> implements RecordInterceptor<K, V> {
 
     @Override
+    public ConsumerRecord<K, V> intercept(@NonNull ConsumerRecord<K, V> consumerRecord) {
+        return consumerRecord;
+    }
+
+    @Override
     public ConsumerRecord<K, V> intercept(@NonNull ConsumerRecord<K, V> record, @NonNull Consumer<K, V> consumer) {
         String requestId = null;
         if (Objects.nonNull(record.headers()) && Objects.nonNull(record.headers().lastHeader(RequestIdUtil.REQUEST_ID))) {

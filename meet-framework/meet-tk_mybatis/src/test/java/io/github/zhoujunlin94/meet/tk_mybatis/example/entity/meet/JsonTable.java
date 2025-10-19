@@ -19,7 +19,7 @@ import javax.persistence.Table;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "json_table")
+@Table(name = "t_json_table")
 public class JsonTable {
     /**
      * 主键

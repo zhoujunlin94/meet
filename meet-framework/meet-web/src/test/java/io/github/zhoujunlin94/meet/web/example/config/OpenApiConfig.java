@@ -7,7 +7,6 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.media.StringSchema;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.servers.Server;
-import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -29,31 +28,6 @@ public class OpenApiConfig {
                 .components(new Components()
                         .addParameters("token", new Parameter().in(ParameterIn.HEADER.toString()).name("Authorization").required(false).description("JWT Token").schema(new StringSchema()))
                 );
-    }
-
-
-    @Bean
-    public GroupedOpenApi defaultApi() {
-        return GroupedOpenApi.builder()
-                .group("demo")
-                .pathsToMatch("/demo/**")
-                .build();
-    }
-
-    @Bean
-    public GroupedOpenApi userApi() {
-        return GroupedOpenApi.builder()
-                .group("用户模块")
-                .pathsToMatch("/user/**")
-                .build();
-    }
-
-    @Bean
-    public GroupedOpenApi adminApi() {
-        return GroupedOpenApi.builder()
-                .group("管理模块")
-                .pathsToMatch("/admin/**")
-                .build();
     }
 
 }

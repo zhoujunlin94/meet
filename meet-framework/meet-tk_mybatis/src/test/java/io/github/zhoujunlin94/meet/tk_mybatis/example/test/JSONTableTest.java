@@ -49,9 +49,10 @@ public class JSONTableTest {
 
         JSONObject json2 = new JSONObject();
         json2.put("userName", "zhoujl2");
+
         jsonTableMapper.insert(JsonTable.builder()
                 .jsonStr(json1)
-                .jsonObj(JSONArray.of(json1, json2))
+                .jsonObj(new JSONArray().fluentAdd(json1).fluentAdd(json2))
                 .build());
     }
 
@@ -74,12 +75,12 @@ public class JSONTableTest {
     @Test
     public void print() {
 
-        JsonTable jsonTable = jsonTableMapper.selectByPrimaryKey(22);
+        JsonTable jsonTable = jsonTableMapper.selectByPrimaryKey(3);
         System.out.println(jsonTable.getJsonObj().toJSONString());
         System.out.println(jsonTable.getJsonStr().toJSONString());
 
 
-        jsonTable = jsonTableMapper.selectByPrimaryKey(23);
+        jsonTable = jsonTableMapper.selectByPrimaryKey(4);
         System.out.println(jsonTable.getJsonObj().toJSONString());
         System.out.println(jsonTable.getJsonStr().toJSONString());
 

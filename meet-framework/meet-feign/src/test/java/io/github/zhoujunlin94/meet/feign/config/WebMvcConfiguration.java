@@ -32,13 +32,14 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     }
 
     @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.add(0, FastJsonConfigConst.defaultFastJsonHttpMessageConverter());
+    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+        // 0 ByteArrayHttpMessageConverter 处理 byte[] 类型的请求体  (解决springdoc问题)
+        converters.add(1, FastJsonConfigConst.defaultFastJsonHttpMessageConverter());
     }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("redirect:/doc.html");
+        registry.addViewController("/").setViewName("redirect:/swagger-ui.html");
     }
 
 }

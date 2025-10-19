@@ -25,7 +25,7 @@ public class RedisMessageListenerContainerFactoryBean implements FactoryBean<Red
     @Override
     public RedisMessageListenerContainer getObject() {
         Binder binder = Binder.get(SpringUtil.getBean(ConfigurableEnvironment.class));
-        String topics = binder.bind("spring.data.redis.message.topics", String.class).orElse(StrUtil.EMPTY);
+        String topics = binder.bind("spring.redis.message.topics", String.class).orElse(StrUtil.EMPTY);
         log.warn("read spring.redis.message.topics:{}", topics);
         if (StrUtil.isBlank(topics)) {
             throw new RuntimeException("spring.redis.message.topics value is blank");

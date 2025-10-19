@@ -40,8 +40,8 @@ public class TestTimer {
         inCount++;
 
         countDownLatch.await();
-        log.warn("inCount" + inCount);
-        log.warn("runCount" + runCount);
+        log.warn("inCount:" + inCount);
+        log.warn("runCount:" + runCount);
 
     }
 

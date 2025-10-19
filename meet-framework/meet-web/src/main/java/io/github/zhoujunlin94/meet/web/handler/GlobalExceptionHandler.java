@@ -31,6 +31,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({MethodArgumentNotValidException.class})
     public JsonResponse<Object> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        log.error("MethodArgumentNotValidException:", e);
         Iterator<ObjectError> errorIterator = e.getBindingResult().getAllErrors().iterator();
         JsonResponse<Object> jsonResponse = JsonResponse.create(CommonErrorCode.P_BAD_PARAMETER.getCode(), e.getMessage());
         if (errorIterator.hasNext()) {
@@ -42,11 +43,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({MissingServletRequestParameterException.class})
     public JsonResponse<Object> handleMissingServletRequestParameterException(MissingServletRequestParameterException e) {
+        log.error("MissingServletRequestParameterException:", e);
         return JsonResponse.create(CommonErrorCode.P_BAD_PARAMETER.getCode(), e.getMessage());
     }
 
     @ExceptionHandler({MeetException.class})
     public JsonResponse<Object> handleMeetException(MeetException e) {
+        log.error("MeetException:", e);
         return JsonResponse.create(e.getCode(), e.getMsg(), e.getData());
     }
 
@@ -62,6 +65,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({ConstraintViolationException.class})
     public JsonResponse<Object> handleConstraintViolationException(ConstraintViolationException e) {
+        log.error("ConstraintViolationException:", e);
         Optional<ConstraintViolation<?>> constraintViolationOpt = e.getConstraintViolations().stream().findFirst();
         String messageTemplate = StrUtil.EMPTY;
         if (constraintViolationOpt.isPresent()) {

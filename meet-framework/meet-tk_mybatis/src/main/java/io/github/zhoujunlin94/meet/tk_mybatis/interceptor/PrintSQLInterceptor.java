@@ -192,24 +192,59 @@ public class PrintSQLInterceptor implements Interceptor {
         for (int i = 0; i < queryString.length(); i++) {
             char c = queryString.charAt(i);
             switch (c) {
-                case '\\' -> result.append("\\\\");
-                case '*' -> result.append("\\*");
-                case '+' -> result.append("\\+");
-                case '|' -> result.append("\\|");
-                case '{' -> result.append("\\{");
-                case '}' -> result.append("\\}");
-                case '(' -> result.append("\\(");
-                case ')' -> result.append("\\)");
-                case '^' -> result.append("\\^");
-                case '$' -> result.append("\\$");
-                case '[' -> result.append("\\[");
-                case ']' -> result.append("\\]");
-                case '?' -> result.append("\\?");
-                case ',' -> result.append("\\,");
-                case '.' -> result.append("\\.");
-                case '&' -> result.append("\\&");
-                default -> result.append(c);
+                case '\\':
+                    result.append("\\\\");
+                    break;
+                case '*':
+                    result.append("\\*");
+                    break;
+                case '+':
+                    result.append("\\+");
+                    break;
+                case '|':
+                    result.append("\\|");
+                    break;
+                case '{':
+                    result.append("\\{");
+                    break;
+                case '}':
+                    result.append("\\}");
+                    break;
+                case '(':
+                    result.append("\\(");
+                    break;
+                case ')':
+                    result.append("\\)");
+                    break;
+                case '^':
+                    result.append("\\^");
+                    break;
+                case '$':
+                    result.append("\\$");
+                    break;
+                case '[':
+                    result.append("\\[");
+                    break;
+                case ']':
+                    result.append("\\]");
+                    break;
+                case '?':
+                    result.append("\\?");
+                    break;
+                case ',':
+                    result.append("\\,");
+                    break;
+                case '.':
+                    result.append("\\.");
+                    break;
+                case '&':
+                    result.append("\\&");
+                    break;
+                default:
+                    result.append(c);
+                    break;
             }
+
         }
 
         return result.toString();

@@ -28,9 +28,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     }
 
     @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.add(0, FastJsonConfigConst.defaultFastJsonHttpMessageConverter());
+    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+        converters.add(1, FastJsonConfigConst.defaultFastJsonHttpMessageConverter());
     }
-
 }
 

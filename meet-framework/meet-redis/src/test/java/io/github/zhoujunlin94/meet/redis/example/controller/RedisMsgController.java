@@ -61,7 +61,7 @@ public class RedisMsgController {
     }
 
     @GetMapping("/limit")
-    @Limiter(name = "testLimiter", key = "TestLimiterKey", period = 1000, count = 1)
+    @Limiter(name = "testLimiter", key = "TestLimiterKey2", period = 3, count = 1)
     public String limit() {
         return "success";
     }

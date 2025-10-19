@@ -75,7 +75,7 @@
 
         <openfeign.version>11.0</openfeign.version>
 
-        <knife4j.version>3.0.3</knife4j.version>
+        <springdoc.version>1.7.0</springdoc.version>
 
         <redisson.version>3.18.0</redisson.version>
 
@@ -215,9 +215,9 @@
             </dependency>
 
             <dependency>
-                <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-spring-boot-starter</artifactId>
-                <version>${knife4j.version}</version>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>${springdoc.version}</version>
             </dependency>
 
             <dependency>
