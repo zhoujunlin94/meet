@@ -40,7 +40,7 @@
     </scm>
 
     <properties>
-        <revision>3.2.3.1</revision>
+        <revision>3.2.3.2</revision>
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -79,10 +79,10 @@
 
         <redisson.version>3.23.1</redisson.version>
 
-        <mysql-connector-java.version>8.0.17</mysql-connector-java.version>
+        <mysql-connector-java.version>8.0.33</mysql-connector-java.version>
         <tk.mybatis.version>5.0.1</tk.mybatis.version>
         <pagehelper.version>5.1.11</pagehelper.version>
-        <seata.version>1.6.1</seata.version>
+        <seata.version>2.0.0</seata.version>
 
         <rocketmq.version>2.2.0</rocketmq.version>
 
