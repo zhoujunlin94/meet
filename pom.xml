@@ -40,7 +40,7 @@
     </scm>
 
     <properties>
-        <revision>3.2.3</revision>
+        <revision>3.2.3.1</revision>
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -56,7 +56,7 @@
         <central-publishing.version>0.4.0</central-publishing.version>
 
         <!-- 统一依赖管理 -->
-        <spring.boot.version>3.3.6</spring.boot.version>
+        <spring.boot.version>3.2.4</spring.boot.version>
         <spring.cloud.version>2022.0.0</spring.cloud.version>
         <spring.cloud.alibaba.version>2022.0.0.2</spring.cloud.alibaba.version>
 
