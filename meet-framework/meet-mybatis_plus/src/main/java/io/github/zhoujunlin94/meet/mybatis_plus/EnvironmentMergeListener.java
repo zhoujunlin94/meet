@@ -1,0 +1,31 @@
+package io.github.zhoujunlin94.meet.mybatis_plus;
+
+import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
+import com.google.common.collect.ImmutableMap;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
+import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
+import org.springframework.context.ApplicationListener;
+import org.springframework.core.env.MapPropertySource;
+import org.springframework.core.env.StandardEnvironment;
+
+/**
+ * @author zhoujunlin
+ * @date 2024-04-22-15:59
+ */
+public class EnvironmentMergeListener implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
+
+    @Override
+    public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
+        StandardEnvironment thisEnvironment = new StandardEnvironment();
+        thisEnvironment.getPropertySources().addLast(new MapPropertySource("MeetMybatisPlus",
+                ImmutableMap.of(
+                        "spring.autoconfigure.exclude[0]", MybatisPlusAutoConfiguration.class.getName(),
+                        "spring.autoconfigure.exclude[1]", DataSourceAutoConfiguration.class.getName(),
+                        "spring.autoconfigure.exclude[2]", DataSourceTransactionManagerAutoConfiguration.class.getName()
+                )));
+
+        event.getEnvironment().merge(thisEnvironment);
+    }
+
+}

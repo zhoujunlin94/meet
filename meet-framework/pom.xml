@@ -24,6 +24,7 @@
         <module>meet-tk_mybatis</module>
         <module>meet-web</module>
         <module>meet-kafka</module>
+        <module>meet-mybatis_plus</module>
     </modules>
 
 </project>

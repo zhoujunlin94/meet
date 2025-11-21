@@ -1,0 +1,41 @@
+meet:
+  dynamic:
+    datasource:
+      # 数据源-1
+      meet:
+        url: jdbc:mysql://127.0.0.1:3306/test2?useSSL=false&characterEncoding=utf-8&autoReconnect=true&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&useUnicode=true&autoReconnect=true&failOverReadOnly=false&useAffectedRows=true
+        driverClassName: com.mysql.cj.jdbc.Driver
+        username: root
+        password: root
+        # hikari连接池配置 对应 HikariConfig 配置属性类
+        hikari:
+          poolName: HikariCP-meet
+        mybatis:
+          banner: false
+          entityPackage: io.github.zhoujunlin94.meet.mybatis_plus.entity.meet
+          mapperPackage: io.github.zhoujunlin94.meet.mybatis_plus.mapper.meet
+          interceptors:
+            - clazz: com.github.pagehelper.PageInterceptor
+              properties:
+                helperDialect: mysql
+                reasonable: true
+                supportMethodsArguments: true
+
+      # 数据源-2
+      base:
+        url: jdbc:mysql://127.0.0.1:3306/test1?useSSL=false&characterEncoding=utf-8&autoReconnect=true&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&useUnicode=true&autoReconnect=true&failOverReadOnly=false&useAffectedRows=true
+        driverClassName: com.mysql.cj.jdbc.Driver
+        username: root
+        password: root
+        # hikari连接池配置
+        hikari:
+          poolName: HikariCP-base
+        mybatis:
+          entityPackage: io.github.zhoujunlin94.meet.mybatis_plus.entity.base
+          mapperPackage: io.github.zhoujunlin94.meet.mybatis_plus.mapper.base
+          interceptors:
+            - clazz: com.github.pagehelper.PageInterceptor
+              properties:
+                helperDialect: mysql
+                reasonable: true
+                supportMethodsArguments: true
