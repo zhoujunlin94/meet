@@ -83,6 +83,7 @@
         <mybatis-plus.version>3.5.14</mybatis-plus.version>
         <tk.mybatis.version>5.0.1</tk.mybatis.version>
         <pagehelper.version>5.1.11</pagehelper.version>
+        <p6spy.version>3.9.1</p6spy.version>
         <seata.version>2.0.0</seata.version>
 
         <rocketmq.version>2.2.0</rocketmq.version>
@@ -251,6 +252,11 @@
                 <groupId>com.github.pagehelper</groupId>
                 <artifactId>pagehelper</artifactId>
                 <version>${pagehelper.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>p6spy</groupId>
+                <artifactId>p6spy</artifactId>
+                <version>${p6spy.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.seata</groupId>
