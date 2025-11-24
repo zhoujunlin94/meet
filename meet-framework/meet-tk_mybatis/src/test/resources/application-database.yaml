@@ -3,8 +3,8 @@ meet:
     datasource:
       # 数据源-1
       meet:
-        url: jdbc:mysql://${MYSQL_HOST:127.0.0.1}:3306/test2?useSSL=false&characterEncoding=utf-8&autoReconnect=true&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&useUnicode=true&autoReconnect=true&failOverReadOnly=false&useAffectedRows=true
-        driverClassName: com.mysql.cj.jdbc.Driver
+        url: jdbc:p6spy:mysql://${MYSQL_HOST:127.0.0.1}:3306/test2?useSSL=false&characterEncoding=utf-8&autoReconnect=true&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&useUnicode=true&autoReconnect=true&failOverReadOnly=false&useAffectedRows=true
+        driverClassName: com.p6spy.engine.spy.P6SpyDriver
         username: ${MYSQL_USER_NAME:root}
         password: ${MYSQL_PASSWORD:root}
         # hikari连接池配置 对应 HikariConfig 配置属性类
