@@ -150,8 +150,8 @@ public class DataSourceBeanFactoryProcessor implements BeanDefinitionRegistryPos
                 // 全局配置
                 GlobalConfig globalConfig = new GlobalConfig();
                 globalConfig.setBanner(mybatisConfig.isBanner());
-                if (StrUtil.isNotBlank(mybatisConfig.getMetaObjectHandlerClazz())) {
-                    globalConfig.setMetaObjectHandler(ReflectUtil.newInstance(mybatisConfig.getMetaObjectHandlerClazz()));
+                if (StrUtil.isNotBlank(mybatisConfig.getMetaObjectHandler())) {
+                    globalConfig.setMetaObjectHandler(ReflectUtil.newInstance(mybatisConfig.getMetaObjectHandler()));
                 }
                 sqlSessionFactoryBean.setGlobalConfig(globalConfig);
 

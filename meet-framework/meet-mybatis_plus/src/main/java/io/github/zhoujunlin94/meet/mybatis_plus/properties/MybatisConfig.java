@@ -16,9 +16,8 @@ public class MybatisConfig {
     private String mapperXmlLocation;
 
     private boolean banner = false;
-    private String metaObjectHandlerClazz;
+    private String metaObjectHandler;
 
     private List<InterceptorConfig> interceptors;
-
 
 }

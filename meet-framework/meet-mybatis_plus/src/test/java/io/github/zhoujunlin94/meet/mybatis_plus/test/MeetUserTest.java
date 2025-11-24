@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 /**
  * @author zhoujunlin
  * @date 2025年11月21日 13:52
@@ -24,6 +26,13 @@ public class MeetUserTest {
     public void testMeetUserMapper() {
         MeetUser meetUser = meetUserRepository.getById(1);
         log.info("meetUser: {}", meetUser);
+    }
+
+
+    @Test
+    public void testAll() {
+        List<MeetUser> meetUsers = meetUserRepository.list();
+        log.info("meetUsers: {}", meetUsers);
     }
 
 

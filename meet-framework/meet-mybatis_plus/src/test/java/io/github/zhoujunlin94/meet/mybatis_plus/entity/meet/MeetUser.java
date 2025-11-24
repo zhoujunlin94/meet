@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.github.zhoujunlin94.meet.mybatis_plus.enums.Sex;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -30,5 +31,8 @@ public class MeetUser implements Serializable {
      */
     @TableField(value = "user_name")
     private String userName;
+
+    @TableField(value = "sex")
+    private Sex sex;
 
 }
