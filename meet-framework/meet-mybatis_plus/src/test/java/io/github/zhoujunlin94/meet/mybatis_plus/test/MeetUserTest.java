@@ -2,7 +2,7 @@ package io.github.zhoujunlin94.meet.mybatis_plus.test;
 
 import io.github.zhoujunlin94.meet.mybatis_plus.MeetMybatisPlusApplication;
 import io.github.zhoujunlin94.meet.mybatis_plus.entity.meet.MeetUser;
-import io.github.zhoujunlin94.meet.mybatis_plus.mapper.meet.MeetUserMapper;
+import io.github.zhoujunlin94.meet.mybatis_plus.repository.MeetUserRepository;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -18,11 +18,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class MeetUserTest {
 
     @Resource
-    private MeetUserMapper userMapper;
+    private MeetUserRepository meetUserRepository;
 
     @Test
     public void testMeetUserMapper() {
-        MeetUser meetUser = userMapper.selectById(1);
+        MeetUser meetUser = meetUserRepository.getById(1);
         log.info("meetUser: {}", meetUser);
     }
 
