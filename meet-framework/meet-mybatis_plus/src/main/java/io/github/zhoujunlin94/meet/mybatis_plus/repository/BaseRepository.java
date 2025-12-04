@@ -3,10 +3,10 @@ package io.github.zhoujunlin94.meet.mybatis_plus.repository;
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.repository.CrudRepository;
 import com.google.common.collect.Lists;
+import io.github.zhoujunlin94.meet.mybatis_plus.sqlinjector.MeetMapper;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
  * @author zhoujunlin
  * @date 2025年08月11日 15:13
  */
-public class BaseRepository<M extends BaseMapper<T>, T> extends CrudRepository<M, T> {
+public class BaseRepository<M extends MeetMapper<T>, T> extends CrudRepository<M, T> {
 
     protected LambdaQueryWrapper<T> lambdaQueryWrapper() {
         return Wrappers.lambdaQuery(getEntityClass());
@@ -37,6 +37,14 @@ public class BaseRepository<M extends BaseMapper<T>, T> extends CrudRepository<M
             return Lists.newArrayList();
         }
         return listByIds(ids);
+    }
+
+    public int insertIgnore(T entity) {
+        return baseMapper.insertIgnore(entity);
+    }
+
+    public void insertOnDuplicateKeyUpdate(T entity) {
+        baseMapper.insertOnDuplicateKeyUpdate(entity);
     }
 
     @Transactional(rollbackFor = Exception.class)

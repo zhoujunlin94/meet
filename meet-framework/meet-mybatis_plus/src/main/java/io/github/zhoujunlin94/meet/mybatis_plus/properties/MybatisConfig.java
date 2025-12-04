@@ -17,6 +17,7 @@ public class MybatisConfig {
 
     private boolean banner = false;
     private String metaObjectHandler;
+    private String SqlInjector;
 
     private List<InterceptorConfig> interceptors;
 

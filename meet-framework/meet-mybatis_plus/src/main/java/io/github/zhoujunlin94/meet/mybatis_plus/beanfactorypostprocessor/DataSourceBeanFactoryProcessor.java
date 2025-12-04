@@ -153,6 +153,10 @@ public class DataSourceBeanFactoryProcessor implements BeanDefinitionRegistryPos
                 if (StrUtil.isNotBlank(mybatisConfig.getMetaObjectHandler())) {
                     globalConfig.setMetaObjectHandler(ReflectUtil.newInstance(mybatisConfig.getMetaObjectHandler()));
                 }
+                if (StrUtil.isNotBlank(mybatisConfig.getSqlInjector())) {
+                    globalConfig.setSqlInjector(ReflectUtil.newInstance(mybatisConfig.getSqlInjector()));
+                }
+
                 sqlSessionFactoryBean.setGlobalConfig(globalConfig);
 
                 Configuration configuration = Objects.requireNonNull(sqlSessionFactoryBean.getObject()).getConfiguration();

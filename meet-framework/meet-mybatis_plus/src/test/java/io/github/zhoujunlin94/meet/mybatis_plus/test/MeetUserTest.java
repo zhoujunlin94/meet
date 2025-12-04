@@ -34,6 +34,27 @@ public class MeetUserTest {
 
 
     @Test
+    public void testInsertIgnore() {
+        MeetUser meetUser = new MeetUser();
+        meetUser.setId(1000000);
+        meetUser.setUserName("testInsertIgnore");
+        meetUser.setUserId(1234567);
+        int insertIgnore = meetUserRepository.insertIgnore(meetUser);
+        log.info("insertIgnore: {}", insertIgnore);
+    }
+
+
+    @Test
+    public void testInsertOnDuplicateKeyUpdate() {
+        MeetUser meetUser = new MeetUser();
+        meetUser.setId(1000000);
+        meetUser.setUserName("testInsertOnDuplicateKeyUpdate");
+        meetUser.setUserId(1234567);
+        meetUserRepository.insertOnDuplicateKeyUpdate(meetUser);
+    }
+
+
+    @Test
     public void testAll() {
         List<MeetUser> meetUsers = meetUserRepository.list();
         log.info("meetUsers: {}", meetUsers);

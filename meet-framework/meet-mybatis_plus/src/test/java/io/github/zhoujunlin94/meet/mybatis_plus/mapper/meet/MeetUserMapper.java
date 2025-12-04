@@ -1,7 +1,7 @@
 package io.github.zhoujunlin94.meet.mybatis_plus.mapper.meet;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import io.github.zhoujunlin94.meet.mybatis_plus.entity.meet.MeetUser;
+import io.github.zhoujunlin94.meet.mybatis_plus.sqlinjector.MeetMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -10,5 +10,5 @@ import org.apache.ibatis.annotations.Mapper;
  * @desc
  */
 @Mapper
-public interface MeetUserMapper extends BaseMapper<MeetUser> {
+public interface MeetUserMapper extends MeetMapper<MeetUser> {
 }

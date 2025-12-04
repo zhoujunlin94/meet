@@ -12,6 +12,7 @@ meet:
           poolName: HikariCP-meet
         mybatis:
           banner: false
+          sqlInjector: io.github.zhoujunlin94.meet.mybatis_plus.sqlinjector.MeetSqlInjector
           entityPackage: io.github.zhoujunlin94.meet.mybatis_plus.entity.meet
           mapperPackage: io.github.zhoujunlin94.meet.mybatis_plus.mapper.meet
           interceptors:
