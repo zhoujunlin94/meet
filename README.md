@@ -17,3 +17,6 @@ doc-开发环境搭建文档积累
    mvn clean deploy -pl meet-framework/meet-common -DskipTests "-Dgpg.passphrase=密码"
 
 2. 自动发布 github action 修改maven_settings.xml中的用户+密码即可
+
+3. 删除所有文件夹中的.flattened-pom.xml文件
+   for /r "D:\github\meet" %f in (.flattened-pom.xml) do del "%f"
