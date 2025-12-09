@@ -1,12 +1,14 @@
 package io.github.zhoujunlin94.meet.mybatis_plus.repository;
 
 import cn.hutool.core.collection.CollUtil;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.repository.CrudRepository;
 import com.google.common.collect.Lists;
 import io.github.zhoujunlin94.meet.mybatis_plus.sqlinjector.MeetMapper;
+import org.apache.ibatis.session.ResultHandler;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -38,6 +40,11 @@ public class BaseRepository<M extends MeetMapper<T>, T> extends CrudRepository<M
         }
         return listByIds(ids);
     }
+
+    public void selectStream(Wrapper<T> queryWrapper, ResultHandler<T> resultHandler) {
+        baseMapper.selectList(queryWrapper, resultHandler);
+    }
+
 
     public int insertIgnore(T entity) {
         return baseMapper.insertIgnore(entity);
