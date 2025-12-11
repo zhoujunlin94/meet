@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.extension.repository.CrudRepository;
 import com.google.common.collect.Lists;
 import io.github.zhoujunlin94.meet.mybatis_plus.sqlinjector.MeetMapper;
 import org.apache.ibatis.session.ResultHandler;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -27,14 +27,14 @@ public class BaseRepository<M extends MeetMapper<T>, T> extends CrudRepository<M
         return Wrappers.lambdaUpdate(getEntityClass());
     }
 
-    protected void excludeSelect(LambdaQueryWrapper<T> lambdaQueryWrapper, List<String> properties) {
+    protected void excludeSelect(LambdaQueryWrapper<T> lambdaQueryWrapper, Collection<String> properties) {
         if (CollUtil.isEmpty(properties)) {
             return;
         }
         lambdaQueryWrapper.select(getEntityClass(), table -> !properties.contains(table.getProperty()));
     }
 
-    public List<T> selectByIds(List<Integer> ids) {
+    public List<T> selectByIds(Collection<Integer> ids) {
         if (CollUtil.isEmpty(ids)) {
             return Lists.newArrayList();
         }
@@ -52,22 +52,6 @@ public class BaseRepository<M extends MeetMapper<T>, T> extends CrudRepository<M
 
     public void insertOnDuplicateKeyUpdate(T entity) {
         baseMapper.insertOnDuplicateKeyUpdate(entity);
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    public boolean batchSave(List<T> list) {
-        if (CollUtil.isEmpty(list)) {
-            return false;
-        }
-        return this.saveBatch(list, DEFAULT_BATCH_SIZE);
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    public boolean batchUpdateById(List<T> list) {
-        if (CollUtil.isEmpty(list)) {
-            return false;
-        }
-        return this.updateBatchById(list, DEFAULT_BATCH_SIZE);
     }
 
 }
