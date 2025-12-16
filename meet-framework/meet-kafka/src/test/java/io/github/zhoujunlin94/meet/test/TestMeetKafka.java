@@ -36,7 +36,9 @@ public class TestMeetKafka {
         kafkaTemplates.forEach((name, template) -> {
             log.warn("name: {}, template: {}", name, template);
         });
+        log.warn("kafkaTemplate, template: {}", kafkaTemplate);
     }
+
 
     @Test
     @SneakyThrows
