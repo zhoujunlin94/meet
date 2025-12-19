@@ -10,6 +10,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class DemoBean {
 
+    public String demo() {
+        return "demo";
+    }
+
     public String demo(String a, String b) {
         return a + b;
     }

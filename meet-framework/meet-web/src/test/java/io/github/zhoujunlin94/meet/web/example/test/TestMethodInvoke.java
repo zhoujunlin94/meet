@@ -46,6 +46,10 @@ public class TestMethodInvoke {
 
         result = beanMethodReflectInvoker.invoke("demoBean", "demo", paramMap2);
         log.warn(result.toString());
+
+        result = beanMethodReflectInvoker.invoke("demoBean", "demo", Map.of());
+        log.warn(result.toString());
+
     }
 
 }

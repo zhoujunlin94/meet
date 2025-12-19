@@ -16,6 +16,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author zhoujunlin
@@ -55,14 +56,17 @@ public class BeanMethodReflectInvoker {
 
         for (Method method : candidates) {
             String[] paramNames = parameterNameDiscoverer.getParameterNames(method);
-            if (paramNames == null) {
-                continue;
-            }
-            if (paramNames.length != paramMap.size()) {
-                continue;
-            }
-            if (Arrays.stream(paramNames).allMatch(paramMap::containsKey)) {
-                return method;
+            if (Objects.isNull(paramNames)) {
+                if (CollUtil.isEmpty(paramMap)) {
+                    return method;
+                }
+            } else {
+                if (paramNames.length != paramMap.size()) {
+                    continue;
+                }
+                if (Arrays.stream(paramNames).allMatch(paramMap::containsKey)) {
+                    return method;
+                }
             }
         }
 
