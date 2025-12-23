@@ -44,6 +44,11 @@
             <artifactId>guava</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>qlexpress4</artifactId>
+        </dependency>
+
         <!-- Spring 核心 -->
         <dependency>
             <groupId>org.springframework</groupId>

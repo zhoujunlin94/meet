@@ -1,5 +1,6 @@
 package io.github.zhoujunlin94.meet.web.example.bean;
 
+import cn.hutool.core.util.ObjectUtil;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,8 +19,8 @@ public class DemoBean {
         return a + b;
     }
 
-    public int demo(int c, int d) {
-        return c + d;
+    public int demo(Integer c, Integer d) {
+        return ObjectUtil.defaultIfNull(c, 0) + ObjectUtil.defaultIfNull(d, 0);
     }
 
 

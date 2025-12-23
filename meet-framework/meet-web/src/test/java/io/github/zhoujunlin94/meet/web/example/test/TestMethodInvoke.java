@@ -6,6 +6,7 @@ import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.TypeReference;
 import io.github.zhoujunlin94.meet.web.component.BeanMethodReflectInvoker;
 import io.github.zhoujunlin94.meet.web.example.ExampleApp;
+import io.github.zhoujunlin94.meet.web.qlexpress.QLExecuteComponent;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,9 @@ public class TestMethodInvoke {
 
     @Resource
     private BeanMethodReflectInvoker beanMethodReflectInvoker;
+
+    @Resource
+    private QLExecuteComponent qlExecuteComponent;
 
     @Test
     public void testBeanMethodInvoke() {
@@ -51,5 +55,26 @@ public class TestMethodInvoke {
         log.warn(result.toString());
 
     }
+
+
+    @Test
+    public void qlExecuteWithSpringContextTest() {
+        Object result = qlExecuteComponent.execute("demoBean.demo(a,b)", Map.of("a", "a", "b", "b"));
+        log.warn(result.toString());
+
+        result = qlExecuteComponent.execute("demoBean.demo(c,d)", Map.of("c", 1, "d", 2));
+        log.warn(result.toString());
+
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("c", 1);
+        paramMap.put("d", null);
+
+        result = qlExecuteComponent.execute("demoBean.demo(c,d)", paramMap);
+        log.warn(result.toString());
+
+        result = qlExecuteComponent.execute("demoBean.demo()", Map.of());
+        log.warn(result.toString());
+    }
+
 
 }
