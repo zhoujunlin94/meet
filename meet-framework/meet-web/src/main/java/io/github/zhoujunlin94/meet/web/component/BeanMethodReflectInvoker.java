@@ -30,9 +30,7 @@ public class BeanMethodReflectInvoker {
     private final ObjectMapper objectMapper;
     private final ParameterNameDiscoverer parameterNameDiscoverer = new DefaultParameterNameDiscoverer();
 
-    public Object invoke(String beanName, String methodName, Map<String, Object> paramMap) {
-        Object target = applicationContext.getBean(beanName);
-        Assert.notNull(target, "Bean不存在, beanName: " + beanName);
+    public Object invoke(Object target, String methodName, Map<String, Object> paramMap) {
         Assert.hasText(methodName, "方法名不能为空, methodName: " + methodName);
 
         Class<?> targetClass = AopUtils.getTargetClass(target);
@@ -45,6 +43,14 @@ public class BeanMethodReflectInvoker {
         }
     }
 
+
+    public Object invoke(String beanName, String methodName, Map<String, Object> paramMap) {
+        Object target = applicationContext.getBean(beanName);
+        Assert.notNull(target, "Bean不存在, beanName: " + beanName);
+
+        return invoke(target, methodName, paramMap);
+    }
+
     /**
      * 根据参数名和参数个数匹配第一个方法
      */
@@ -54,6 +60,10 @@ public class BeanMethodReflectInvoker {
             throw new IllegalArgumentException("未找到方法: " + methodName);
         }
 
+        if (candidates.size() == 1) {
+            return candidates.get(0);
+        }
+
         for (Method method : candidates) {
             String[] paramNames = parameterNameDiscoverer.getParameterNames(method);
             if (Objects.isNull(paramNames)) {
@@ -61,7 +71,7 @@ public class BeanMethodReflectInvoker {
                     return method;
                 }
             } else {
-                if (paramNames.length != paramMap.size()) {
+                if (paramNames.length != CollUtil.size(paramMap)) {
                     continue;
                 }
                 if (Arrays.stream(paramNames).allMatch(paramMap::containsKey)) {
