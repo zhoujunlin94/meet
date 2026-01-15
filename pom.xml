@@ -56,9 +56,9 @@
         <central-publishing.version>0.4.0</central-publishing.version>
 
         <!-- 统一依赖管理 -->
-        <spring.boot.version>3.5.9</spring.boot.version>
-        <spring.cloud.version>2025.0.1</spring.cloud.version>
-        <spring.cloud.alibaba.version>2025.0.0.0</spring.cloud.alibaba.version>
+        <spring.boot.version>3.2.4</spring.boot.version>
+        <spring.cloud.version>2022.0.0</spring.cloud.version>
+        <spring.cloud.alibaba.version>2022.0.0.2</spring.cloud.alibaba.version>
 
         <lombok.version>1.18.24</lombok.version>
         <hutool.version>5.8.37</hutool.version>
