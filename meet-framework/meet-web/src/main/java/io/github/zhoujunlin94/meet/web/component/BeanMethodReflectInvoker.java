@@ -3,6 +3,7 @@ package io.github.zhoujunlin94.meet.web.component;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.aop.support.AopUtils;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -85,14 +87,15 @@ public class BeanMethodReflectInvoker {
 
     private Object[] buildArgs(Method method, Map<String, Object> paramMap) {
         String[] paramNames = parameterNameDiscoverer.getParameterNames(method);
-        Class<?>[] paramTypes = method.getParameterTypes();
+        Type[] paramTypes = method.getGenericParameterTypes();
         Object[] args = new Object[paramTypes.length];
         if (ArrayUtil.isEmpty(paramNames)) {
             return args;
         }
         for (int i = 0; i < paramTypes.length; i++) {
             Object rawValue = paramMap.get(paramNames[i]);
-            args[i] = objectMapper.convertValue(rawValue, paramTypes[i]);
+            JavaType paramType = objectMapper.getTypeFactory().constructType(paramTypes[i]);
+            args[i] = objectMapper.convertValue(rawValue, paramType);
         }
         return args;
     }

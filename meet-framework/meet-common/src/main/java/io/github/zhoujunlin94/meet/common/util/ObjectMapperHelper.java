@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.common.collect.Lists;
 import io.github.zhoujunlin94.meet.common.constant.CommonConstant;
@@ -27,7 +28,7 @@ import java.util.TimeZone;
  * @date 2025/7/24 22:02
  */
 @Slf4j
-public final class JacksonUtil {
+public final class ObjectMapperHelper {
 
     private static final ObjectMapper OBJECT_MAPPER;
 
@@ -36,7 +37,7 @@ public final class JacksonUtil {
         OBJECT_MAPPER = JsonMapper.builder()
                 .enable(SerializationFeature.INDENT_OUTPUT)
                 .enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING)
-                .enable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
+                .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
                 .enable(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES)
                 .enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES)
                 .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
@@ -137,6 +138,28 @@ public final class JacksonUtil {
     public static Map<String, Object> fromJsonToMap(String json) {
         return fromJson(json, new TypeReference<Map<String, Object>>() {
         });
+    }
+
+
+    public static <T> T convert(Object source, Class<T> targetClass) {
+        return OBJECT_MAPPER.convertValue(source, targetClass);
+    }
+
+    public static <T> T convert(Object source, TypeReference<T> typeReference) {
+        return OBJECT_MAPPER.convertValue(source, typeReference);
+    }
+
+    public static <T> T convert(Object source, JavaType javaType) {
+        return OBJECT_MAPPER.convertValue(source, javaType);
+    }
+
+    public static JavaType constructParametricType(Class<?> rawClass, Class<?>... parameterClasses) {
+        return TypeFactory.defaultInstance()
+                .constructParametricType(rawClass, parameterClasses);
+    }
+
+    public static <T> T convert(Object source, Class<?> rawClass, Class<?>... parameterClasses) {
+        return OBJECT_MAPPER.convertValue(source, constructParametricType(rawClass, parameterClasses));
     }
 
 }

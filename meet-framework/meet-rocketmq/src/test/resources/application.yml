@@ -1,0 +1,7 @@
+rocketmq:
+  name-server: ${ROCKETMQ_NAME_SERVER}
+  accessChannel: CLOUD
+  producer:
+    access-key: ${ROCKETMQ_ACCESS_KEY}
+    secret-key: ${ROCKETMQ_SECRET_KEY}
+    group: meet-group
