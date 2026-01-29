@@ -1,5 +1,6 @@
 package io.github.zhoujunlin94.meet.web.aspect;
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.Method;
 import com.alibaba.fastjson2.JSONObject;
 import jakarta.servlet.http.HttpServletRequest;
@@ -9,6 +10,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +31,9 @@ import java.util.Objects;
 @ConditionalOnProperty(name = "endpoint.log.enable", havingValue = "true", matchIfMissing = true)
 public class EndpointLogAspect {
 
+    @Value("${meet.controller.advice.un-support-package:org.springdoc.webmvc}")
+    private String unSupportPackage;
+
     @Pointcut("@within(org.springframework.web.bind.annotation.RestController)")
     public void endpointMethodPointcut() {
     }
@@ -41,6 +46,10 @@ public class EndpointLogAspect {
 
     private void logMethodInfo(ProceedingJoinPoint pjp) {
         try {
+            String allClassName = pjp.getSignature().getDeclaringType().getName();
+            if (StrUtil.splitTrim(unSupportPackage, StrUtil.COMMA).stream().anyMatch(allClassName::startsWith)) {
+                return;
+            }
             String className = pjp.getSignature().getDeclaringType().getSimpleName();
             String methodName = pjp.getSignature().getName();
             log.warn("endpoint执行路径: {}#{}", className, methodName);

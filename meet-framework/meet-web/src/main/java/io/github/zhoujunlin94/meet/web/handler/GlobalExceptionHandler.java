@@ -14,6 +14,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.Iterator;
@@ -52,10 +53,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({Exception.class})
     public JsonResponse<Object> handleUnknownException(Exception e) {
-        log.error("未知异常:", e);
-        if (e instanceof UndeclaredThrowableException) {
+        if (e instanceof NoResourceFoundException) {
+            return JsonResponse.create(404, "路径" + ((NoResourceFoundException) e).getResourcePath() + "不存在");
+        } else if (e instanceof UndeclaredThrowableException) {
             Throwable undeclaredThrowable = ((UndeclaredThrowableException) e).getUndeclaredThrowable();
             // todo 后续有一些可预期的异常可以instanceof判断生成相应响应
+        } else {
+            log.error("未知异常:", e);
         }
         return JsonResponse.create(CommonErrorCode.S_SYSTEM_BUSY.getCode(), e.getMessage());
     }
