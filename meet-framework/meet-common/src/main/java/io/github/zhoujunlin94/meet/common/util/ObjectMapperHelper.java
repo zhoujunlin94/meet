@@ -33,9 +33,7 @@ public final class ObjectMapperHelper {
     private static final ObjectMapper OBJECT_MAPPER;
 
     static {
-        // 推荐使用 JsonMapper.builder() 替代旧式构造方法
         OBJECT_MAPPER = JsonMapper.builder()
-                .enable(SerializationFeature.INDENT_OUTPUT)
                 .enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING)
                 .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
                 .enable(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES)
@@ -46,10 +44,8 @@ public final class ObjectMapperHelper {
                 .defaultDateFormat(new SimpleDateFormat(DatePattern.NORM_DATETIME_PATTERN))
                 .build();
 
-        OBJECT_MAPPER.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
         OBJECT_MAPPER.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
 
-        // BigDecimal 使用普通字符串序列化，避免科学计数法
         SimpleModule simpleModule = new SimpleModule();
         simpleModule.addSerializer(BigDecimal.class, ToStringSerializer.instance);
         OBJECT_MAPPER.registerModule(simpleModule);
