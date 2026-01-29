@@ -12,6 +12,7 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
@@ -29,13 +30,12 @@ public class DemoController {
             @Parameter(name = "name", description = "文件名称", required = true, in = ParameterIn.QUERY)
     })
     @PostMapping("/{id}/post")
-    public DemoVO demo(Integer a,
-                       @PathVariable("id") String id,
+    public DemoVO demo(@PathVariable("id") String id,
                        @RequestHeader("token") String token,
                        @RequestParam("name") String name,
                        @RequestBody JSONObject requestBody) {
         log.warn(Objects.isNull(requestBody) ? CommonConstant.EMPTY_JSON : requestBody.toJSONString());
-        return new DemoVO(id, token, name, new Date());
+        return new DemoVO(id, token, name, new Date(), new BigDecimal("99.99"));
     }
 
 }

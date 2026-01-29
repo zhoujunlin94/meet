@@ -1,6 +1,8 @@
 package io.github.zhoujunlin94.meet.web;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.zhoujunlin94.meet.common.thread.MDCContextCopyDecorator;
+import io.github.zhoujunlin94.meet.common.util.ObjectMapperHelper;
 import io.github.zhoujunlin94.meet.web.constant.WebConstant;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -20,6 +22,13 @@ import java.util.concurrent.ThreadPoolExecutor;
 @Configuration
 @ComponentScan
 public class MeetWebAutoConfiguration {
+
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        return ObjectMapperHelper.getObjectMapper();
+    }
+
 
     /**
      * 当拒绝处理任务时的策略:由主线程处理该任务
