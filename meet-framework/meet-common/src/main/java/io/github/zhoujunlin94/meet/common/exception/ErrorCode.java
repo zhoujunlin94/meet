@@ -9,5 +9,5 @@ public interface ErrorCode {
 
     int getCode();
 
-    String getMsg();
+    String getMessage();
 }

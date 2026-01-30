@@ -1,7 +1,7 @@
 package io.github.zhoujunlin94.meet.web.example.controller;
 
 import com.alibaba.fastjson2.JSONObject;
-import io.github.zhoujunlin94.meet.common.constant.CommonConstant;
+import io.github.zhoujunlin94.meet.common.constant.CommonConst;
 import io.github.zhoujunlin94.meet.web.example.vo.DemoVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -34,7 +34,7 @@ public class DemoController {
                        @RequestHeader("token") String token,
                        @RequestParam("name") String name,
                        @RequestBody JSONObject requestBody) {
-        log.warn(Objects.isNull(requestBody) ? CommonConstant.EMPTY_JSON : requestBody.toJSONString());
+        log.warn(Objects.isNull(requestBody) ? CommonConst.EMPTY_JSON : requestBody.toJSONString());
         return new DemoVO(id, token, name, new Date(), new BigDecimal("99.99"));
     }
 

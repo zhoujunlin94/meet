@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.common.collect.Lists;
-import io.github.zhoujunlin94.meet.common.constant.CommonConstant;
+import io.github.zhoujunlin94.meet.common.constant.CommonConst;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
@@ -68,7 +68,7 @@ public final class ObjectMapperHelper {
         } catch (JsonProcessingException e) {
             log.warn("序列化失败", e);
         }
-        return CommonConstant.EMPTY_JSON;
+        return CommonConst.EMPTY_JSON;
     }
 
     /**
@@ -82,7 +82,7 @@ public final class ObjectMapperHelper {
         } catch (JsonProcessingException e) {
             log.warn("pretty序列化失败", e);
         }
-        return CommonConstant.EMPTY_JSON;
+        return CommonConst.EMPTY_JSON;
     }
 
     /**

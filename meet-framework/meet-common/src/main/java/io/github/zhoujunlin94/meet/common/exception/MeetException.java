@@ -11,31 +11,31 @@ import lombok.EqualsAndHashCode;
 public class MeetException extends RuntimeException {
 
     private int code;
-    private String msg;
+    private String message;
     private Object data;
 
     private MeetException(String msg) {
         this.code = CommonErrorCode.S_SYSTEM_BUSY.getCode();
-        this.msg = msg;
+        this.message = msg;
     }
 
     private MeetException(ErrorCode errorCode) {
-        super(errorCode.getMsg());
+        super(errorCode.getMessage());
         this.code = errorCode.getCode();
-        this.msg = errorCode.getMsg();
+        this.message = errorCode.getMessage();
     }
 
     private MeetException(ErrorCode errorCode, Object data) {
-        super(errorCode.getMsg());
+        super(errorCode.getMessage());
         this.code = errorCode.getCode();
-        this.msg = errorCode.getMsg();
+        this.message = errorCode.getMessage();
         this.data = data;
     }
 
     private MeetException(ErrorCode errorCode, Throwable throwable) {
-        super(errorCode.getMsg(), throwable);
+        super(errorCode.getMessage(), throwable);
         this.code = errorCode.getCode();
-        this.msg = throwable.getMessage();
+        this.message = throwable.getMessage();
     }
 
     public static MeetException meet(ErrorCode errorCode) {

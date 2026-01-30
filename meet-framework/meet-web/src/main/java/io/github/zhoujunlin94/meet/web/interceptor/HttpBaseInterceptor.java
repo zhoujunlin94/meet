@@ -1,7 +1,6 @@
 package io.github.zhoujunlin94.meet.web.interceptor;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
 import io.github.zhoujunlin94.meet.common.pojo.RequestContext;
@@ -40,7 +39,7 @@ public class HttpBaseInterceptor extends BaseInterceptor {
         if (StrUtil.isBlank(requestId)) {
             requestId = RequestIdUtil.generateRequestId();
         }
-        Integer userId = Convert.toInt(request.getHeader(WebConstant.X_GATEWAY_UID));
+        String userId = request.getHeader(WebConstant.X_GATEWAY_UID);
         RequestContext requestContext = new RequestContext().setRequestId(requestId)
                 .setUserId(userId).setClientIp(ServletUtils.getClientIP());
         RequestContextUtil.set(requestContext);

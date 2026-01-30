@@ -16,7 +16,7 @@ public class RequestContext {
 
     private String requestId;
 
-    private Integer userId;
+    private String userId;
 
     private String clientIp;
 

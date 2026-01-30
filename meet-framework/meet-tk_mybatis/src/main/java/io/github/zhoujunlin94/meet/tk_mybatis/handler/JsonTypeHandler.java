@@ -1,7 +1,7 @@
 package io.github.zhoujunlin94.meet.tk_mybatis.handler;
 
 import com.alibaba.fastjson2.JSONObject;
-import io.github.zhoujunlin94.meet.common.constant.CommonConstant;
+import io.github.zhoujunlin94.meet.common.constant.CommonConst;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.type.*;
 
@@ -27,7 +27,7 @@ public class JsonTypeHandler extends BaseTypeHandler<JSONObject> {
             ps.setString(i, parameter.toJSONString());
         } catch (Exception e) {
             log.error("JsonTypeHandler.setNonNullParameter error", e);
-            ps.setString(i, CommonConstant.EMPTY_JSON);
+            ps.setString(i, CommonConst.EMPTY_JSON);
         }
     }
 

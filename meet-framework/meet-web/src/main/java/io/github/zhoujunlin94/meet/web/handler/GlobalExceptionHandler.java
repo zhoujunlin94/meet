@@ -36,7 +36,7 @@ public class GlobalExceptionHandler {
         JsonResponse<Object> jsonResponse = JsonResponse.create(CommonErrorCode.P_BAD_PARAMETER.getCode(), e.getMessage());
         if (errorIterator.hasNext()) {
             ObjectError error = errorIterator.next();
-            jsonResponse.setMsg(error.getDefaultMessage());
+            jsonResponse.setMessage(error.getDefaultMessage());
         }
         return jsonResponse;
     }
@@ -48,7 +48,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({MeetException.class})
     public JsonResponse<Object> handleMeetException(MeetException e) {
-        return JsonResponse.create(e.getCode(), e.getMsg(), e.getData());
+        return JsonResponse.create(e.getCode(), e.getMessage(), e.getData());
     }
 
     @ExceptionHandler({Exception.class})

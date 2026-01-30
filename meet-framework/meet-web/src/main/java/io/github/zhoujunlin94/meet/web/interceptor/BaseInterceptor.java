@@ -25,7 +25,7 @@ public abstract class BaseInterceptor implements HandlerInterceptor {
     protected void fail(HttpServletResponse response, String redirectUrl) {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setCharacterEncoding("UTF-8");
-        JsonResponse<String> jsonResponse = JsonResponse.create(CommonErrorCode.S_FAIL.getCode(), CommonErrorCode.S_FAIL.getMsg(), redirectUrl);
+        JsonResponse<String> jsonResponse = JsonResponse.create(CommonErrorCode.S_FAIL.getCode(), CommonErrorCode.S_FAIL.getMessage(), redirectUrl);
         ServletUtils.writeJSON(response, jsonResponse);
     }
 }
