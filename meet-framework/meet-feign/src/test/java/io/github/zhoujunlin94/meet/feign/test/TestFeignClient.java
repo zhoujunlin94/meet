@@ -1,7 +1,7 @@
 package io.github.zhoujunlin94.meet.feign.test;
 
 import com.alibaba.fastjson2.JSONObject;
-import io.github.zhoujunlin94.meet.feign.ExampleApp;
+import io.github.zhoujunlin94.meet.feign.FeignApplication;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  */
 @Slf4j
 @EnableFeignClients
-@SpringBootTest(classes = ExampleApp.class)
+@SpringBootTest(classes = FeignApplication.class)
 public class TestFeignClient {
 
     @Resource

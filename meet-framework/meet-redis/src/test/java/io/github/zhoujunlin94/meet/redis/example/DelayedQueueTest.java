@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
  * @date 2025-01-15-14:42
  */
 @Slf4j
-@SpringBootTest(classes = ExampleApp.class)
+@SpringBootTest(classes = RedisApplication.class)
 public class DelayedQueueTest {
 
     @Test

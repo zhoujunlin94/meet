@@ -1,7 +1,7 @@
 package io.github.zhoujunlin94.meet.web.example.test;
 
 import cn.hutool.core.util.IdUtil;
-import io.github.zhoujunlin94.meet.web.example.ExampleApp;
+import io.github.zhoujunlin94.meet.web.example.WebApplication;
 import jakarta.annotation.Resource;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,7 @@ import java.util.concurrent.CountDownLatch;
  */
 @Slf4j
 // @ActiveProfiles(profiles = "dev")
-@SpringBootTest(classes = ExampleApp.class)
+@SpringBootTest(classes = WebApplication.class)
 public class TestThreadPool {
 
     @Resource

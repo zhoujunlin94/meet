@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  * @desc
  */
 @Slf4j
-@SpringBootTest(classes = ExampleApp.class)
+@SpringBootTest(classes = RedisApplication.class)
 public class LockTest {
 
     private static final String LOCK_KEY = "anylock";

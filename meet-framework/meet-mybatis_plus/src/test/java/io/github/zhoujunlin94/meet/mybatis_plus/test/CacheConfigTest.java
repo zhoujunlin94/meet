@@ -1,6 +1,6 @@
 package io.github.zhoujunlin94.meet.mybatis_plus.test;
 
-import io.github.zhoujunlin94.meet.mybatis_plus.MeetMybatisPlusApplication;
+import io.github.zhoujunlin94.meet.mybatis_plus.MybatisPlusApplication;
 import io.github.zhoujunlin94.meet.mybatis_plus.entity.base.CacheCfg;
 import io.github.zhoujunlin94.meet.mybatis_plus.repository.CacheConfigRepository;
 import jakarta.annotation.Resource;
@@ -14,7 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  * @desc
  */
 @Slf4j
-@SpringBootTest(classes = MeetMybatisPlusApplication.class)
+@SpringBootTest(classes = MybatisPlusApplication.class)
 public class CacheConfigTest {
 
     @Resource

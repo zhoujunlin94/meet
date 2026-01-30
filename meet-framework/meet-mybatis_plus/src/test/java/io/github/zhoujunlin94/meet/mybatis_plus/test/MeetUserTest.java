@@ -3,7 +3,7 @@ package io.github.zhoujunlin94.meet.mybatis_plus.test;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import io.github.zhoujunlin94.meet.mybatis_plus.MeetMybatisPlusApplication;
+import io.github.zhoujunlin94.meet.mybatis_plus.MybatisPlusApplication;
 import io.github.zhoujunlin94.meet.mybatis_plus.entity.meet.MeetUser;
 import io.github.zhoujunlin94.meet.mybatis_plus.repository.MeetUserRepository;
 import jakarta.annotation.Resource;
@@ -22,7 +22,7 @@ import java.util.List;
  * @desc
  */
 @Slf4j
-@SpringBootTest(classes = MeetMybatisPlusApplication.class)
+@SpringBootTest(classes = MybatisPlusApplication.class)
 public class MeetUserTest {
 
     @Resource

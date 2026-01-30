@@ -14,11 +14,11 @@ import java.util.Map;
  * @date 2024-04-18-17:48
  */
 @SpringBootApplication
-public class ExampleApp {
+public class TkMapperApplication {
 
     public static void main(String[] args) {
 
-        ConfigurableApplicationContext applicationContext = SpringApplication.run(ExampleApp.class);
+        ConfigurableApplicationContext applicationContext = SpringApplication.run(TkMapperApplication.class);
 
         Map<String, DataSource> dataSourceMap = applicationContext.getBeansOfType(DataSource.class);
         System.out.println(dataSourceMap);

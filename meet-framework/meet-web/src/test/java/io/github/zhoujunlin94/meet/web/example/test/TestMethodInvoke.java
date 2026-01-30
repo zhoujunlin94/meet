@@ -5,7 +5,7 @@ import com.alibaba.fastjson2.JSONObject;
 import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.TypeReference;
 import io.github.zhoujunlin94.meet.web.component.BeanMethodReflectInvoker;
-import io.github.zhoujunlin94.meet.web.example.ExampleApp;
+import io.github.zhoujunlin94.meet.web.example.WebApplication;
 import io.github.zhoujunlin94.meet.web.qlexpress.QLExecuteComponent;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ import java.util.Map;
  * @desc
  */
 @Slf4j
-@SpringBootTest(classes = ExampleApp.class)
+@SpringBootTest(classes = WebApplication.class)
 public class TestMethodInvoke {
 
 

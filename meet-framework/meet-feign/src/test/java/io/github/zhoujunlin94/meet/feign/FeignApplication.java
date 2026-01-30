@@ -1,4 +1,4 @@
-package io.github.zhoujunlin94.meet.test;
+package io.github.zhoujunlin94.meet.feign;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,9 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @date 2025-07-21 15:36
  */
 @SpringBootApplication
-public class ExampleApp {
+public class FeignApplication {
+
     public static void main(String[] args) {
-        SpringApplication.run(ExampleApp.class, args);
+        SpringApplication.run(FeignApplication.class, args);
     }
 
 }

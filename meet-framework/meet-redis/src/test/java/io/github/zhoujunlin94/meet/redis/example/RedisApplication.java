@@ -13,10 +13,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @EnableRedissonDelayedQueue
 @EnableRedisPubSub
 @SpringBootApplication
-public class ExampleApp {
+public class RedisApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ExampleApp.class);
+        SpringApplication.run(RedisApplication.class);
     }
 
 }

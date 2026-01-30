@@ -2,7 +2,7 @@ package io.github.zhoujunlin94.meet.tk_mybatis.example.test;
 
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
-import io.github.zhoujunlin94.meet.tk_mybatis.example.ExampleApp;
+import io.github.zhoujunlin94.meet.tk_mybatis.example.TkMapperApplication;
 import io.github.zhoujunlin94.meet.tk_mybatis.example.entity.meet.JsonTable;
 import io.github.zhoujunlin94.meet.tk_mybatis.example.mapper.meet.JsonTableMapper;
 import jakarta.annotation.Resource;
@@ -17,7 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 @Slf4j
 // @ActiveProfiles(profiles = "dev")
-@SpringBootTest(classes = ExampleApp.class)
+@SpringBootTest(classes = TkMapperApplication.class)
 public class JSONTableTest {
 
     @Resource

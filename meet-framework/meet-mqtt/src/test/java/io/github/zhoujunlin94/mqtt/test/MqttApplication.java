@@ -8,10 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @date 2024/8/3 18:32
  */
 @SpringBootApplication
-public class MqttTestApplication {
+public class MqttApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MqttTestApplication.class, args);
+        SpringApplication.run(MqttApplication.class, args);
     }
 
 }

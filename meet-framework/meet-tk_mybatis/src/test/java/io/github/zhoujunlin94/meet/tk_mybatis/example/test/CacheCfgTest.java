@@ -3,7 +3,7 @@ package io.github.zhoujunlin94.meet.tk_mybatis.example.test;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import io.github.zhoujunlin94.meet.common.exception.MeetException;
-import io.github.zhoujunlin94.meet.tk_mybatis.example.ExampleApp;
+import io.github.zhoujunlin94.meet.tk_mybatis.example.TkMapperApplication;
 import io.github.zhoujunlin94.meet.tk_mybatis.example.entity.base.CacheCfg;
 import io.github.zhoujunlin94.meet.tk_mybatis.example.handler.base.CacheCfgHandler;
 import jakarta.annotation.Resource;
@@ -21,7 +21,7 @@ import java.util.List;
  */
 @Slf4j
 // @ActiveProfiles(profiles = "dev")
-@SpringBootTest(classes = ExampleApp.class)
+@SpringBootTest(classes = TkMapperApplication.class)
 public class CacheCfgTest {
 
     @Resource

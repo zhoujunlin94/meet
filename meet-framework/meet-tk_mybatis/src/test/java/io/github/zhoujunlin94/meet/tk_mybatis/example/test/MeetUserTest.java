@@ -1,6 +1,6 @@
 package io.github.zhoujunlin94.meet.tk_mybatis.example.test;
 
-import io.github.zhoujunlin94.meet.tk_mybatis.example.ExampleApp;
+import io.github.zhoujunlin94.meet.tk_mybatis.example.TkMapperApplication;
 import io.github.zhoujunlin94.meet.tk_mybatis.example.entity.meet.MeetUser;
 import io.github.zhoujunlin94.meet.tk_mybatis.example.handler.meet.MeetUserHandler;
 import jakarta.annotation.Resource;
@@ -14,7 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 @Slf4j
 // @ActiveProfiles(profiles = "dev")
-@SpringBootTest(classes = ExampleApp.class)
+@SpringBootTest(classes = TkMapperApplication.class)
 public class MeetUserTest {
 
     @Resource

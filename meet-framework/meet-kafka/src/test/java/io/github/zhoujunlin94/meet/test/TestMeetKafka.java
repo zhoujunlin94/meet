@@ -18,7 +18,7 @@ import java.util.concurrent.CountDownLatch;
  * @desc
  */
 @Slf4j
-@SpringBootTest(classes = ExampleApp.class)
+@SpringBootTest(classes = KafkaApplication.class)
 public class TestMeetKafka {
 
     @Resource
