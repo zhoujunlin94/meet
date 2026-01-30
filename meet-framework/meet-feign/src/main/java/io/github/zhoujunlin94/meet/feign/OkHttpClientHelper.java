@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSONObject;
+import io.github.zhoujunlin94.meet.common.constant.CommonConst;
 import io.github.zhoujunlin94.meet.feign.interceptor.OkHttpLogInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
@@ -56,21 +57,24 @@ public class OkHttpClientHelper {
 
     // ========== POST ==========
 
-    public static String post(String url, Map<String, String> params, JSONObject json, Map<String, String> headers) {
+    public static String post(String url, Map<String, String> params, Object body, Map<String, String> headers) {
         url = buildUrl(url, params);
-        json = ObjectUtil.defaultIfNull(json, new JSONObject());
-        RequestBody body = RequestBody.create(json.toJSONString(), JSON);
+        String json = CommonConst.EMPTY_JSON;
+        if (Objects.nonNull(body)) {
+            json = JSONObject.toJSONString(body);
+        }
+        RequestBody postBody = RequestBody.create(json, JSON);
         headers = ObjectUtil.defaultIfNull(headers, Map.of());
-        Request request = new Request.Builder().url(url).post(body).headers(Headers.of(headers)).build();
+        Request request = new Request.Builder().url(url).post(postBody).headers(Headers.of(headers)).build();
         return call(request);
     }
 
-    public static String post(String url, JSONObject json, Map<String, String> headers) {
-        return post(url, Map.of(), json, headers);
+    public static String post(String url, Object body, Map<String, String> headers) {
+        return post(url, Map.of(), body, headers);
     }
 
-    public static String post(String url, JSONObject json) {
-        return post(url, Map.of(), json, Map.of());
+    public static String post(String url, Object body) {
+        return post(url, Map.of(), body, Map.of());
     }
 
 
