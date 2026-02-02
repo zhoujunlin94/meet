@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-scan：当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true。
-scanPeriod：设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒当scan为true时，此属性生效。默认的时间间隔为1分钟。
-debug：当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。
--->
-<configuration debug="false" scan="true" scanPeriod="300 seconds">
-    <!-- 指定配置文件 -->
+<configuration scan="false">
+
+    <!-- 读取外部属性 -->
     <property resource="config.properties"/>
-    <!--
+
+    <!-- 变量定义 -->
+    <variable name="LOG_HOME" value="${LOG_HOME:-./logs/}"/>
+    <variable name="appName" value="${app.name:-meet-web}"/>
+
+    <!-- 通用参数 -->
+    <variable name="maxHistory" value="7"/>
+    <variable name="maxFileSize" value="100MB"/>
+
+    <!-- 日志格式
     %X获取MDC中的所有值 %X{X-REQUEST-ID}获取MDC中的X-REQUEST-ID
     %d表示日期时间
     %thread表示线程名
@@ -18,44 +23,29 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
     %msg 日志内容
     %n是换行符
     -->
-    <property name="LOG_PATTERN"
-              value="%X{X-REQUEST-ID} - %d{yyyy-MM-dd HH:mm:ss.SSS} | %thread | %-5level | %logger{80} | %method | %line -> %msg%n"/>
-    <!-- 最多保存多少个文件 -->
-    <property name="maxHistory" value="7"/>
-    <!-- 每个文件大小 -->
-    <property name="maxFileSize" value="100MB"/>
-    <!--定义日志根目录-->
-    <substitutionProperty name="LOG_HOME" value="${LOG_HOME}"/>
-    <!--定义日志文件名称-->
-    <substitutionProperty name="appName" value="${app.name}"/>
+    <variable name="LOG_PATTERN"
+              value="%X{X-REQUEST-ID} - %d{yyyy-MM-dd HH:mm:ss.SSS} | %thread | %-5level | %logger{80} | %method:%line -> %msg%n"/>
 
-    <!--定义控制台输出-->
-    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>debug</level>
-        </filter>
+    <!-- ================= Console ================= -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>${LOG_PATTERN}</pattern>
-            <charset>utf-8</charset>
+            <charset>UTF-8</charset>
         </encoder>
     </appender>
 
-    <appender name="debug_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <!-- ================= DEBUG ================= -->
+    <appender name="DEBUG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_HOME}${appName}_debug.log</file>
-        <!-- 这里直接使用 SizeAndTimeBasedRollingPolicy -->
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <!-- 日志文件命名规则 -->
             <fileNamePattern>${LOG_HOME}${appName}_debug.log.%d{yyyy-MM-dd}-%i.zip</fileNamePattern>
-            <!-- 单个日志文件大小 -->
             <maxFileSize>${maxFileSize}</maxFileSize>
-            <!-- 历史日志最大保存天数 -->
             <maxHistory>${maxHistory}</maxHistory>
-            <!-- 可选：限制所有日志文件的总大小 -->
             <totalSizeCap>5GB</totalSizeCap>
         </rollingPolicy>
         <encoder>
             <pattern>${LOG_PATTERN}</pattern>
-            <charset>utf-8</charset>
+            <charset>UTF-8</charset>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>DEBUG</level>
@@ -64,21 +54,18 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
         </filter>
     </appender>
 
-    <appender name="info_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <!-- ================= INFO ================= -->
+    <appender name="INFO_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_HOME}${appName}_info.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <!-- 日志文件命名规则 -->
             <fileNamePattern>${LOG_HOME}${appName}_info.log.%d{yyyy-MM-dd}-%i.zip</fileNamePattern>
-            <!-- 单个日志文件大小 -->
             <maxFileSize>${maxFileSize}</maxFileSize>
-            <!-- 历史日志最大保存天数 -->
             <maxHistory>${maxHistory}</maxHistory>
-            <!-- 可选：限制所有日志文件的总大小 -->
             <totalSizeCap>5GB</totalSizeCap>
         </rollingPolicy>
         <encoder>
             <pattern>${LOG_PATTERN}</pattern>
-            <charset>utf-8</charset>
+            <charset>UTF-8</charset>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>INFO</level>
@@ -87,7 +74,8 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
         </filter>
     </appender>
 
-    <appender name="warn_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <!-- ================= WARN ================= -->
+    <appender name="WARN_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_HOME}${appName}_warn.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>${LOG_HOME}${appName}_warn.log.%d{yyyy-MM-dd}-%i.zip</fileNamePattern>
@@ -97,7 +85,7 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
         </rollingPolicy>
         <encoder>
             <pattern>${LOG_PATTERN}</pattern>
-            <charset>utf-8</charset>
+            <charset>UTF-8</charset>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>WARN</level>
@@ -106,7 +94,8 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
         </filter>
     </appender>
 
-    <appender name="error_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <!-- ================= ERROR ================= -->
+    <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_HOME}${appName}_error.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>${LOG_HOME}${appName}_error.log.%d{yyyy-MM-dd}-%i.zip</fileNamePattern>
@@ -116,7 +105,7 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
         </rollingPolicy>
         <encoder>
             <pattern>${LOG_PATTERN}</pattern>
-            <charset>utf-8</charset>
+            <charset>UTF-8</charset>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>ERROR</level>
@@ -125,13 +114,14 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
         </filter>
     </appender>
 
-    <root>
+    <!-- ================= ROOT ================= -->
+    <root level="INFO">
         <!--SLF4J 日志级别从小到大trace<debug<info<warn<error-->
-        <level value="info"/>
-        <appender-ref ref="console"/>
-        <appender-ref ref="debug_file"/>
-        <appender-ref ref="info_file"/>
-        <appender-ref ref="warn_file"/>
-        <appender-ref ref="error_file"/>
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="DEBUG_FILE"/>
+        <appender-ref ref="INFO_FILE"/>
+        <appender-ref ref="WARN_FILE"/>
+        <appender-ref ref="ERROR_FILE"/>
     </root>
+
 </configuration>
