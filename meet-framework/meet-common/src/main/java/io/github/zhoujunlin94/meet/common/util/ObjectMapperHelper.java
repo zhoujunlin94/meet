@@ -1,6 +1,5 @@
 package io.github.zhoujunlin94.meet.common.util;
 
-import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.util.StrUtil;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonParser;
@@ -14,15 +13,12 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.common.collect.Lists;
 import io.github.zhoujunlin94.meet.common.constant.CommonConst;
+import io.github.zhoujunlin94.meet.common.util.support.DateSerializer;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.TimeZone;
+import java.util.*;
 
 /**
  * @author zhoujunlin
@@ -42,13 +38,13 @@ public final class ObjectMapperHelper {
                 .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
                 .serializationInclusion(JsonInclude.Include.NON_NULL)
-                .defaultDateFormat(new SimpleDateFormat(DatePattern.NORM_DATETIME_PATTERN))
                 .build();
 
         OBJECT_MAPPER.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
 
         SimpleModule simpleModule = new SimpleModule();
         simpleModule.addSerializer(BigDecimal.class, ToStringSerializer.instance);
+        simpleModule.addSerializer(Date.class, new DateSerializer());
         OBJECT_MAPPER.registerModule(simpleModule);
         OBJECT_MAPPER.registerModule(new JavaTimeModule());
     }
