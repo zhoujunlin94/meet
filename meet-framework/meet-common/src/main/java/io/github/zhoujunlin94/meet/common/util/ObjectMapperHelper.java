@@ -56,74 +56,72 @@ public final class ObjectMapperHelper {
         return OBJECT_MAPPER;
     }
 
+    // ================ 序列化 ==================
 
-    /**
-     * 对象转 JSON 字符串
-     */
-    public static String toJson(Object obj) {
+    public static String toJSONString(Object obj) {
         try {
             if (Objects.nonNull(obj)) {
                 return OBJECT_MAPPER.writeValueAsString(obj);
             }
         } catch (JsonProcessingException e) {
-            log.warn("序列化失败", e);
+            log.warn("toJSONString失败", e);
         }
         return CommonConst.EMPTY_JSON;
     }
 
-    /**
-     * 对象转格式化 JSON 字符串
-     */
-    public static String toPrettyJson(Object obj) {
+    public static String toPrettyJSONString(Object obj) {
         try {
             if (Objects.nonNull(obj)) {
                 return OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
             }
         } catch (JsonProcessingException e) {
-            log.warn("pretty序列化失败", e);
+            log.warn("toPrettyJSONString失败", e);
         }
         return CommonConst.EMPTY_JSON;
     }
 
-    /**
-     * JSON 字符串转对象
-     */
-    public static <T> T fromJson(String json, Class<T> clazz) {
+    // ================ 反序列化 ==================
+
+    public static <T> T parseObject(String json, Class<T> clazz) {
         try {
             if (StrUtil.isNotBlank(json) && Objects.nonNull(clazz)) {
                 return OBJECT_MAPPER.readValue(json, clazz);
             }
         } catch (Exception e) {
-            log.warn("反序列化失败", e);
+            log.warn("parseObject失败", e);
         }
         return null;
     }
 
-    /**
-     * JSON 字符串转对象（支持泛型类型）
-     */
-    public static <T> T fromJson(String json, TypeReference<T> typeRef) {
+
+    public static <T> T parseObject(String json, TypeReference<T> typeRef) {
         try {
             if (StrUtil.isNotBlank(json) && Objects.nonNull(typeRef)) {
                 return OBJECT_MAPPER.readValue(json, typeRef);
             }
         } catch (Exception e) {
-            log.warn("泛型反序列化失败");
+            log.warn("parseObject失败", e);
         }
         return null;
     }
 
-    /**
-     * JSON 字符串转 List
-     */
-    public static <T> List<T> fromJsonToList(String json, Class<T> elementType) {
+    public static <T> T parseObject(String source, JavaType javaType) {
+        try {
+            return OBJECT_MAPPER.readValue(source, javaType);
+        } catch (Exception e) {
+            log.warn("parseObject失败", e);
+        }
+        return null;
+    }
+
+    public static <T> List<T> parseList(String json, Class<T> elementType) {
         try {
             if (StrUtil.isNotBlank(json) && Objects.nonNull(elementType)) {
                 JavaType javaType = OBJECT_MAPPER.getTypeFactory().constructCollectionType(List.class, elementType);
                 return OBJECT_MAPPER.readValue(json, javaType);
             }
         } catch (Exception e) {
-            log.warn("反序列化List失败", e);
+            log.warn("parseObject失败", e);
         }
         return Lists.newArrayList();
     }
@@ -131,11 +129,12 @@ public final class ObjectMapperHelper {
     /**
      * JSON 字符串转 Map
      */
-    public static Map<String, Object> fromJsonToMap(String json) {
-        return fromJson(json, new TypeReference<Map<String, Object>>() {
-        });
+    public static <K, V> Map<K, V> parseMap(String json, Class<K> keyClass, Class<V> vClass) {
+        JavaType javaType = constructParametricType(Map.class, keyClass, vClass);
+        return parseObject(json, javaType);
     }
 
+    // ================ 类型转换 ==================
 
     public static <T> T convert(Object source, Class<T> targetClass) {
         return OBJECT_MAPPER.convertValue(source, targetClass);
@@ -149,13 +148,13 @@ public final class ObjectMapperHelper {
         return OBJECT_MAPPER.convertValue(source, javaType);
     }
 
+    public static <T> T convert(Object source, Class<?> rawClass, Class<?>... parameterClasses) {
+        return OBJECT_MAPPER.convertValue(source, constructParametricType(rawClass, parameterClasses));
+    }
+
     public static JavaType constructParametricType(Class<?> rawClass, Class<?>... parameterClasses) {
         return TypeFactory.defaultInstance()
                 .constructParametricType(rawClass, parameterClasses);
-    }
-
-    public static <T> T convert(Object source, Class<?> rawClass, Class<?>... parameterClasses) {
-        return OBJECT_MAPPER.convertValue(source, constructParametricType(rawClass, parameterClasses));
     }
 
 }
