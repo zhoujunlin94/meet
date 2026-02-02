@@ -3,8 +3,7 @@ package io.github.zhoujunlin94.meet.web.component;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.zhoujunlin94.meet.common.util.ObjectMapperHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.context.ApplicationContext;
@@ -29,7 +28,6 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class BeanMethodReflectInvoker {
     private final ApplicationContext applicationContext;
-    private final ObjectMapper objectMapper;
     private final ParameterNameDiscoverer parameterNameDiscoverer = new DefaultParameterNameDiscoverer();
 
     public Object invoke(Object target, String methodName, Map<String, Object> paramMap) {
@@ -94,8 +92,7 @@ public class BeanMethodReflectInvoker {
         }
         for (int i = 0; i < paramTypes.length; i++) {
             Object rawValue = paramMap.get(paramNames[i]);
-            JavaType paramType = objectMapper.getTypeFactory().constructType(paramTypes[i]);
-            args[i] = objectMapper.convertValue(rawValue, paramType);
+            args[i] = ObjectMapperHelper.convert(rawValue, paramTypes[i]);
         }
         return args;
     }

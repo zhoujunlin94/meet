@@ -16,6 +16,7 @@ import com.google.common.collect.Lists;
 import io.github.zhoujunlin94.meet.common.constant.CommonConst;
 import lombok.extern.slf4j.Slf4j;
 
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -148,8 +149,16 @@ public final class ObjectMapperHelper {
         return OBJECT_MAPPER.convertValue(source, javaType);
     }
 
+    public static <T> T convert(Object source, Type type) {
+        return convert(source, constructType(type));
+    }
+
     public static <T> T convert(Object source, Class<?> rawClass, Class<?>... parameterClasses) {
         return OBJECT_MAPPER.convertValue(source, constructParametricType(rawClass, parameterClasses));
+    }
+
+    public static JavaType constructType(Type type) {
+        return OBJECT_MAPPER.getTypeFactory().constructType(type);
     }
 
     public static JavaType constructParametricType(Class<?> rawClass, Class<?>... parameterClasses) {
