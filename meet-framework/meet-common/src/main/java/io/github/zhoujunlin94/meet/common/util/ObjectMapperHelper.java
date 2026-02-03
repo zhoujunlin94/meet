@@ -44,7 +44,7 @@ public final class ObjectMapperHelper {
 
         SimpleModule simpleModule = new SimpleModule();
         simpleModule.addSerializer(BigDecimal.class, ToStringSerializer.instance);
-        simpleModule.addSerializer(Date.class, new DateSerializer());
+        simpleModule.addSerializer(Date.class, DateSerializer.instance);
         OBJECT_MAPPER.registerModule(simpleModule);
         OBJECT_MAPPER.registerModule(new JavaTimeModule());
     }
