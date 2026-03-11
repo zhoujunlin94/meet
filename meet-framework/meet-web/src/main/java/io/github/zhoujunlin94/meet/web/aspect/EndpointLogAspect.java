@@ -28,7 +28,7 @@ import java.util.Objects;
 @Slf4j
 @Aspect
 @Component
-@ConditionalOnProperty(name = "endpoint.log.enable", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(name = "endpoint.log.enable", havingValue = "true")
 public class EndpointLogAspect {
 
     @Value("${meet.controller.advice.un-support-package:org.springdoc.webmvc}")

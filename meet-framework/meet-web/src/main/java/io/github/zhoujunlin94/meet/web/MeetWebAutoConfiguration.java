@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.zhoujunlin94.meet.common.thread.MDCContextCopyDecorator;
 import io.github.zhoujunlin94.meet.common.util.ObjectMapperHelper;
 import io.github.zhoujunlin94.meet.web.constant.WebConstant;
+import io.github.zhoujunlin94.meet.web.filter.RequestBodyCacheFilter;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +24,15 @@ import java.util.concurrent.ThreadPoolExecutor;
 @Configuration
 @ComponentScan
 public class MeetWebAutoConfiguration {
+
+    @Bean
+    public FilterRegistrationBean<RequestBodyCacheFilter> requestBodyCacheFilterRegistration(
+            RequestBodyCacheFilter filter) {
+        FilterRegistrationBean<RequestBodyCacheFilter> registration = new FilterRegistrationBean<>();
+        registration.setFilter(filter);
+        registration.setOrder(1); // 确保在拦截器之前执行
+        return registration;
+    }
 
 
     @Bean

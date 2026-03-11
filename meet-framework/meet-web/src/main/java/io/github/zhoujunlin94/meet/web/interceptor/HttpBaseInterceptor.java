@@ -9,6 +9,7 @@ import io.github.zhoujunlin94.meet.common.util.RequestIdUtil;
 import io.github.zhoujunlin94.meet.common.util.ServletUtils;
 import io.github.zhoujunlin94.meet.web.constant.WebConstant;
 import io.github.zhoujunlin94.meet.web.helper.ProjectHelper;
+import io.github.zhoujunlin94.meet.web.wrapper.RequestBodyWrapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -64,9 +65,25 @@ public class HttpBaseInterceptor extends BaseInterceptor {
             log.warn("parameterMap:{}", JSON.toJSONString(parameterMap));
         }
 
+        logRequestBody(request);
+
         request.setAttribute("startTime", System.currentTimeMillis());
         request.setAttribute("ctx", ProjectHelper.getProjectBasePath(request));
         return true;
+    }
+
+    private void logRequestBody(HttpServletRequest request) {
+        if (request instanceof RequestBodyWrapper wrapper) {
+            String requestBody = wrapper.getBodyString();
+            if (StrUtil.isNotBlank(requestBody)) {
+                try {
+                    Object json = JSON.parse(requestBody);
+                    log.warn("requestBody:{}", JSON.toJSONString(json));
+                } catch (Exception e) {
+                    log.warn("requestBody(非 JSON):{}", requestBody);
+                }
+            }
+        }
     }
 
     @Override
