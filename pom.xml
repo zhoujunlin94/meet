@@ -40,7 +40,7 @@
     </scm>
 
     <properties>
-        <revision>3.2.6</revision>
+        <revision>3.2.7</revision>
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -60,7 +60,7 @@
         <spring.cloud.version>2022.0.0</spring.cloud.version>
         <spring.cloud.alibaba.version>2022.0.0.2</spring.cloud.alibaba.version>
 
-        <lombok.version>1.18.24</lombok.version>
+        <lombok.version>1.18.30</lombok.version>
         <hutool.version>5.8.37</hutool.version>
         <poi.version>5.2.3</poi.version>
         <easyexcel.version>3.2.0</easyexcel.version>
@@ -68,7 +68,7 @@
         <fastjson.version>2.0.57</fastjson.version>
         <transmittable-thread-local.version>2.14.2</transmittable-thread-local.version>
 
-        <guava.version>31.1-jre</guava.version>
+        <guava.version>32.1.3-jre</guava.version>
         <qlexpress4.version>4.0.7</qlexpress4.version>
 
         <pinyin4j.version>2.5.0</pinyin4j.version>
@@ -80,7 +80,7 @@
 
         <redisson.version>3.23.1</redisson.version>
 
-        <mysql-connector-java.version>8.0.33</mysql-connector-java.version>
+        <mysql-connector-j.version>8.2.0</mysql-connector-j.version>
         <mybatis-plus.version>3.5.14</mybatis-plus.version>
         <tk.mybatis.version>5.0.1</tk.mybatis.version>
         <pagehelper.version>5.1.11</pagehelper.version>
@@ -240,10 +240,11 @@
             </dependency>
 
             <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql-connector-java.version}</version>
+                <groupId>com.mysql</groupId>
+                <artifactId>mysql-connector-j</artifactId>
+                <version>${mysql-connector-j.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
